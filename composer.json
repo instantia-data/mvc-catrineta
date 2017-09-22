@@ -1,0 +1,25 @@
+{
+    "name": "nestesitio/catrineta",
+    "description": "PHP MVC Framework",
+    "type": "PHP",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Luis Pinto",
+            "email": "luis.nestesitio@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "twig/twig": "^2.0",
+        "robmorgan/phinx": "^0.9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Apps\\": "apps/",
+            "Tasks\\": "apps/tasks/",
+            "Model\\": "model/",
+            "Catrineta\\": "catrineta/"
+        }
+    }
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>{{ title }} {% block title %}{% endblock %}</title>
+        
+        {% include 'agency/head.htm' %} 
+    </head>
+
+    <body id="page-top" class="index">
+
+        <header>
+            <div class="container">
+                <div class="intro-text">
+                    <div class="intro-lead-in">{{ welcome }}</div>
+                </div>
+            </div>
+        </header>
+
+       {% block content %}{% endblock %}
+
+        <footer>
+            {% include 'agency/footer.htm' %} 
+        </footer>
+
+    </body>
+
+</html>

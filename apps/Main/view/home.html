@@ -1,0 +1,36 @@
+{% extends "agency/home.htm" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block head %}  
+
+<style>
+
+</style>
+{% endblock %}
+
+{% block heading %}{{ page.heading }}{% endblock %}
+
+{% block breadcrumbs %}
+{% for crumb in breadcrumbs %}
+<li><span>{{ crumb }}</span></li>
+{% endfor %}
+{% endblock %}
+
+
+{% block content %}
+<div>Teste</div>
+{% endblock %}
+
+{% block footer %} 
+
+
+<script>
+$(document).ready(function () {
+    
+});
+
+{{ inlineJS | raw }}
+
+</script>
+{% endblock %}

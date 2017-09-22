@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        {@include 'agency/head'}
+    </head>
+
+    <body id="page-top" class="index">
+
+        <!-- Navigation -->
+        <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top"  role="navigation">
+            {@include 'agency/nav'}
+            <!-- /.container-fluid -->
+        </nav>
+
+        <!-- Header -->
+        <header>
+            
+        </header>
+
+        <!-- Services Section -->
+        {@block 'content'}
+
+        <footer>
+            {@include 'agency/footer'}
+        </footer>
+
+        
+        <div>{@debug-list}</div>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="/js/base/bootstrap.min.js"></script>
+
+        <!-- Custom Core JavaScript -->
+        <script src="/themes/agency/agency.min.js"></script>
+        <!-- Plugin JavaScript -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+
+        <script src="/js/core/core.js"></script>
+        <script src="/js/personal/personal.js"></script>
+        <!-- Dynamic Javascrip files and scripts -->
+        <script id="block:js" />
+
+        {@block 'scripts'}
+
+        <script>
+            $(".support-btn").click(function () {
+                addSupport(this);
+            });
+            $(document).on('click', '.btn-modal', function () {
+                modalLoad(this);
+            });
+            $("#dev_display").click(function () {
+                $(".dm").toggle();
+            });
+            $(window).resize(function () {
+                monitor();
+            });
+        </script>
+
+    </body>
+
+</html>
