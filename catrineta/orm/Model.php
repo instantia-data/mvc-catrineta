@@ -19,6 +19,8 @@
 
 namespace Catrineta\orm;
 
+use \Catrineta\register\Monitor;
+
 /**
  * Description of Model
  *
@@ -28,11 +30,63 @@ namespace Catrineta\orm;
 class Model
 {
 
-    private $var;
+    protected $columns = [];
 
     function __construct()
     {
-        
+        self::setModel();
     }
+    
+    /**
+     * 
+     * @param string $column
+     * @param mixed $value
+     */
+    function setColumnValue($column, $value)
+    {
+        $this->columns[$column] = $value;
+    } 
+
+    /**
+     * 
+     * @param string $column
+     * @param string $value
+     */
+    public function setColumnDate($column, $value)
+    {
+        $this->columns[$column] = \Catrineta\tools\DateTools::convertToSqlDate($value);
+    }
+    
+    /**
+     * 
+     * @param string $column
+     * @return mixed
+     */
+    function getColumnValue($column)
+    {
+        if(isset($this->columns[$column])){
+            return $this->columns[$column];
+        }else{
+            Monitor::add(Monitor::DATA, (empty($column))? 'Empty column' :'Invalid column ' . $column);
+            return null;
+        }
+    }
+    
+    /**
+     * @return array
+     */
+    public function getColumnValues()
+    {
+        return $this->columns;
+    }
+    
+    /**
+     * @param Model $parent_model
+     */
+    public function merge(Model $parent_model)
+    {
+        $this->columns = $parent_model->getColumnValues();
+    }
+    
 
 }

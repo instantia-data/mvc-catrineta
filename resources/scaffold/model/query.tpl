@@ -20,7 +20,7 @@
 namespace model\querys;
 
 use \Model\models\%$className%;
-use \Catrineta\orm\mysql\Mysql;
+use \Catrineta\db\mysql\Mysql;
 
 /**
  * Description of %$className%

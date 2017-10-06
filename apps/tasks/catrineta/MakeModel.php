@@ -19,12 +19,12 @@
 
 namespace Tasks\catrineta;
 
+use \Catrineta\db\mysql\DbSchemaTools;
 use \Catrineta\register\Configurator;
 use \Tasks\catrineta\lib\CrudMigrate;
 use \Tasks\catrineta\lib\CrudModel;
 use \Tasks\catrineta\lib\CrudQuery;
 use \Tasks\catrineta\lib\CrudForm;
-use \Catrineta\db\DbSchemaTools;
 use \Catrineta\orm\ModelTools;
 
 /**

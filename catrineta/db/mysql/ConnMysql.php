@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Catrineta\db;
+namespace Catrineta\db\mysql;
 
 use \Catrineta\register\Configurator;
 use \PDOException;

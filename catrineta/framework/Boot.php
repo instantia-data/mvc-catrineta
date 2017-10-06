@@ -24,7 +24,7 @@ use \Catrineta\register\Configurator;
 use \Catrineta\register\Informant;
 use \Catrineta\register\Monitor;
 use \Catrineta\routing\Routing;
-use \Apps\after\ViewInserter; 
+use \Apps\after\ViewInserter;
 
 /**
  * Description of Boot
@@ -32,9 +32,9 @@ use \Apps\after\ViewInserter;
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @Jun 11, 2017
  */
-class Boot 
+class Boot
 {
-    
+
     public static function run($startime)
     {
         $page = new \Catrineta\framework\Boot($startime);
@@ -59,7 +59,10 @@ class Boot
          * launch controller
          */
         $page->boot();
-        echo Informant::outputDev();
+
+        if (empty($page->getController())) {
+            return $page->debug();
+        }
         /**
          * process other classes after controller
          */
@@ -71,15 +74,16 @@ class Boot
         /**
          * output debug
          */
-        echo Informant::outputDev();
+        return $page->debug();
     }
 
     /**
      * 
      * @param int $startime
      */
-    function __construct($startime) {
-        
+    function __construct($startime)
+    {
+
         Monitor::setMemoryInitial($startime);
         new Configurator();
         Configurator::setConfigs();
@@ -103,31 +107,32 @@ class Boot
         } catch (CatExceptions $ex) {
             $ex->output();
         }
-        
     }
-    
+
     /**
      * process and store post requests
      */
-    public function post(){
+    public function post()
+    {
         
     }
-    
+
     /**
      * start and renew session vars
      */
-    public function session(){
+    public function session()
+    {
         
     }
-    
+
     /**
      * Boot filters before the controller
      * @param array $filters
      */
-    public function filter(){
+    public function filter()
+    {
         
     }
-
 
     private $controller = '';
 
@@ -150,18 +155,29 @@ class Boot
     /**
      * integrate other processes than controller in template
      */
-    public function inserter(){
+    public function inserter()
+    {
         $after = new ViewInserter($this->controller);
         $after->boot();
         $after->register();
     }
-    
+
     /**
      * output rendered template
      */
-    public function display(){
+    public function display()
+    {
         return $this->controller->dispatch();
     }
+    
+    public function getController()
+    {
+        return $this->controller;
+    }
 
+    private function debug()
+    {
+        echo Informant::outputDev();
+    }
 
 }

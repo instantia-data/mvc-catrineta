@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Catrineta\db;
+namespace Catrineta\db\mysql;
 
-use \Catrineta\db\ConnMysql;
+use \Catrineta\db\mysql\ConnMysql;
 
 
 /**

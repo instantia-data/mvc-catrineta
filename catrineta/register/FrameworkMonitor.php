@@ -34,6 +34,10 @@ class FrameworkMonitor {
     /**
      *
      */
+    const PDO = 'PDO';
+    /**
+     *
+     */
     const VIEW = 'VIEW';
     /**
      *

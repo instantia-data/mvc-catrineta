@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Catrineta\orm\mysql;
+namespace Catrineta\db\mysql;
 
 /**
  * Description of Mysql
