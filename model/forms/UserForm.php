@@ -25,8 +25,8 @@ use \Model\models\User;
  * Description of UserForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-09-22 17:25
- * Updated @Updated @2017-09-22 17:25 with columns id, name, email, cellphone, user_status, created *
+ * Created @2017-10-13 12:27
+ * Updated @Updated @2017-10-13 12:27 with columns id, name, email, cellphone, user_status, created * * * * *
  */
 class UserForm extends \Catrineta\form\Form {
 

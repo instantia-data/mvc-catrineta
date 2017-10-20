@@ -19,7 +19,9 @@
 
 namespace Catrineta\orm;
 
+use \Catrineta\register\CatExceptions;
 use \Catrineta\register\Monitor;
+use \Catrineta\orm\ModelTools;
 
 /**
  * Description of Model
@@ -29,12 +31,26 @@ use \Catrineta\register\Monitor;
  */
 class Model
 {
-
+    
+    use \Catrineta\orm\ModelQueryTools;
+    
+    //The column names
+    protected $fields = [];  
+    //The table name
+    protected $tableName = null;
+    //Primary key
+    protected $primaryKey = [];
+    //auto increment field
+    protected $autoincrement = null;
+    /**
+     *
+     * @var array The columns with some value
+     */
     protected $columns = [];
 
     function __construct()
     {
-        self::setModel();
+        $this->setModel();
     }
     
     /**
@@ -73,9 +89,10 @@ class Model
     }
     
     /**
+     * Get the model with its values
      * @return array
      */
-    public function getColumnValues()
+    public function get()
     {
         return $this->columns;
     }
@@ -86,6 +103,123 @@ class Model
     public function merge(Model $parent_model)
     {
         $this->columns = $parent_model->getColumnValues();
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function getTableName()
+    {
+        return $this->tableName;
+    }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function getFields()
+    {
+        return $this->fields;
+    }
+    
+    public function getColumn($field)
+    {
+        return $this->tableName . '.' . $field;
+    }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function getPrimaryKeys()
+    {
+        return $this->primaryKey;
+    }
+    
+    /**
+     * 
+     * @param string $column
+     */
+    public function addColumn($column)
+    {
+        $this->columns[$column] = 0;
+    }
+    
+    /**
+     * 
+     * @return Model
+     */
+    public function insert()
+    {
+        $query = $this->setQuery($this->columns);
+        try {
+            $id = $query->insert($this->autoincrement);
+            if($this->autoincrement != null){
+                $column = ModelTools::completeColumnName($this->tableName, $this->autoincrement);
+                $this->setColumnValue($column, $id);
+            }
+        } catch (CatExceptions $ex) {
+            echo $ex->output();
+        }
+        Monitor::add(Monitor::MODEL, 'Model '. ModelTools::buildModelName($this->tableName).' inserted:' . print_r($this->get(), 1));
+        return $this;
+    }
+
+    /**
+     * 
+     * @return Model
+     */
+    public function save()
+    {
+        //unmerge merged columns
+        $this->unsetMerged($this->columns, $this->fields);
+        
+        if($this->hasId()){
+            $query = $this->setQuery($this->columns);
+            foreach ($this->primaryKey as $key){
+                $column = $this->getColumn($key);
+                $query->filterByColumn($column, $this->getColumnValue($column));
+            }
+            $this->update = $query->update();
+            return $this;
+        }else{
+            return $this->insert();
+        }
+        
+    }
+    
+    public $update = 0;
+
+
+    /**
+     * 
+     * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
+     * @throws CatExceptions
+     */
+    public function delete()
+    {
+        $query = $this->setQuery();
+        foreach ($this->columns as $column=>$value){
+            $query->filterByColumn($column, $value);
+        }
+        if($this->hasId()){
+            throw new CatExceptions('Object is not unique for delete', CatExceptions::CODE_ORM);
+        }else{
+            return $query->delete();
+        }
+    }
+    
+    
+    protected function hasId()
+    {
+        foreach ($this->primaryKey as $key){
+            $column = ModelTools::completeColumnName($this->tableName, $key);
+            if(!isset($this->columns[$column]) || empty($this->columns[$column])){
+                return false;
+            }
+        }
+        return true;
     }
     
 

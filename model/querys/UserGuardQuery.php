@@ -17,27 +17,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-namespace model\querys;
+namespace Model\querys;
 
 use \Model\models\UserGuard;
-use \Catrineta\orm\mysql\Mysql;
+use \Catrineta\db\Sql;
 
 /**
  * Description of UserGuard
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-09-22 17:25
- * Updated @Updated @2017-09-22 17:25 with columns user_id, username, salt, userkey *
+ * Created @2017-10-20 17:13
+ * Updated @Updated @2017-10-20 17:13 with columns user_id, username, salt, userkey *
  */
 class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     
-    public static function start($merge = ALL){
-        $obj = new UserGuardQuery(new UserGuard(), $merge);
-        $obj->startPrimary($merge);
+    /**
+     * 
+     * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
+     * @param string $alias Alias for the table
+     * @return \model\querys\UserGuardQuery
+     */
+    public static function init($merge = ALL, $alias = null){
+        $obj = new UserGuardQuery(new UserGuard(), $alias);
+        $obj->setAllSelects($merge);
         return $obj;
     }
     
-    public static function useModel($merge){
+    /**
+     * Used to merge query classes on join tables
+     * @param \Catrineta\orm\query\QuerySelect $merge The primary class
+     * @return \model\querys\UserGuardQuery
+     */
+    public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new UserGuardQuery(new UserGuard());
         $obj->startJoin($merge);
         return $obj;
@@ -87,8 +98,8 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserGuardQuery
      */
-    public function selectUserId() {
-        $this->setSelect(UserGuard::FIELD_USER_GUARD_USER_ID);
+    public function selectUserId($alias = null) {
+        $this->setSelect(UserGuard::FIELD_USER_GUARD_USER_ID, $alias);
         return $this;
     }
     
@@ -98,20 +109,10 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserGuardQuery
      */
-    public function filterByUserId($values, $operator = Mysql::EQUAL) {
+    public function filterByUserId($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserGuard::FIELD_USER_GUARD_USER_ID, $values, $operator);
         return $this;
     } 
-    
-    /**
-     * @param string $order 
-     * 
-     * @return \model\querys\UserGuardQuery
-     */
-    public function orderByUserId($order = Mysql::ASC) {
-        $this->orderBy(UserGuard::FIELD_USER_GUARD_USER_ID, $order);
-        return $this;
-    }
     
     /**
      * 
@@ -122,14 +123,24 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
         return $this;
     }
     
+    /**
+     * @param string $order (ASC | DESC)
+     * 
+     * @return \model\querys\UserGuardQuery
+     */
+    public function orderByUserId($order = Sql::ASC) {
+        $this->orderBy(UserGuard::FIELD_USER_GUARD_USER_ID, $order);
+        return $this;
+    }
+    
     
 
     /**
      * 
      * @return \model\querys\UserGuardQuery
      */
-    public function selectUsername() {
-        $this->setSelect(UserGuard::FIELD_USER_GUARD_USERNAME);
+    public function selectUsername($alias = null) {
+        $this->setSelect(UserGuard::FIELD_USER_GUARD_USERNAME, $alias);
         return $this;
     }
     
@@ -139,20 +150,10 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserGuardQuery
      */
-    public function filterByUsername($values, $operator = Mysql::EQUAL) {
+    public function filterByUsername($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserGuard::FIELD_USER_GUARD_USERNAME, $values, $operator);
         return $this;
     } 
-    
-    /**
-     * @param string $order 
-     * 
-     * @return \model\querys\UserGuardQuery
-     */
-    public function orderByUsername($order = Mysql::ASC) {
-        $this->orderBy(UserGuard::FIELD_USER_GUARD_USERNAME, $order);
-        return $this;
-    }
     
     /**
      * 
@@ -163,14 +164,24 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
         return $this;
     }
     
+    /**
+     * @param string $order (ASC | DESC)
+     * 
+     * @return \model\querys\UserGuardQuery
+     */
+    public function orderByUsername($order = Sql::ASC) {
+        $this->orderBy(UserGuard::FIELD_USER_GUARD_USERNAME, $order);
+        return $this;
+    }
+    
     
 
     /**
      * 
      * @return \model\querys\UserGuardQuery
      */
-    public function selectSalt() {
-        $this->setSelect(UserGuard::FIELD_USER_GUARD_SALT);
+    public function selectSalt($alias = null) {
+        $this->setSelect(UserGuard::FIELD_USER_GUARD_SALT, $alias);
         return $this;
     }
     
@@ -180,20 +191,10 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserGuardQuery
      */
-    public function filterBySalt($values, $operator = Mysql::EQUAL) {
+    public function filterBySalt($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserGuard::FIELD_USER_GUARD_SALT, $values, $operator);
         return $this;
     } 
-    
-    /**
-     * @param string $order 
-     * 
-     * @return \model\querys\UserGuardQuery
-     */
-    public function orderBySalt($order = Mysql::ASC) {
-        $this->orderBy(UserGuard::FIELD_USER_GUARD_SALT, $order);
-        return $this;
-    }
     
     /**
      * 
@@ -204,14 +205,24 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
         return $this;
     }
     
+    /**
+     * @param string $order (ASC | DESC)
+     * 
+     * @return \model\querys\UserGuardQuery
+     */
+    public function orderBySalt($order = Sql::ASC) {
+        $this->orderBy(UserGuard::FIELD_USER_GUARD_SALT, $order);
+        return $this;
+    }
+    
     
 
     /**
      * 
      * @return \model\querys\UserGuardQuery
      */
-    public function selectUserkey() {
-        $this->setSelect(UserGuard::FIELD_USER_GUARD_USERKEY);
+    public function selectUserkey($alias = null) {
+        $this->setSelect(UserGuard::FIELD_USER_GUARD_USERKEY, $alias);
         return $this;
     }
     
@@ -221,20 +232,10 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserGuardQuery
      */
-    public function filterByUserkey($values, $operator = Mysql::EQUAL) {
+    public function filterByUserkey($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserGuard::FIELD_USER_GUARD_USERKEY, $values, $operator);
         return $this;
     } 
-    
-    /**
-     * @param string $order 
-     * 
-     * @return \model\querys\UserGuardQuery
-     */
-    public function orderByUserkey($order = Mysql::ASC) {
-        $this->orderBy(UserGuard::FIELD_USER_GUARD_USERKEY, $order);
-        return $this;
-    }
     
     /**
      * 
@@ -242,6 +243,16 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      */
     public function groupByUserkey() {
         $this->groupBy(UserGuard::FIELD_USER_GUARD_USERKEY);
+        return $this;
+    }
+    
+    /**
+     * @param string $order (ASC | DESC)
+     * 
+     * @return \model\querys\UserGuardQuery
+     */
+    public function orderByUserkey($order = Sql::ASC) {
+        $this->orderBy(UserGuard::FIELD_USER_GUARD_USERKEY, $order);
         return $this;
     }
     
@@ -255,8 +266,8 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      *
      * @return \Model\querys\UserQuery
      */
-    function joinUser($join = Mysql::INNER_JOIN) {
-        $this->join(\Model\models\User::TABLE, $join, [UserGuard::FIELD_USER_GUARD_USER_ID, \Model\models\User::FIELD_USER_ID]);
+    function joinUser($join = Sql::INNER_JOIN, $alias = null) {
+        $this->join(\Model\models\User::TABLE, $join, UserGuard::FIELD_USER_GUARD_USER_ID, \Model\models\User::FIELD_USER_ID, $alias);
         return \Model\querys\UserQuery::useModel($this);
     }
     

@@ -25,8 +25,8 @@ use \Model\models\UserDetails;
  * Description of UserDetailsForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-09-22 17:25
- * Updated @Updated @2017-09-22 17:25 with columns user_id, address, zip_code, local *
+ * Created @2017-10-13 12:27
+ * Updated @Updated @2017-10-13 12:27 with columns user_id, address, zip_code, local * * * * *
  */
 class UserDetailsForm extends \Catrineta\form\Form {
 

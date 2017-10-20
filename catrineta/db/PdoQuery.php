@@ -22,6 +22,7 @@ namespace Catrineta\db;
 use \Catrineta\register\CatExceptions;
 use \Catrineta\db\mysql\ConnMysql;
 use \Catrineta\register\Monitor;
+use \PDOException;
 use \PDOStatement;
 use \PDO;
 
@@ -76,6 +77,11 @@ class PdoQuery
     }
     
     private $query;
+    
+    public function setStatementQuery($query)
+    {
+        $this->query = $query;
+    }
     
     private $query_time = 0;
     
@@ -139,7 +145,7 @@ class PdoQuery
         
         $str = $query;
         if($error == null){
-            $str .= '<br /><i>Query took ' . $this->querytime . ' sec</i> for ' . $this->numrows . ' results';
+            $str .= '<br /><i>Query took ' . $this->query_time . ' sec</i> for ' . $this->numrows . ' results';
         }else{
             $str .= '<br />' . $this->pdostmt->errorInfo()[2];
         }
@@ -149,11 +155,50 @@ class PdoQuery
         
     }
     
+    /**
+     * 
+     * @return int The ID of the last inserted row or sequence value
+     * @throws CatExceptions
+     */
+    public function insert($autoincrement = null)
+    {
+        
+        $this->pdostmt = $this->pdo->prepare($this->query);
+        
+        try {
+            $this->pdo->beginTransaction();
+            $this->bindValues();
+            $this->pdostmt->execute();
+            $id = ($autoincrement == null)? null :$this->pdo->lastInsertId();
+            $this->numrows = $this->pdo->commit(); 
+            $this->writeQueryMessage();
+            return ($autoincrement == null)? $this->numrows : $id;
+        } catch (PDOException $err) {
+            throw new CatExceptions($err, CatExceptions::CODE_SQL);
+        }
+    }
+    
+    public function update()
+    {
+        $this->pdostmt = $this->pdo->prepare($this->query);
+
+        try {
+            $this->bindValues();
+            $this->pdostmt->execute();
+            $this->numrows = $this->pdostmt->rowCount(); 
+            $this->writeQueryMessage();
+            return $this->numrows;
+        } catch (PDOException $err) {
+            throw new CatExceptions($err, CatExceptions::CODE_SQL);
+        }
+    }
+
     public function select($query)
     {
         $this->query = $query;
-        $this->executeQuery();
-        
+        $this->pdostmt = $this->pdo->prepare($this->query);
+        $this->bindValues();
+        $this->pdostmt->execute();
         $result = $this->pdostmt->fetchAll(PDO::FETCH_ASSOC);
         $this->numrows = count($result);
         
@@ -162,41 +207,28 @@ class PdoQuery
         return $result;
     }
     
+
     /**
      * 
-     * @param string $query
-     * @return int
+     * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
      * @throws CatExceptions
      */
-    public function delete($query)
+    public function delete()
     {
-        $this->query = $query;
-        if(empty($this->params)){
-            throw new CatExceptions('No params to bind in delete action', CatExceptions::CODE_SQL);
+        //log statement
+        $this->writeQueryMessage();
+        
+        try {
+            $this->bindValues();
+            $result = $this->pdostmt->execute();
+        } catch (PDOException $err) {
+            throw new CatExceptions($err, CatExceptions::CODE_SQL);
         }
-        $this->executeQuery();
-        return  $this->pdostmt->rowCount();
+        //return boolean
+        return $result;
     }
     
-    /**
-     * 
-     * @param string $query
-     * @return int
-     * @throws CatExceptions
-     */
-    public function save($query)
-    {
-        $this->query = $query;
-        if(empty($this->params)){
-            throw new CatExceptions('No params to bind in save action', CatExceptions::CODE_SQL);
-        }
-        $this->executeQuery();
-        
-        $this->lastid = $this->pdo->lastInsertId();
-        $this->numrows = $this->pdostmt->rowCount();
-        return $this->numrows;
-        
-    }
+
     
     
     

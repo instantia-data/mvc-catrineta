@@ -101,8 +101,8 @@ class CrudForm extends \Catrineta\console\crud\ModelCrud
             $model = '\Model\querys\\' . ModelTools::buildModelName($constrain['REFERENCED_TABLE_NAME']);
             $index = '\\Model\\models\\' . ModelTools::buildModelName($constrain['REFERENCED_TABLE_NAME']). '::' . 
                     CrudTools::writeFieldConstantName($constrain['REFERENCED_TABLE_NAME'], $constrain['REFERENCED_COLUMN_NAME']);
-            echo $constrain['REFERENCED_TABLE_NAME'] . '|'. $constrain['REFERENCED_COLUMN_NAME']. "|\n";
-            echo $index . " ++++++++++\n;";
+            echo "CONSTRAINT: " . $constrain['REFERENCED_TABLE_NAME'] . '|' 
+                    . $constrain['REFERENCED_COLUMN_NAME']. " | " . $index . "\n";
 
             $extension = '->setModel('.$model.'Query::start())'."\n\t\t".'->setOptionIndex('.$index.')->addEmpty()';
         }

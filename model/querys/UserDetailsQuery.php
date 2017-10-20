@@ -17,27 +17,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-namespace model\querys;
+namespace Model\querys;
 
 use \Model\models\UserDetails;
-use \Catrineta\orm\mysql\Mysql;
+use \Catrineta\db\Sql;
 
 /**
  * Description of UserDetails
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-09-22 17:25
- * Updated @Updated @2017-09-22 17:25 with columns user_id, address, zip_code, local *
+ * Created @2017-10-20 17:13
+ * Updated @Updated @2017-10-20 17:13 with columns user_id, address, zip_code, local *
  */
 class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     
-    public static function start($merge = ALL){
-        $obj = new UserDetailsQuery(new UserDetails(), $merge);
-        $obj->startPrimary($merge);
+    /**
+     * 
+     * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
+     * @param string $alias Alias for the table
+     * @return \model\querys\UserDetailsQuery
+     */
+    public static function init($merge = ALL, $alias = null){
+        $obj = new UserDetailsQuery(new UserDetails(), $alias);
+        $obj->setAllSelects($merge);
         return $obj;
     }
     
-    public static function useModel($merge){
+    /**
+     * Used to merge query classes on join tables
+     * @param \Catrineta\orm\query\QuerySelect $merge The primary class
+     * @return \model\querys\UserDetailsQuery
+     */
+    public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new UserDetailsQuery(new UserDetails());
         $obj->startJoin($merge);
         return $obj;
@@ -87,8 +98,8 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserDetailsQuery
      */
-    public function selectUserId() {
-        $this->setSelect(UserDetails::FIELD_USER_DETAILS_USER_ID);
+    public function selectUserId($alias = null) {
+        $this->setSelect(UserDetails::FIELD_USER_DETAILS_USER_ID, $alias);
         return $this;
     }
     
@@ -98,20 +109,10 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserDetailsQuery
      */
-    public function filterByUserId($values, $operator = Mysql::EQUAL) {
+    public function filterByUserId($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserDetails::FIELD_USER_DETAILS_USER_ID, $values, $operator);
         return $this;
     } 
-    
-    /**
-     * @param string $order 
-     * 
-     * @return \model\querys\UserDetailsQuery
-     */
-    public function orderByUserId($order = Mysql::ASC) {
-        $this->orderBy(UserDetails::FIELD_USER_DETAILS_USER_ID, $order);
-        return $this;
-    }
     
     /**
      * 
@@ -122,14 +123,24 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
         return $this;
     }
     
+    /**
+     * @param string $order (ASC | DESC)
+     * 
+     * @return \model\querys\UserDetailsQuery
+     */
+    public function orderByUserId($order = Sql::ASC) {
+        $this->orderBy(UserDetails::FIELD_USER_DETAILS_USER_ID, $order);
+        return $this;
+    }
+    
     
 
     /**
      * 
      * @return \model\querys\UserDetailsQuery
      */
-    public function selectAddress() {
-        $this->setSelect(UserDetails::FIELD_USER_DETAILS_ADDRESS);
+    public function selectAddress($alias = null) {
+        $this->setSelect(UserDetails::FIELD_USER_DETAILS_ADDRESS, $alias);
         return $this;
     }
     
@@ -139,20 +150,10 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserDetailsQuery
      */
-    public function filterByAddress($values, $operator = Mysql::EQUAL) {
+    public function filterByAddress($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserDetails::FIELD_USER_DETAILS_ADDRESS, $values, $operator);
         return $this;
     } 
-    
-    /**
-     * @param string $order 
-     * 
-     * @return \model\querys\UserDetailsQuery
-     */
-    public function orderByAddress($order = Mysql::ASC) {
-        $this->orderBy(UserDetails::FIELD_USER_DETAILS_ADDRESS, $order);
-        return $this;
-    }
     
     /**
      * 
@@ -163,14 +164,24 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
         return $this;
     }
     
+    /**
+     * @param string $order (ASC | DESC)
+     * 
+     * @return \model\querys\UserDetailsQuery
+     */
+    public function orderByAddress($order = Sql::ASC) {
+        $this->orderBy(UserDetails::FIELD_USER_DETAILS_ADDRESS, $order);
+        return $this;
+    }
+    
     
 
     /**
      * 
      * @return \model\querys\UserDetailsQuery
      */
-    public function selectZipCode() {
-        $this->setSelect(UserDetails::FIELD_USER_DETAILS_ZIP_CODE);
+    public function selectZipCode($alias = null) {
+        $this->setSelect(UserDetails::FIELD_USER_DETAILS_ZIP_CODE, $alias);
         return $this;
     }
     
@@ -180,20 +191,10 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserDetailsQuery
      */
-    public function filterByZipCode($values, $operator = Mysql::EQUAL) {
+    public function filterByZipCode($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserDetails::FIELD_USER_DETAILS_ZIP_CODE, $values, $operator);
         return $this;
     } 
-    
-    /**
-     * @param string $order 
-     * 
-     * @return \model\querys\UserDetailsQuery
-     */
-    public function orderByZipCode($order = Mysql::ASC) {
-        $this->orderBy(UserDetails::FIELD_USER_DETAILS_ZIP_CODE, $order);
-        return $this;
-    }
     
     /**
      * 
@@ -204,14 +205,24 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
         return $this;
     }
     
+    /**
+     * @param string $order (ASC | DESC)
+     * 
+     * @return \model\querys\UserDetailsQuery
+     */
+    public function orderByZipCode($order = Sql::ASC) {
+        $this->orderBy(UserDetails::FIELD_USER_DETAILS_ZIP_CODE, $order);
+        return $this;
+    }
+    
     
 
     /**
      * 
      * @return \model\querys\UserDetailsQuery
      */
-    public function selectLocal() {
-        $this->setSelect(UserDetails::FIELD_USER_DETAILS_LOCAL);
+    public function selectLocal($alias = null) {
+        $this->setSelect(UserDetails::FIELD_USER_DETAILS_LOCAL, $alias);
         return $this;
     }
     
@@ -221,20 +232,10 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserDetailsQuery
      */
-    public function filterByLocal($values, $operator = Mysql::EQUAL) {
+    public function filterByLocal($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserDetails::FIELD_USER_DETAILS_LOCAL, $values, $operator);
         return $this;
     } 
-    
-    /**
-     * @param string $order 
-     * 
-     * @return \model\querys\UserDetailsQuery
-     */
-    public function orderByLocal($order = Mysql::ASC) {
-        $this->orderBy(UserDetails::FIELD_USER_DETAILS_LOCAL, $order);
-        return $this;
-    }
     
     /**
      * 
@@ -242,6 +243,16 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      */
     public function groupByLocal() {
         $this->groupBy(UserDetails::FIELD_USER_DETAILS_LOCAL);
+        return $this;
+    }
+    
+    /**
+     * @param string $order (ASC | DESC)
+     * 
+     * @return \model\querys\UserDetailsQuery
+     */
+    public function orderByLocal($order = Sql::ASC) {
+        $this->orderBy(UserDetails::FIELD_USER_DETAILS_LOCAL, $order);
         return $this;
     }
     
@@ -255,8 +266,8 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      *
      * @return \Model\querys\UserQuery
      */
-    function joinUser($join = Mysql::INNER_JOIN) {
-        $this->join(\Model\models\User::TABLE, $join, [UserDetails::FIELD_USER_DETAILS_USER_ID, \Model\models\User::FIELD_USER_ID]);
+    function joinUser($join = Sql::INNER_JOIN, $alias = null) {
+        $this->join(\Model\models\User::TABLE, $join, UserDetails::FIELD_USER_DETAILS_USER_ID, \Model\models\User::FIELD_USER_ID, $alias);
         return \Model\querys\UserQuery::useModel($this);
     }
     

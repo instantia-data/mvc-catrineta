@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of UserGuard
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-09-22 17:25
- * Updated @2017-09-22 17:25 with columns user_id, username, salt, userkey
+ * Created @2017-10-13 12:27
+ * Updated @2017-10-13 12:27 with columns user_id, username, salt, userkey
  */
 class UserGuard extends \Catrineta\orm\Model 
 {

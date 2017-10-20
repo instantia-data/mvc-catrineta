@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of User
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-09-22 17:25
- * Updated @2017-09-22 17:25 with columns id, name, email, cellphone, user_status, created
+ * Created @2017-10-13 12:27
+ * Updated @2017-10-13 12:27 with columns id, name, email, cellphone, user_status, created
  */
 class User extends \Catrineta\orm\Model 
 {

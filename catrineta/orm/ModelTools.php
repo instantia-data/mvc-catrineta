@@ -19,6 +19,8 @@
 
 namespace Catrineta\orm;
 
+use \Catrineta\tools\StringTools;
+
 /**
  * Description of ModelTools
  *
@@ -91,7 +93,22 @@ class ModelTools
     }
     
     /**
-     * 
+     * get the column name without table name
+     * @param string $column
+     * @return string
+     */
+    public static function getColumnName($column)
+    {
+        return StringTools::getStringUntilLastChar($column, '.');
+    }
+    
+    public static function completeColumnName($table, $column)
+    {
+        return $table . '.' . $column;
+    }
+
+    /**
+     * Used by crud 
      * @param array $list
      * @param array $columns
      * @return boolean | array

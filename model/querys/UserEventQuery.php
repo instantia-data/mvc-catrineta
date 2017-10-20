@@ -17,27 +17,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-namespace model\querys;
+namespace Model\querys;
 
 use \Model\models\UserEvent;
-use \Catrineta\orm\mysql\Mysql;
+use \Catrineta\db\Sql;
 
 /**
  * Description of UserEvent
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-09-22 17:25
- * Updated @Updated @2017-09-22 17:25 with columns id, name *
+ * Created @2017-10-20 17:13
+ * Updated @Updated @2017-10-20 17:13 with columns id, name *
  */
 class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
     
-    public static function start($merge = ALL){
-        $obj = new UserEventQuery(new UserEvent(), $merge);
-        $obj->startPrimary($merge);
+    /**
+     * 
+     * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
+     * @param string $alias Alias for the table
+     * @return \model\querys\UserEventQuery
+     */
+    public static function init($merge = ALL, $alias = null){
+        $obj = new UserEventQuery(new UserEvent(), $alias);
+        $obj->setAllSelects($merge);
         return $obj;
     }
     
-    public static function useModel($merge){
+    /**
+     * Used to merge query classes on join tables
+     * @param \Catrineta\orm\query\QuerySelect $merge The primary class
+     * @return \model\querys\UserEventQuery
+     */
+    public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new UserEventQuery(new UserEvent());
         $obj->startJoin($merge);
         return $obj;
@@ -87,8 +98,8 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserEventQuery
      */
-    public function selectId() {
-        $this->setSelect(UserEvent::FIELD_USER_EVENT_ID);
+    public function selectId($alias = null) {
+        $this->setSelect(UserEvent::FIELD_USER_EVENT_ID, $alias);
         return $this;
     }
     
@@ -98,20 +109,10 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserEventQuery
      */
-    public function filterById($values, $operator = Mysql::EQUAL) {
+    public function filterById($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserEvent::FIELD_USER_EVENT_ID, $values, $operator);
         return $this;
     } 
-    
-    /**
-     * @param string $order 
-     * 
-     * @return \model\querys\UserEventQuery
-     */
-    public function orderById($order = Mysql::ASC) {
-        $this->orderBy(UserEvent::FIELD_USER_EVENT_ID, $order);
-        return $this;
-    }
     
     /**
      * 
@@ -122,14 +123,24 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
         return $this;
     }
     
+    /**
+     * @param string $order (ASC | DESC)
+     * 
+     * @return \model\querys\UserEventQuery
+     */
+    public function orderById($order = Sql::ASC) {
+        $this->orderBy(UserEvent::FIELD_USER_EVENT_ID, $order);
+        return $this;
+    }
+    
     
 
     /**
      * 
      * @return \model\querys\UserEventQuery
      */
-    public function selectName() {
-        $this->setSelect(UserEvent::FIELD_USER_EVENT_NAME);
+    public function selectName($alias = null) {
+        $this->setSelect(UserEvent::FIELD_USER_EVENT_NAME, $alias);
         return $this;
     }
     
@@ -139,20 +150,10 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserEventQuery
      */
-    public function filterByName($values, $operator = Mysql::EQUAL) {
+    public function filterByName($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserEvent::FIELD_USER_EVENT_NAME, $values, $operator);
         return $this;
     } 
-    
-    /**
-     * @param string $order 
-     * 
-     * @return \model\querys\UserEventQuery
-     */
-    public function orderByName($order = Mysql::ASC) {
-        $this->orderBy(UserEvent::FIELD_USER_EVENT_NAME, $order);
-        return $this;
-    }
     
     /**
      * 
@@ -160,6 +161,16 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
      */
     public function groupByName() {
         $this->groupBy(UserEvent::FIELD_USER_EVENT_NAME);
+        return $this;
+    }
+    
+    /**
+     * @param string $order (ASC | DESC)
+     * 
+     * @return \model\querys\UserEventQuery
+     */
+    public function orderByName($order = Sql::ASC) {
+        $this->orderBy(UserEvent::FIELD_USER_EVENT_NAME, $order);
         return $this;
     }
     
@@ -173,8 +184,8 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
      *
      * @return \Model\querys\UserLogQuery
      */
-    function joinUserLog($join = Mysql::INNER_JOIN) {
-        $this->join(\Model\models\UserLog::TABLE, $join, [UserEvent::FIELD_USER_EVENT_ID, \Model\models\UserLog::FIELD_USER_LOG_USER_EVENT]);
+    function joinUserLog($join = Sql::INNER_JOIN, $alias = null) {
+        $this->join(\Model\models\UserLog::TABLE, $join, UserEvent::FIELD_USER_EVENT_ID, \Model\models\UserLog::FIELD_USER_LOG_USER_EVENT, $alias);
         return \Model\querys\UserLogQuery::useModel($this);
     }
     

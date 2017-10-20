@@ -49,10 +49,15 @@ class CrudQuery extends  \Catrineta\console\crud\ModelCrud
     
     private function makeMethods(ParseLoop $parse, $field)
     {
+        $type = 'Column';
+        if($field['Kind'] == 'datetime'){
+           $type = 'DateColumn'; 
+        }
         $parse->setData('columns', [
             'method' => ModelTools::buildModelName($field['Field']),
             'table' => $this->classname . '::TABLE',
             'field' => $this->classname . '::' . ModelTools::getFieldConstant($this->table, $field['Field']),
+            'type'=> $type
             
         ]);
     }

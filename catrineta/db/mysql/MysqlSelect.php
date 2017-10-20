@@ -19,7 +19,6 @@
 
 namespace Catrineta\db\mysql;
 
-use \Catrineta\db\mysql\MysqlStatement;
 
 /**
  * Description of MysqlSelect
@@ -27,24 +26,31 @@ use \Catrineta\db\mysql\MysqlStatement;
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @Oct 6, 2017
  */
-class MysqlSelect extends MysqlStatement
+class MysqlSelect extends \Catrineta\db\mysql\MysqlStatement
 {
 
+    /**
+     *
+     * @var \Catrineta\db\mysql\MysqlSelect 
+     */
+    protected $statement = null;
 
     /**
      * @return string Mysql statement
      */
     public function getStatementString()
     {
+        $statement = [];
+        
         if(count($this->selects) > 0){
             $statement['select_expr'] = implode(', ', $this->selects);
         }
-        if($this->table != null){
-            $statement['table'] = 'FROM ' . $this->table;
-            if($this->table_alias != $this->table){
-                $statement['table'] = ' AS ' . $this->table_alias;
-            }
+ 
+        $statement['table'] = ' FROM ' . $this->table;
+        if ($this->table_alias != $this->table) {
+            $statement['table'] = ' AS ' . $this->table_alias;
         }
+
         if(count($this->joins) > 0){
             $statement['joins'] = implode(' ', $this->joins);
         }
@@ -67,6 +73,8 @@ class MysqlSelect extends MysqlStatement
         return 'SELECT SQL_CALC_FOUND_ROWS ' . implode(' ', $statement);
     }
     
+    protected $fetchs_assoc = [];
+    
     
     /**
      * 
@@ -76,11 +84,25 @@ class MysqlSelect extends MysqlStatement
      */
     public function setSelect($column, $alias = null)
     {
-        $str = $this->getColumnAliased($column);
+        $str = $this->getColumnAliased($column, $this->table_alias);
         if(null != $alias){
             $str .= ' AS ' . $alias;
         }
+        $this->fetchs_assoc = (null != $alias)? $alias : $str;
         $this->selects[] = $str;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @param string $expression
+     * @param string $alias
+     * @return $this
+     */
+    public function setCustomSelect($expression, $alias)
+    {
+        $this->selects[] = $expression . ' AS '. $alias;
+        $this->fetchs_assoc = $alias;
         return $this;
     }
     
@@ -101,10 +123,11 @@ class MysqlSelect extends MysqlStatement
      * @param $column
      * @param $alias
      */
-    public function setDistinct($column, $alias = null)
+    public function setDistinct($column, $alias)
     {
         $column = $this->getColumnAliased($column);
-        $this->selects[] = (null != $alias)? 'DISTINCT ' . $column . ' AS '. $alias : 'DISTINCT ' . $column;
+        $this->selects[] = 'DISTINCT ' . $column . ' AS '. $alias;
+        $this->fetchs_assoc = $alias;
 
     }
 
@@ -112,11 +135,41 @@ class MysqlSelect extends MysqlStatement
      * @param $column
      * @param $alias
      */
-    public function countDistinct($column, $alias = null)
+    public function countDistinct($column, $alias)
     {
         $column = $this->getColumnAliased($column);
-        $this->selects[] = (null != $alias)? 'COUNT(DISTINCT ' . $column . ') AS '. $alias : 'COUNT(DISTINCT ' . $column . ')';
+        $this->selects[] = 'COUNT(DISTINCT ' . $column . ') AS '. $alias;
+        $this->fetchs_assoc = $alias;
+    }
+    
+    /**
+     * Clean the select clause
+     * 
+     * @param bool $asterisk
+     */
+    public function cleanSelect($asterisk = false)
+    {
+        $this->selects = [];
+        $this->fetchs_assoc = [];
+        if($asterisk == true){
+            $this->selects[] = '*';
+        }
+ 
+    }
 
+    /**
+     * 
+     * @param string $expression
+     * @param string $alias
+     * @param mixed $value
+     * @return $this
+     */
+    public function setConcatCondition($expression, $alias, $value = null)
+    {
+        $this->wheres[] = 'CONCAT(' . $expression . ') LIKE "' . $value . '"';
+        $this->selects[] = 'CONCAT(' . $expression . ') AS '. $alias;
+        $this->fetch_assoc[] = $alias;
+        return $this;
     }
     
     
@@ -173,6 +226,15 @@ class MysqlSelect extends MysqlStatement
         return $this;
     }
     
+    /**
+     * 
+     * @return array
+     */
+    public function getJoinsKeys()
+    {
+        return array_keys($this->joins);
+    }
+    
     public function endUse()
     {
         $this->alias = $this->table_alias;
@@ -193,6 +255,7 @@ class MysqlSelect extends MysqlStatement
         return $this;
     }
     
+    protected $havings = [];
 
     /**
      * @param $expression
@@ -240,12 +303,13 @@ class MysqlSelect extends MysqlStatement
     }
     
     /**
-     * 
+     * Get a order by sequence of values
      * @param string $column
      * @param array $values
+     * @param string $order (null | ASC | DESC)
      * @return $this
      */
-    public function setOrderByField($column, $values = [], $order = Mysql::ASC)
+    public function setOrderByField($column, $values = [], $order = Sql::ASC)
     {
         $column = $this->getColumnAliased($column);
         $sequence = "'" . implode("','", $values) . "'";
@@ -261,7 +325,7 @@ class MysqlSelect extends MysqlStatement
      */
     public function setLimit($row_count = 1, $offset = 0)
     {
-        $this->limit[0] = ($offset == 0)? 'LIMIT ' . $row_count : 'LIMIT ' . $offset . ', ' . $row_count;
+        $this->limit[0] = ($offset == 0)? $row_count : $offset . ', ' . $row_count;
         $this->offset['limit'] = $row_count;
         $this->offset['offset'] = $offset;
         

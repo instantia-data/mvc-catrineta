@@ -76,5 +76,10 @@ class CatExceptions extends Exception {
      * 
      */
     const CODE_SQL = '303';
+    
+    /**
+     * 
+     */
+    const CODE_ORM = '304';
 
 }

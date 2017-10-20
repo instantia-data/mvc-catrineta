@@ -80,6 +80,11 @@ class DbSchemaTools
             $columns[$k]['Kind'] = $field['Type'];
             $columns[$k]['Size'] = 0;
             $type = $field['Type'];
+            /*
+             * Determine string for index Kind that resume Type literaly
+             * (varchar, int, datetime)
+             * Determine Size field
+             */
             $limit = strstr($type, '(');
             if($limit != false){
                 $columns[$k]['Kind'] = str_replace($limit, '', $field['Type']);

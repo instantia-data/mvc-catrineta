@@ -17,27 +17,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-namespace model\querys;
+namespace Model\querys;
 
 use \Model\models\UserHasGroup;
-use \Catrineta\orm\mysql\Mysql;
+use \Catrineta\db\Sql;
 
 /**
  * Description of UserHasGroup
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-09-22 17:25
- * Updated @Updated @2017-09-22 17:25 with columns user_id, user_group *
+ * Created @2017-10-20 17:13
+ * Updated @Updated @2017-10-20 17:13 with columns user_id, user_group *
  */
 class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
     
-    public static function start($merge = ALL){
-        $obj = new UserHasGroupQuery(new UserHasGroup(), $merge);
-        $obj->startPrimary($merge);
+    /**
+     * 
+     * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
+     * @param string $alias Alias for the table
+     * @return \model\querys\UserHasGroupQuery
+     */
+    public static function init($merge = ALL, $alias = null){
+        $obj = new UserHasGroupQuery(new UserHasGroup(), $alias);
+        $obj->setAllSelects($merge);
         return $obj;
     }
     
-    public static function useModel($merge){
+    /**
+     * Used to merge query classes on join tables
+     * @param \Catrineta\orm\query\QuerySelect $merge The primary class
+     * @return \model\querys\UserHasGroupQuery
+     */
+    public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new UserHasGroupQuery(new UserHasGroup());
         $obj->startJoin($merge);
         return $obj;
@@ -87,8 +98,8 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserHasGroupQuery
      */
-    public function selectUserId() {
-        $this->setSelect(UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID);
+    public function selectUserId($alias = null) {
+        $this->setSelect(UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID, $alias);
         return $this;
     }
     
@@ -98,20 +109,10 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserHasGroupQuery
      */
-    public function filterByUserId($values, $operator = Mysql::EQUAL) {
+    public function filterByUserId($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID, $values, $operator);
         return $this;
     } 
-    
-    /**
-     * @param string $order 
-     * 
-     * @return \model\querys\UserHasGroupQuery
-     */
-    public function orderByUserId($order = Mysql::ASC) {
-        $this->orderBy(UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID, $order);
-        return $this;
-    }
     
     /**
      * 
@@ -122,14 +123,24 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
         return $this;
     }
     
+    /**
+     * @param string $order (ASC | DESC)
+     * 
+     * @return \model\querys\UserHasGroupQuery
+     */
+    public function orderByUserId($order = Sql::ASC) {
+        $this->orderBy(UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID, $order);
+        return $this;
+    }
+    
     
 
     /**
      * 
      * @return \model\querys\UserHasGroupQuery
      */
-    public function selectUserGroup() {
-        $this->setSelect(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP);
+    public function selectUserGroup($alias = null) {
+        $this->setSelect(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP, $alias);
         return $this;
     }
     
@@ -139,20 +150,10 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @return \model\querys\UserHasGroupQuery
      */
-    public function filterByUserGroup($values, $operator = Mysql::EQUAL) {
+    public function filterByUserGroup($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP, $values, $operator);
         return $this;
     } 
-    
-    /**
-     * @param string $order 
-     * 
-     * @return \model\querys\UserHasGroupQuery
-     */
-    public function orderByUserGroup($order = Mysql::ASC) {
-        $this->orderBy(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP, $order);
-        return $this;
-    }
     
     /**
      * 
@@ -160,6 +161,16 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
      */
     public function groupByUserGroup() {
         $this->groupBy(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP);
+        return $this;
+    }
+    
+    /**
+     * @param string $order (ASC | DESC)
+     * 
+     * @return \model\querys\UserHasGroupQuery
+     */
+    public function orderByUserGroup($order = Sql::ASC) {
+        $this->orderBy(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP, $order);
         return $this;
     }
     
@@ -173,8 +184,8 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
      *
      * @return \Model\querys\UserGroupQuery
      */
-    function joinUserGroup($join = Mysql::INNER_JOIN) {
-        $this->join(\Model\models\UserGroup::TABLE, $join, [UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP, \Model\models\UserGroup::FIELD_USER_GROUP_ID]);
+    function joinUserGroup($join = Sql::INNER_JOIN, $alias = null) {
+        $this->join(\Model\models\UserGroup::TABLE, $join, UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP, \Model\models\UserGroup::FIELD_USER_GROUP_ID, $alias);
         return \Model\querys\UserGroupQuery::useModel($this);
     }
     
@@ -186,8 +197,8 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
      *
      * @return \Model\querys\UserQuery
      */
-    function joinUser($join = Mysql::INNER_JOIN) {
-        $this->join(\Model\models\User::TABLE, $join, [UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID, \Model\models\User::FIELD_USER_ID]);
+    function joinUser($join = Sql::INNER_JOIN, $alias = null) {
+        $this->join(\Model\models\User::TABLE, $join, UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID, \Model\models\User::FIELD_USER_ID, $alias);
         return \Model\querys\UserQuery::useModel($this);
     }
     

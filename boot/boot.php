@@ -21,6 +21,9 @@ $startime = microtime(true);
 
 require_once BOOT_DIR . 'folders.php';
 
+define('ALL', 'ALL');
+define('ONLY', 'STRICT');
+
 //autoload classes
 require_once ROOT . DS . 'vendor/autoload.php';
 

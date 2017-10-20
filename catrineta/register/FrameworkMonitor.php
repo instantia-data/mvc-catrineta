@@ -111,6 +111,10 @@ class FrameworkMonitor {
      *
      */
     const GET = 'GET';
+    /**
+     *
+     */
+    const MODEL = 'MODEL';
 
 
     

@@ -17,6 +17,7 @@ namespace Apps\Main\control;
 class Home extends \Catrineta\framework\FrontController {
 
     public function index(){
+         
         $this->setView('home.html');
     }
 

@@ -114,9 +114,9 @@ class MakeModel extends \Catrineta\console\Task
     
     private function buildForm($table, $class, $columns, $constrains, $migration)
     {
-        echo "Form, ";
+        echo "Form  ";
         $crud = new CrudForm($table, $class, true);
-        echo "building ... ";
+        echo "building ...\n ";
         
         $crud->setColumns($columns);
         $crud->setConstrains($constrains);
@@ -130,7 +130,7 @@ class MakeModel extends \Catrineta\console\Task
     
     private function buildQuery($table, $class, $columns, $constrains, $migration)
     {
-        echo "Query, ";
+        echo "Query ";
         $crud = new CrudQuery($table, $class, true);
         echo "building ... ";
 

@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Catrineta\db\mysql;
+namespace Catrineta\db;
 
 /**
  * Description of Mysql
@@ -25,7 +25,7 @@ namespace Catrineta\db\mysql;
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @Sep 22, 2017
  */
-class Mysql
+class Sql
 {
 
     /** Comparison type. */
@@ -106,28 +106,38 @@ class Mysql
     /** logical AND operator */
     const LOGICAL_AND = "AND";
 
-    /** mysql> SELECT DATE_ADD('2008-01-02', INTERVAL 31 DAY); **/
+    /** SQL > SELECT DATE_ADD('2008-01-02', INTERVAL 31 DAY); **/
     const DATE_ADD = "DATE_ADD";
 
-    /** mysql> SELECT NOW(); **/
+    /** SQL > SELECT NOW(); **/
     const NOW = "NOW()";
 
-    /** mysql> search_modifier: AGAINST ('$search' IN NATURAL LANGUAGE MODE) **/
+    /** SQL > search_modifier: AGAINST ('$search' IN NATURAL LANGUAGE MODE) **/
     const SEARCH_NATURAL = "IN NATURAL LANGUAGE MODE";
 
-    /** mysql> search_modifier: AGAINST ('$search' IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION) **/
+    /** SQL > search_modifier: AGAINST ('$search' IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION) **/
     const SEARCH_NATURAL_WITH_QUERY = "IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION";
 
-    /** mysql> search_modifier: AGAINST ('$search' IN BOOLEAN MODE) **/
+    /** SQL > search_modifier: AGAINST ('$search' IN BOOLEAN MODE) **/
     const SEARCH_BOOLEAN = "IN BOOLEAN MODE";
 
-    /** mysql> SELECT MAX(...); **/
+    /** SQL > SELECT MAX(...); **/
     const FUNCTION_MAX = "MAX";
 
-    /** mysql> SELECT MIN(...); **/
+    /** 
+     * SQL > SELECT MIN(...); **/
     const FUNCTION_MIN = "MIN";
+    
+    /** SQL > SELECT SUM(...); **/
+    const FUNCTION_SUM = "SUM";
+    
+    /** SQL > SELECT COUNT(...); **/
+    const FUNCTION_COUNT = "COUNT";
+    
+    /** SQL > SELECT AVG(...); **/
+    const FUNCTION_AVG = "AVG";
 
-    /** mysql> ORDER BY RAND(); **/
+    /** SQL > ORDER BY RAND(); **/
     const FUNCTION_RAND = "RAND()";
 
 }

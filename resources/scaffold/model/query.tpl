@@ -17,10 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-namespace model\querys;
+namespace Model\querys;
 
 use \Model\models\%$className%;
-use \Catrineta\db\mysql\Mysql;
+use \Catrineta\db\Sql;
 
 /**
  * Description of %$className%
@@ -31,13 +31,24 @@ use \Catrineta\db\mysql\Mysql;
  */
 class %$className%Query extends \Catrineta\orm\query\QuerySelect {
     
-    public static function start($merge = ALL){
-        $obj = new %$className%Query(new %$className%(), $merge);
-        $obj->startPrimary($merge);
+    /**
+     * 
+     * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
+     * @param string $alias Alias for the table
+     * @return \Model\querys\%$className%Query
+     */
+    public static function init($merge = ALL, $alias = null){
+        $obj = new %$className%Query(new %$className%(), $alias);
+        $obj->setAllSelects($merge);
         return $obj;
     }
     
-    public static function useModel($merge){
+    /**
+     * Used to merge query classes on join tables
+     * @param \Catrineta\orm\query\QuerySelect $merge The primary class
+     * @return \Model\querys\%$className%Query
+     */
+    public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new %$className%Query(new %$className%());
         $obj->startJoin($merge);
         return $obj;
@@ -47,7 +58,7 @@ class %$className%Query extends \Catrineta\orm\query\QuerySelect {
      * Completes the join and return primary query,
      * because Netbeans we put child query on return, the program will get primary class function endUse()
      *
-     * @return \model\querys\%$className%Query
+     * @return \Model\querys\%$className%Query
      */
     public function endUse(){
         return parent::completeMerge();
@@ -57,7 +68,7 @@ class %$className%Query extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query and return a collection of %$className% objects
      *
-     * @return \model\models\%$className%[]
+     * @return \Model\models\%$className%[]
      */
     public function find() {
         return parent::find();
@@ -66,7 +77,7 @@ class %$className%Query extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query with limit 1.
      *
-     * @return \model\models\%$className%
+     * @return \Model\models\%$className%
      */
     public function findOne(){
         return parent::findOne();
@@ -75,7 +86,7 @@ class %$className%Query extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query. If result is 0 create object
      *
-     * @return \model\models\%$className%
+     * @return \Model\models\%$className%
      */
     public function findOneOrCreate(){
         return parent::findOneOrCreate();
@@ -85,10 +96,10 @@ class %$className%Query extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\%$className%Query
+     * @return \Model\querys\%$className%Query
      */
-    public function select{$item.method}() {
-        $this->setSelect({$item.field});
+    public function select{$item.method}($alias = null) {
+        $this->setSelect({$item.field}, $alias);
         return $this;
     }
     
@@ -96,29 +107,29 @@ class %$className%Query extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\%$className%Query
+     * @return \Model\querys\%$className%Query
      */
-    public function filterBy{$item.method}($values, $operator = Mysql::EQUAL) {
-        $this->filterByColumn({$item.field}, $values, $operator);
+    public function filterBy{$item.method}($values, $operator = Sql::EQUAL) {
+        $this->filterBy{$item.type}({$item.field}, $values, $operator);
         return $this;
     } 
     
     /**
-     * @param string $order 
      * 
-     * @return \model\querys\%$className%Query
+     * @return \Model\querys\%$className%Query
      */
-    public function orderBy{$item.method}($order = Mysql::ASC) {
-        $this->orderBy({$item.field}, $order);
+    public function groupBy{$item.method}() {
+        $this->groupBy({$item.field});
         return $this;
     }
     
     /**
+     * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\%$className%Query
+     * @return \Model\querys\%$className%Query
      */
-    public function groupBy{$item.method}() {
-        $this->groupBy({$item.field});
+    public function orderBy{$item.method}($order = Sql::ASC) {
+        $this->orderBy({$item.field}, $order);
         return $this;
     }
     
@@ -132,8 +143,8 @@ class %$className%Query extends \Catrineta\orm\query\QuerySelect {
      *
      * @return \Model\querys\{$item.tablejoin}Query
      */
-    function join{$item.tablejoin}($join = Mysql::INNER_JOIN) {
-        $this->join(\Model\models\{$item.tablejoin}::TABLE, $join, [{$item.leftcol}, \Model\models\{$item.rightcol}]);
+    function join{$item.tablejoin}($join = Sql::INNER_JOIN, $alias = null) {
+        $this->join(\Model\models\{$item.tablejoin}::TABLE, $join, {$item.leftcol}, \Model\models\{$item.rightcol}, $alias);
         return \Model\querys\{$item.tablejoin}Query::useModel($this);
     }
     

@@ -20,7 +20,7 @@
 namespace Catrineta\db\mysql;
 
 use \Catrineta\register\CatExceptions;
-use \Catrineta\db\mysql\Mysql;
+use \Catrineta\db\Sql;
 
 /**
  * Description of MysqlStatement
@@ -40,6 +40,11 @@ class MysqlStatement
     
     protected $alias = null;
     
+    /**
+     * 
+     * @param string $table Valid table in database
+     * @param string $alias An alias for the table
+     */
     function __construct($table, $alias = null)
     {
         $this->table = $table;
@@ -48,6 +53,10 @@ class MysqlStatement
         $this->alias = $this->table_alias;
     }
     
+    /**
+     *
+     * @var array 
+     */
     protected $params = [];
     
     /**
@@ -84,7 +93,7 @@ class MysqlStatement
      * @param string $clause
      * @return $this
      */
-    public function buildArrayCondition($column, $values = [], $clause = Mysql::IN)
+    public function buildArrayCondition($column, $values = [], $clause = Sql::IN)
     {
         $col = str_replace('.', '_', $column);
         $i = 0;
@@ -93,7 +102,7 @@ class MysqlStatement
             $this->params[$col . $i] = $value;
             $params[] = $col . $i++;
         }
-        if($clause == Mysql::BETWEEN){
+        if($clause == Sql::BETWEEN){
             return $column . $clause . "'" . implode("' AND '", $params) . "'";
         }else{
             return $column . $clause . "('" . implode("', '", $params) . "')";
@@ -102,22 +111,22 @@ class MysqlStatement
     
 
     
-    public function setCondition($column, $values, $operator = Mysql::EQUAL, $wildcard= null)
+    public function setCondition($column, $values, $operator = Sql::EQUAL, $wildcard= null)
     {
         $column = $this->getColumnAliased($column);
-        if($operator == Mysql::BETWEEN){
+        if($operator == Sql::BETWEEN){
             if($values['max'] == null && $values['min'] == null){
                 throw new CatExceptions('Null range of values min and max for column ' . $column, CatExceptions::CODE_SQL);
             }elseif($values['max'] == null){
-                $this->wheres[] = $this->buildCondition($column, Mysql::GREATER_EQUAL, $values['min']);
+                $this->wheres[] = $this->buildCondition($column, Sql::GREATER_EQUAL, $values['min']);
             }elseif($values['min'] == null){
-                $this->wheres[] = $this->buildCondition($column, Mysql::LESS_EQUAL, $values['max']);
+                $this->wheres[] = $this->buildCondition($column, Sql::LESS_EQUAL, $values['max']);
             }else{
-                $this->wheres[] = $this->buildArrayCondition($column, $values, Mysql::BETWEEN);
+                $this->wheres[] = $this->buildArrayCondition($column, $values, Sql::BETWEEN);
             }
         }elseif(is_array($values)){
-            if($operator == Mysql::EQUAL){
-                $operator = Mysql::IN;
+            if($operator == Sql::EQUAL){
+                $operator = Sql::IN;
             }
             $this->wheres[] = $this->buildArrayCondition($column, $values, $operator);
         }else{
@@ -136,7 +145,7 @@ class MysqlStatement
     {
         $column = $this->getColumnAliased($column);
         $condition = $column;
-        $condition .= ($null == null)? Mysql::ISNULL : $null;
+        $condition .= ($null == null)? Sql::ISNULL : $null;
         $this->wheres[] = $condition;
         return $this;
     }
@@ -174,9 +183,9 @@ class MysqlStatement
         foreach($array as $column=>$value){
             $column = $this->getColumnAliased($column);
             if(is_array($value)){
-                $parts[] = $this->buildArrayCondition($column, $value, Mysql::IN);
+                $parts[] = $this->buildArrayCondition($column, $value, Sql::IN);
             }else{
-                $parts[] = $this->buildCondition($column, Mysql::EQUAL, $value);
+                $parts[] = $this->buildCondition($column, Sql::EQUAL, $value);
             }
         }
         $this->wheres[] = "(" . implode(" OR ", $parts) . ")";
@@ -204,13 +213,19 @@ class MysqlStatement
      * @param $expression
      * @param string $operator
      */
-    public function joinWhere($expression, $operator = Mysql::LOGICAL_OR)
+    public function joinWhere($expression, $operator = Sql::LOGICAL_OR)
     {
         $condition = $this->getAndPopLastWhere();
         $this->wheres[] = '(' . $condition . " $operator " . $expression . ')';
 
     }
     
+    /**
+     * 
+     * @param string $column
+     * @param string $table
+     * @return string The column name with table name prefixed
+     */
     protected function getColumnAliased($column, $table = null)
     {
         if($table == null){
@@ -229,6 +244,19 @@ class MysqlStatement
                 }
             }
         }
+    }
+    
+    
+    public function getAlias($table, $i = 0)
+    {
+        if($i == 0){
+            $alias = strtoupper(substr($table, 0, 1));
+        }
+        if(in_array($alias, array_keys($this->joins))){
+            $i++;
+            return $this->getAlias($alias . $i, $i);
+        }
+        return $alias;
     }
 
 }
