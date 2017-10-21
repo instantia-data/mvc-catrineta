@@ -27,7 +27,7 @@ use \Catrineta\db\Sql;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-20 17:13
- * Updated @Updated @2017-10-20 17:13 with columns id, name *
+ * Updated @Updated @2017-10-20 17:13 with columns id, name * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
     
@@ -35,7 +35,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
      * @param string $alias Alias for the table
-     * @return \model\querys\UserEventQuery
+     * @return \Model\querys\UserEventQuery
      */
     public static function init($merge = ALL, $alias = null){
         $obj = new UserEventQuery(new UserEvent(), $alias);
@@ -46,7 +46,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Used to merge query classes on join tables
      * @param \Catrineta\orm\query\QuerySelect $merge The primary class
-     * @return \model\querys\UserEventQuery
+     * @return \Model\querys\UserEventQuery
      */
     public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new UserEventQuery(new UserEvent());
@@ -58,7 +58,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
      * Completes the join and return primary query,
      * because Netbeans we put child query on return, the program will get primary class function endUse()
      *
-     * @return \model\querys\UserEventQuery
+     * @return \Model\querys\UserEventQuery
      */
     public function endUse(){
         return parent::completeMerge();
@@ -68,7 +68,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query and return a collection of UserEvent objects
      *
-     * @return \model\models\UserEvent[]
+     * @return \Model\models\UserEvent[]
      */
     public function find() {
         return parent::find();
@@ -77,7 +77,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query with limit 1.
      *
-     * @return \model\models\UserEvent
+     * @return \Model\models\UserEvent
      */
     public function findOne(){
         return parent::findOne();
@@ -86,7 +86,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query. If result is 0 create object
      *
-     * @return \model\models\UserEvent
+     * @return \Model\models\UserEvent
      */
     public function findOneOrCreate(){
         return parent::findOneOrCreate();
@@ -96,7 +96,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserEventQuery
+     * @return \Model\querys\UserEventQuery
      */
     public function selectId($alias = null) {
         $this->setSelect(UserEvent::FIELD_USER_EVENT_ID, $alias);
@@ -107,7 +107,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserEventQuery
+     * @return \Model\querys\UserEventQuery
      */
     public function filterById($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserEvent::FIELD_USER_EVENT_ID, $values, $operator);
@@ -116,7 +116,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserEventQuery
+     * @return \Model\querys\UserEventQuery
      */
     public function groupById() {
         $this->groupBy(UserEvent::FIELD_USER_EVENT_ID);
@@ -126,7 +126,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserEventQuery
+     * @return \Model\querys\UserEventQuery
      */
     public function orderById($order = Sql::ASC) {
         $this->orderBy(UserEvent::FIELD_USER_EVENT_ID, $order);
@@ -137,7 +137,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserEventQuery
+     * @return \Model\querys\UserEventQuery
      */
     public function selectName($alias = null) {
         $this->setSelect(UserEvent::FIELD_USER_EVENT_NAME, $alias);
@@ -148,7 +148,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserEventQuery
+     * @return \Model\querys\UserEventQuery
      */
     public function filterByName($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserEvent::FIELD_USER_EVENT_NAME, $values, $operator);
@@ -157,7 +157,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserEventQuery
+     * @return \Model\querys\UserEventQuery
      */
     public function groupByName() {
         $this->groupBy(UserEvent::FIELD_USER_EVENT_NAME);
@@ -167,7 +167,7 @@ class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserEventQuery
+     * @return \Model\querys\UserEventQuery
      */
     public function orderByName($order = Sql::ASC) {
         $this->orderBy(UserEvent::FIELD_USER_EVENT_NAME, $order);

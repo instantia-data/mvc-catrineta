@@ -27,7 +27,7 @@ use \Catrineta\db\Sql;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-20 17:13
- * Updated @Updated @2017-10-20 17:13 with columns id, user_id, user_event, timestamp *
+ * Updated @Updated @2017-10-20 17:13 with columns id, user_id, user_event, timestamp * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     
@@ -35,7 +35,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
      * @param string $alias Alias for the table
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public static function init($merge = ALL, $alias = null){
         $obj = new UserLogQuery(new UserLog(), $alias);
@@ -46,7 +46,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Used to merge query classes on join tables
      * @param \Catrineta\orm\query\QuerySelect $merge The primary class
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new UserLogQuery(new UserLog());
@@ -58,7 +58,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
      * Completes the join and return primary query,
      * because Netbeans we put child query on return, the program will get primary class function endUse()
      *
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function endUse(){
         return parent::completeMerge();
@@ -68,7 +68,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query and return a collection of UserLog objects
      *
-     * @return \model\models\UserLog[]
+     * @return \Model\models\UserLog[]
      */
     public function find() {
         return parent::find();
@@ -77,7 +77,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query with limit 1.
      *
-     * @return \model\models\UserLog
+     * @return \Model\models\UserLog
      */
     public function findOne(){
         return parent::findOne();
@@ -86,7 +86,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query. If result is 0 create object
      *
-     * @return \model\models\UserLog
+     * @return \Model\models\UserLog
      */
     public function findOneOrCreate(){
         return parent::findOneOrCreate();
@@ -96,7 +96,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function selectId($alias = null) {
         $this->setSelect(UserLog::FIELD_USER_LOG_ID, $alias);
@@ -107,7 +107,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function filterById($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserLog::FIELD_USER_LOG_ID, $values, $operator);
@@ -116,7 +116,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function groupById() {
         $this->groupBy(UserLog::FIELD_USER_LOG_ID);
@@ -126,7 +126,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function orderById($order = Sql::ASC) {
         $this->orderBy(UserLog::FIELD_USER_LOG_ID, $order);
@@ -137,7 +137,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function selectUserId($alias = null) {
         $this->setSelect(UserLog::FIELD_USER_LOG_USER_ID, $alias);
@@ -148,7 +148,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function filterByUserId($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserLog::FIELD_USER_LOG_USER_ID, $values, $operator);
@@ -157,7 +157,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function groupByUserId() {
         $this->groupBy(UserLog::FIELD_USER_LOG_USER_ID);
@@ -167,7 +167,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function orderByUserId($order = Sql::ASC) {
         $this->orderBy(UserLog::FIELD_USER_LOG_USER_ID, $order);
@@ -178,7 +178,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function selectUserEvent($alias = null) {
         $this->setSelect(UserLog::FIELD_USER_LOG_USER_EVENT, $alias);
@@ -189,7 +189,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function filterByUserEvent($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserLog::FIELD_USER_LOG_USER_EVENT, $values, $operator);
@@ -198,7 +198,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function groupByUserEvent() {
         $this->groupBy(UserLog::FIELD_USER_LOG_USER_EVENT);
@@ -208,7 +208,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function orderByUserEvent($order = Sql::ASC) {
         $this->orderBy(UserLog::FIELD_USER_LOG_USER_EVENT, $order);
@@ -219,7 +219,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function selectTimestamp($alias = null) {
         $this->setSelect(UserLog::FIELD_USER_LOG_TIMESTAMP, $alias);
@@ -230,7 +230,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function filterByTimestamp($values, $operator = Sql::EQUAL) {
         $this->filterByDateColumn(UserLog::FIELD_USER_LOG_TIMESTAMP, $values, $operator);
@@ -239,7 +239,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function groupByTimestamp() {
         $this->groupBy(UserLog::FIELD_USER_LOG_TIMESTAMP);
@@ -249,7 +249,7 @@ class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserLogQuery
+     * @return \Model\querys\UserLogQuery
      */
     public function orderByTimestamp($order = Sql::ASC) {
         $this->orderBy(UserLog::FIELD_USER_LOG_TIMESTAMP, $order);

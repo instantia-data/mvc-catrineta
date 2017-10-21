@@ -27,7 +27,7 @@ use \Catrineta\db\Sql;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-20 17:13
- * Updated @Updated @2017-10-20 17:13 with columns id, name, description *
+ * Updated @Updated @2017-10-20 17:13 with columns id, name, description * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
     
@@ -35,7 +35,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
      * @param string $alias Alias for the table
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public static function init($merge = ALL, $alias = null){
         $obj = new UserGroupQuery(new UserGroup(), $alias);
@@ -46,7 +46,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Used to merge query classes on join tables
      * @param \Catrineta\orm\query\QuerySelect $merge The primary class
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new UserGroupQuery(new UserGroup());
@@ -58,7 +58,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
      * Completes the join and return primary query,
      * because Netbeans we put child query on return, the program will get primary class function endUse()
      *
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function endUse(){
         return parent::completeMerge();
@@ -68,7 +68,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query and return a collection of UserGroup objects
      *
-     * @return \model\models\UserGroup[]
+     * @return \Model\models\UserGroup[]
      */
     public function find() {
         return parent::find();
@@ -77,7 +77,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query with limit 1.
      *
-     * @return \model\models\UserGroup
+     * @return \Model\models\UserGroup
      */
     public function findOne(){
         return parent::findOne();
@@ -86,7 +86,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query. If result is 0 create object
      *
-     * @return \model\models\UserGroup
+     * @return \Model\models\UserGroup
      */
     public function findOneOrCreate(){
         return parent::findOneOrCreate();
@@ -96,7 +96,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function selectId($alias = null) {
         $this->setSelect(UserGroup::FIELD_USER_GROUP_ID, $alias);
@@ -107,7 +107,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function filterById($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserGroup::FIELD_USER_GROUP_ID, $values, $operator);
@@ -116,7 +116,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function groupById() {
         $this->groupBy(UserGroup::FIELD_USER_GROUP_ID);
@@ -126,7 +126,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function orderById($order = Sql::ASC) {
         $this->orderBy(UserGroup::FIELD_USER_GROUP_ID, $order);
@@ -137,7 +137,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function selectName($alias = null) {
         $this->setSelect(UserGroup::FIELD_USER_GROUP_NAME, $alias);
@@ -148,7 +148,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function filterByName($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserGroup::FIELD_USER_GROUP_NAME, $values, $operator);
@@ -157,7 +157,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function groupByName() {
         $this->groupBy(UserGroup::FIELD_USER_GROUP_NAME);
@@ -167,7 +167,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function orderByName($order = Sql::ASC) {
         $this->orderBy(UserGroup::FIELD_USER_GROUP_NAME, $order);
@@ -178,7 +178,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function selectDescription($alias = null) {
         $this->setSelect(UserGroup::FIELD_USER_GROUP_DESCRIPTION, $alias);
@@ -189,7 +189,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function filterByDescription($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserGroup::FIELD_USER_GROUP_DESCRIPTION, $values, $operator);
@@ -198,7 +198,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function groupByDescription() {
         $this->groupBy(UserGroup::FIELD_USER_GROUP_DESCRIPTION);
@@ -208,7 +208,7 @@ class UserGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserGroupQuery
+     * @return \Model\querys\UserGroupQuery
      */
     public function orderByDescription($order = Sql::ASC) {
         $this->orderBy(UserGroup::FIELD_USER_GROUP_DESCRIPTION, $order);

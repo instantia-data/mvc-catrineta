@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of UserEvent
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-10-13 12:27
- * Updated @2017-10-13 12:27 with columns id, name
+ * Created @2017-10-21 21:20
+ * Updated @2017-10-21 21:20 with columns id, name
  */
 class UserEvent extends \Catrineta\orm\Model 
 {
@@ -43,6 +43,8 @@ class UserEvent extends \Catrineta\orm\Model
     protected $primaryKey = ['id'];
     //auto increment field
     protected $autoincrement = 'id';
+    //Foreign keys
+    protected $foreignKeys = [];
     
     protected function setModel(){
         $this->columnNames[$this->tableName] = $this->fields;

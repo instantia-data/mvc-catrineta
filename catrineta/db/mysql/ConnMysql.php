@@ -64,6 +64,7 @@ class ConnMysql
                 self::$conn = new PDO($dsn, $args->user, $args->password);
                 //self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 self::$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
+                self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $err) 
             {
                 if($err->getCode() == 1049){

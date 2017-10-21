@@ -60,6 +60,11 @@ class ModelCrud
     
     protected $col_names = [];
     
+    /**
+     * 
+     * @param array $columns
+     * @return array
+     */
     public function setColumns($columns)
     {
         
@@ -73,12 +78,18 @@ class ModelCrud
     
     protected $constrains = [];
     
+    /**
+     * 
+     * @param array $constrains
+     */
     public function setConstrains($constrains)
     {
-        
+        $this->constrains= $constrains;
+        /**
         foreach ($constrains as $constrain){
             $this->constrains[$constrain['COLUMN_NAME']] = $constrain;
         }
+         */
     }
     
     
@@ -112,6 +123,15 @@ class ModelCrud
         }
         $this->string = CrudTools::copyFile($this->template, $this->file, $writearr);
 
+    }
+    
+    protected function getConstrainIndex($field)
+    {
+        foreach ($this->constrains as $constrain){
+            if($constrain['COLUMN_NAME'] == $field){
+                return $constrain;
+            }
+        }
     }
 
 }

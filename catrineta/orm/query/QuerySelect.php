@@ -221,7 +221,7 @@ class QuerySelect extends \Catrineta\orm\query\Query
             throw new CatExceptions('Not primary class for ' . get_called_class(), CatExceptions::CODE_ORM);
         }
         //give back statement
-        $this->primary_class->setStatement($this->query_statement);
+        $this->primary_class->setStatement($this->statement);
         //give back columns
         $this->primary_class->setColumns($this->columns);
         //give back the class
@@ -353,7 +353,11 @@ class QuerySelect extends \Catrineta\orm\query\Query
     public function findOne()
     {
         $this->statement->setLimit(1);
-        return $this->find()[0];
+        $result = $this->find();
+        if(!empty($result)){
+            return $result[0];
+        }
+        return null;
     }
     
      /**
@@ -363,10 +367,13 @@ class QuerySelect extends \Catrineta\orm\query\Query
      */
     public function findOneOrCreate()
     {
-        $this->statement->setLimit(1);
-        $result = $this->find()[0];
+        $result = $this->findOne();
         if(!$result){
-            $result = $this->model->insert();
+            try {
+               return  $this->model->insert();
+            } catch (CatExceptions $exc) {
+                echo $exc->output();
+            }
         }
         return $result;
     }

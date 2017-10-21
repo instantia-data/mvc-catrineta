@@ -27,7 +27,7 @@ use \Catrineta\db\Sql;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-20 17:13
- * Updated @Updated @2017-10-20 17:13 with columns user_id, username, salt, userkey *
+ * Updated @Updated @2017-10-20 17:13 with columns user_id, username, salt, userkey * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     
@@ -35,7 +35,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
      * @param string $alias Alias for the table
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public static function init($merge = ALL, $alias = null){
         $obj = new UserGuardQuery(new UserGuard(), $alias);
@@ -46,7 +46,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Used to merge query classes on join tables
      * @param \Catrineta\orm\query\QuerySelect $merge The primary class
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new UserGuardQuery(new UserGuard());
@@ -58,7 +58,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      * Completes the join and return primary query,
      * because Netbeans we put child query on return, the program will get primary class function endUse()
      *
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function endUse(){
         return parent::completeMerge();
@@ -68,7 +68,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query and return a collection of UserGuard objects
      *
-     * @return \model\models\UserGuard[]
+     * @return \Model\models\UserGuard[]
      */
     public function find() {
         return parent::find();
@@ -77,7 +77,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query with limit 1.
      *
-     * @return \model\models\UserGuard
+     * @return \Model\models\UserGuard
      */
     public function findOne(){
         return parent::findOne();
@@ -86,7 +86,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query. If result is 0 create object
      *
-     * @return \model\models\UserGuard
+     * @return \Model\models\UserGuard
      */
     public function findOneOrCreate(){
         return parent::findOneOrCreate();
@@ -96,7 +96,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function selectUserId($alias = null) {
         $this->setSelect(UserGuard::FIELD_USER_GUARD_USER_ID, $alias);
@@ -107,7 +107,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function filterByUserId($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserGuard::FIELD_USER_GUARD_USER_ID, $values, $operator);
@@ -116,7 +116,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function groupByUserId() {
         $this->groupBy(UserGuard::FIELD_USER_GUARD_USER_ID);
@@ -126,7 +126,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function orderByUserId($order = Sql::ASC) {
         $this->orderBy(UserGuard::FIELD_USER_GUARD_USER_ID, $order);
@@ -137,7 +137,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function selectUsername($alias = null) {
         $this->setSelect(UserGuard::FIELD_USER_GUARD_USERNAME, $alias);
@@ -148,7 +148,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function filterByUsername($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserGuard::FIELD_USER_GUARD_USERNAME, $values, $operator);
@@ -157,7 +157,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function groupByUsername() {
         $this->groupBy(UserGuard::FIELD_USER_GUARD_USERNAME);
@@ -167,7 +167,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function orderByUsername($order = Sql::ASC) {
         $this->orderBy(UserGuard::FIELD_USER_GUARD_USERNAME, $order);
@@ -178,7 +178,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function selectSalt($alias = null) {
         $this->setSelect(UserGuard::FIELD_USER_GUARD_SALT, $alias);
@@ -189,7 +189,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function filterBySalt($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserGuard::FIELD_USER_GUARD_SALT, $values, $operator);
@@ -198,7 +198,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function groupBySalt() {
         $this->groupBy(UserGuard::FIELD_USER_GUARD_SALT);
@@ -208,7 +208,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function orderBySalt($order = Sql::ASC) {
         $this->orderBy(UserGuard::FIELD_USER_GUARD_SALT, $order);
@@ -219,7 +219,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function selectUserkey($alias = null) {
         $this->setSelect(UserGuard::FIELD_USER_GUARD_USERKEY, $alias);
@@ -230,7 +230,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function filterByUserkey($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserGuard::FIELD_USER_GUARD_USERKEY, $values, $operator);
@@ -239,7 +239,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function groupByUserkey() {
         $this->groupBy(UserGuard::FIELD_USER_GUARD_USERKEY);
@@ -249,7 +249,7 @@ class UserGuardQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserGuardQuery
+     * @return \Model\querys\UserGuardQuery
      */
     public function orderByUserkey($order = Sql::ASC) {
         $this->orderBy(UserGuard::FIELD_USER_GUARD_USERKEY, $order);

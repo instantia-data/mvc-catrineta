@@ -27,7 +27,7 @@ use \Catrineta\db\Sql;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-20 17:13
- * Updated @Updated @2017-10-20 17:13 with columns id, name, email, cellphone, user_status, created *
+ * Updated @Updated @2017-10-20 17:13 with columns id, name, email, cellphone, user_status, created * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserQuery extends \Catrineta\orm\query\QuerySelect {
     
@@ -35,7 +35,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
      * @param string $alias Alias for the table
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public static function init($merge = ALL, $alias = null){
         $obj = new UserQuery(new User(), $alias);
@@ -46,7 +46,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Used to merge query classes on join tables
      * @param \Catrineta\orm\query\QuerySelect $merge The primary class
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new UserQuery(new User());
@@ -58,7 +58,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
      * Completes the join and return primary query,
      * because Netbeans we put child query on return, the program will get primary class function endUse()
      *
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function endUse(){
         return parent::completeMerge();
@@ -68,7 +68,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query and return a collection of User objects
      *
-     * @return \model\models\User[]
+     * @return \Model\models\User[]
      */
     public function find() {
         return parent::find();
@@ -77,7 +77,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query with limit 1.
      *
-     * @return \model\models\User
+     * @return \Model\models\User
      */
     public function findOne(){
         return parent::findOne();
@@ -86,7 +86,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query. If result is 0 create object
      *
-     * @return \model\models\User
+     * @return \Model\models\User
      */
     public function findOneOrCreate(){
         return parent::findOneOrCreate();
@@ -96,7 +96,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function selectId($alias = null) {
         $this->setSelect(User::FIELD_USER_ID, $alias);
@@ -107,7 +107,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function filterById($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(User::FIELD_USER_ID, $values, $operator);
@@ -116,7 +116,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function groupById() {
         $this->groupBy(User::FIELD_USER_ID);
@@ -126,7 +126,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function orderById($order = Sql::ASC) {
         $this->orderBy(User::FIELD_USER_ID, $order);
@@ -137,7 +137,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function selectName($alias = null) {
         $this->setSelect(User::FIELD_USER_NAME, $alias);
@@ -148,7 +148,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function filterByName($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(User::FIELD_USER_NAME, $values, $operator);
@@ -157,7 +157,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function groupByName() {
         $this->groupBy(User::FIELD_USER_NAME);
@@ -167,7 +167,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function orderByName($order = Sql::ASC) {
         $this->orderBy(User::FIELD_USER_NAME, $order);
@@ -178,7 +178,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function selectEmail($alias = null) {
         $this->setSelect(User::FIELD_USER_EMAIL, $alias);
@@ -189,7 +189,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function filterByEmail($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(User::FIELD_USER_EMAIL, $values, $operator);
@@ -198,7 +198,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function groupByEmail() {
         $this->groupBy(User::FIELD_USER_EMAIL);
@@ -208,7 +208,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function orderByEmail($order = Sql::ASC) {
         $this->orderBy(User::FIELD_USER_EMAIL, $order);
@@ -219,7 +219,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function selectCellphone($alias = null) {
         $this->setSelect(User::FIELD_USER_CELLPHONE, $alias);
@@ -230,7 +230,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function filterByCellphone($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(User::FIELD_USER_CELLPHONE, $values, $operator);
@@ -239,7 +239,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function groupByCellphone() {
         $this->groupBy(User::FIELD_USER_CELLPHONE);
@@ -249,7 +249,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function orderByCellphone($order = Sql::ASC) {
         $this->orderBy(User::FIELD_USER_CELLPHONE, $order);
@@ -260,7 +260,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function selectUserStatus($alias = null) {
         $this->setSelect(User::FIELD_USER_USER_STATUS, $alias);
@@ -271,7 +271,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function filterByUserStatus($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(User::FIELD_USER_USER_STATUS, $values, $operator);
@@ -280,7 +280,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function groupByUserStatus() {
         $this->groupBy(User::FIELD_USER_USER_STATUS);
@@ -290,7 +290,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function orderByUserStatus($order = Sql::ASC) {
         $this->orderBy(User::FIELD_USER_USER_STATUS, $order);
@@ -301,7 +301,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function selectCreated($alias = null) {
         $this->setSelect(User::FIELD_USER_CREATED, $alias);
@@ -312,7 +312,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function filterByCreated($values, $operator = Sql::EQUAL) {
         $this->filterByDateColumn(User::FIELD_USER_CREATED, $values, $operator);
@@ -321,7 +321,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function groupByCreated() {
         $this->groupBy(User::FIELD_USER_CREATED);
@@ -331,7 +331,7 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserQuery
+     * @return \Model\querys\UserQuery
      */
     public function orderByCreated($order = Sql::ASC) {
         $this->orderBy(User::FIELD_USER_CREATED, $order);
@@ -346,11 +346,11 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
      * Makes join
      * @param Mysql $join
      *
-     * @return \Model\querys\UserLogQuery
+     * @return \Model\querys\UserStatusQuery
      */
-    function joinUserLog($join = Sql::INNER_JOIN, $alias = null) {
-        $this->join(\Model\models\UserLog::TABLE, $join, User::FIELD_USER_ID, \Model\models\UserLog::FIELD_USER_LOG_USER_ID, $alias);
-        return \Model\querys\UserLogQuery::useModel($this);
+    function joinUserStatus($join = Sql::INNER_JOIN, $alias = null) {
+        $this->join(\Model\models\UserStatus::TABLE, $join, User::FIELD_USER_USER_STATUS, \Model\models\UserStatus::FIELD_USER_STATUS_ID, $alias);
+        return \Model\querys\UserStatusQuery::useModel($this);
     }
     
     
@@ -359,11 +359,50 @@ class UserQuery extends \Catrineta\orm\query\QuerySelect {
      * Makes join
      * @param Mysql $join
      *
-     * @return \Model\querys\UserStatusQuery
+     * @return \Model\querys\UserDetailsQuery
      */
-    function joinUserStatus($join = Sql::INNER_JOIN, $alias = null) {
-        $this->join(\Model\models\UserStatus::TABLE, $join, User::FIELD_USER_USER_STATUS, \Model\models\UserStatus::FIELD_USER_STATUS_ID, $alias);
-        return \Model\querys\UserStatusQuery::useModel($this);
+    function joinUserDetails($join = Sql::INNER_JOIN, $alias = null) {
+        $this->join(\Model\models\UserDetails::TABLE, $join, User::FIELD_USER_ID, \Model\models\UserDetails::FIELD_USER_DETAILS_USER_ID, $alias);
+        return \Model\querys\UserDetailsQuery::useModel($this);
+    }
+    
+    
+    
+    /**
+     * Makes join
+     * @param Mysql $join
+     *
+     * @return \Model\querys\UserGuardQuery
+     */
+    function joinUserGuard($join = Sql::INNER_JOIN, $alias = null) {
+        $this->join(\Model\models\UserGuard::TABLE, $join, User::FIELD_USER_ID, \Model\models\UserGuard::FIELD_USER_GUARD_USER_ID, $alias);
+        return \Model\querys\UserGuardQuery::useModel($this);
+    }
+    
+    
+    
+    /**
+     * Makes join
+     * @param Mysql $join
+     *
+     * @return \Model\querys\UserHasGroupQuery
+     */
+    function joinUserHasGroup($join = Sql::INNER_JOIN, $alias = null) {
+        $this->join(\Model\models\UserHasGroup::TABLE, $join, User::FIELD_USER_ID, \Model\models\UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID, $alias);
+        return \Model\querys\UserHasGroupQuery::useModel($this);
+    }
+    
+    
+    
+    /**
+     * Makes join
+     * @param Mysql $join
+     *
+     * @return \Model\querys\UserLogQuery
+     */
+    function joinUserLog($join = Sql::INNER_JOIN, $alias = null) {
+        $this->join(\Model\models\UserLog::TABLE, $join, User::FIELD_USER_ID, \Model\models\UserLog::FIELD_USER_LOG_USER_ID, $alias);
+        return \Model\querys\UserLogQuery::useModel($this);
     }
     
     

@@ -26,7 +26,7 @@ use \Model\models\UserHasGroup;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-13 12:27
- * Updated @Updated @2017-10-13 12:27 with columns user_id, user_group * * * * *
+ * Updated @Updated @2017-10-13 12:27 with columns user_id, user_group * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserHasGroupForm extends \Catrineta\form\Form {
 
@@ -57,21 +57,14 @@ class UserHasGroupForm extends \Catrineta\form\Form {
     
     
     
-    
-    
-    
     /**
     * Create and return the input associeted with field
     * 
-    * @return \lib\form\input\SelectInput;
+    * @return \lib\form\input\HiddenInput;
     */
     public function setUserIdInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\SelectInput::create(UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID)
-                ->setModel(\Model\querys\UserQuery::start())
-		->setOptionIndex(\Model\models\User::FIELD_USER_ID)->addEmpty()
-                ->setRequired(true)
-                ->setDefault('null');
+            $input = \Catrineta\form\input\HiddenInput::create(UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID);
         }else{
             $input->setElementId(UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID); 
         }
@@ -90,7 +83,7 @@ class UserHasGroupForm extends \Catrineta\form\Form {
     }
     
     /**
-    * @return \lib\form\input\SelectInput;
+    * @return \lib\form\input\HiddenInput;
     */
     public function getUserIdInput(){
         return $this->forminputs[UserHasGroup::TABLE][UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID];
@@ -110,15 +103,11 @@ class UserHasGroupForm extends \Catrineta\form\Form {
     /**
     * Create and return the input associeted with field
     * 
-    * @return \lib\form\input\SelectInput;
+    * @return \lib\form\input\HiddenInput;
     */
     public function setUserGroupInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\SelectInput::create(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP)
-                ->setModel(\Model\querys\UserGroupQuery::start())
-		->setOptionIndex(\Model\models\UserGroup::FIELD_USER_GROUP_ID)->addEmpty()
-                ->setRequired(true)
-                ->setDefault('null');
+            $input = \Catrineta\form\input\HiddenInput::create(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP);
         }else{
             $input->setElementId(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP); 
         }
@@ -137,7 +126,7 @@ class UserHasGroupForm extends \Catrineta\form\Form {
     }
     
     /**
-    * @return \lib\form\input\SelectInput;
+    * @return \lib\form\input\HiddenInput;
     */
     public function getUserGroupInput(){
         return $this->forminputs[UserHasGroup::TABLE][UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP];
@@ -151,6 +140,9 @@ class UserHasGroupForm extends \Catrineta\form\Form {
         $input = $this->getUserGroupInput();
         return $input->validate();
     }
+    
+    
+    
     
     
     

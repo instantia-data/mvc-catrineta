@@ -27,7 +27,7 @@ use \Catrineta\db\Sql;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-20 17:13
- * Updated @Updated @2017-10-20 17:13 with columns user_id, address, zip_code, local *
+ * Updated @Updated @2017-10-20 17:13 with columns user_id, address, zip_code, local * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     
@@ -35,7 +35,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
      * @param string $alias Alias for the table
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public static function init($merge = ALL, $alias = null){
         $obj = new UserDetailsQuery(new UserDetails(), $alias);
@@ -46,7 +46,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Used to merge query classes on join tables
      * @param \Catrineta\orm\query\QuerySelect $merge The primary class
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new UserDetailsQuery(new UserDetails());
@@ -58,7 +58,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      * Completes the join and return primary query,
      * because Netbeans we put child query on return, the program will get primary class function endUse()
      *
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function endUse(){
         return parent::completeMerge();
@@ -68,7 +68,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query and return a collection of UserDetails objects
      *
-     * @return \model\models\UserDetails[]
+     * @return \Model\models\UserDetails[]
      */
     public function find() {
         return parent::find();
@@ -77,7 +77,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query with limit 1.
      *
-     * @return \model\models\UserDetails
+     * @return \Model\models\UserDetails
      */
     public function findOne(){
         return parent::findOne();
@@ -86,7 +86,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query. If result is 0 create object
      *
-     * @return \model\models\UserDetails
+     * @return \Model\models\UserDetails
      */
     public function findOneOrCreate(){
         return parent::findOneOrCreate();
@@ -96,7 +96,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function selectUserId($alias = null) {
         $this->setSelect(UserDetails::FIELD_USER_DETAILS_USER_ID, $alias);
@@ -107,7 +107,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function filterByUserId($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserDetails::FIELD_USER_DETAILS_USER_ID, $values, $operator);
@@ -116,7 +116,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function groupByUserId() {
         $this->groupBy(UserDetails::FIELD_USER_DETAILS_USER_ID);
@@ -126,7 +126,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function orderByUserId($order = Sql::ASC) {
         $this->orderBy(UserDetails::FIELD_USER_DETAILS_USER_ID, $order);
@@ -137,7 +137,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function selectAddress($alias = null) {
         $this->setSelect(UserDetails::FIELD_USER_DETAILS_ADDRESS, $alias);
@@ -148,7 +148,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function filterByAddress($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserDetails::FIELD_USER_DETAILS_ADDRESS, $values, $operator);
@@ -157,7 +157,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function groupByAddress() {
         $this->groupBy(UserDetails::FIELD_USER_DETAILS_ADDRESS);
@@ -167,7 +167,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function orderByAddress($order = Sql::ASC) {
         $this->orderBy(UserDetails::FIELD_USER_DETAILS_ADDRESS, $order);
@@ -178,7 +178,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function selectZipCode($alias = null) {
         $this->setSelect(UserDetails::FIELD_USER_DETAILS_ZIP_CODE, $alias);
@@ -189,7 +189,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function filterByZipCode($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserDetails::FIELD_USER_DETAILS_ZIP_CODE, $values, $operator);
@@ -198,7 +198,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function groupByZipCode() {
         $this->groupBy(UserDetails::FIELD_USER_DETAILS_ZIP_CODE);
@@ -208,7 +208,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function orderByZipCode($order = Sql::ASC) {
         $this->orderBy(UserDetails::FIELD_USER_DETAILS_ZIP_CODE, $order);
@@ -219,7 +219,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function selectLocal($alias = null) {
         $this->setSelect(UserDetails::FIELD_USER_DETAILS_LOCAL, $alias);
@@ -230,7 +230,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function filterByLocal($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserDetails::FIELD_USER_DETAILS_LOCAL, $values, $operator);
@@ -239,7 +239,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function groupByLocal() {
         $this->groupBy(UserDetails::FIELD_USER_DETAILS_LOCAL);
@@ -249,7 +249,7 @@ class UserDetailsQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserDetailsQuery
+     * @return \Model\querys\UserDetailsQuery
      */
     public function orderByLocal($order = Sql::ASC) {
         $this->orderBy(UserDetails::FIELD_USER_DETAILS_LOCAL, $order);

@@ -27,7 +27,7 @@ use \Catrineta\db\Sql;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-20 17:13
- * Updated @Updated @2017-10-20 17:13 with columns id, name *
+ * Updated @Updated @2017-10-20 17:13 with columns id, name * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
     
@@ -35,7 +35,7 @@ class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
      * @param string $alias Alias for the table
-     * @return \model\querys\UserStatusQuery
+     * @return \Model\querys\UserStatusQuery
      */
     public static function init($merge = ALL, $alias = null){
         $obj = new UserStatusQuery(new UserStatus(), $alias);
@@ -46,7 +46,7 @@ class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Used to merge query classes on join tables
      * @param \Catrineta\orm\query\QuerySelect $merge The primary class
-     * @return \model\querys\UserStatusQuery
+     * @return \Model\querys\UserStatusQuery
      */
     public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new UserStatusQuery(new UserStatus());
@@ -58,7 +58,7 @@ class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
      * Completes the join and return primary query,
      * because Netbeans we put child query on return, the program will get primary class function endUse()
      *
-     * @return \model\querys\UserStatusQuery
+     * @return \Model\querys\UserStatusQuery
      */
     public function endUse(){
         return parent::completeMerge();
@@ -96,7 +96,7 @@ class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserStatusQuery
+     * @return \Model\querys\UserStatusQuery
      */
     public function selectId($alias = null) {
         $this->setSelect(UserStatus::FIELD_USER_STATUS_ID, $alias);
@@ -107,7 +107,7 @@ class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserStatusQuery
+     * @return \Model\querys\UserStatusQuery
      */
     public function filterById($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserStatus::FIELD_USER_STATUS_ID, $values, $operator);
@@ -116,7 +116,7 @@ class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserStatusQuery
+     * @return \Model\querys\UserStatusQuery
      */
     public function groupById() {
         $this->groupBy(UserStatus::FIELD_USER_STATUS_ID);
@@ -126,7 +126,7 @@ class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserStatusQuery
+     * @return \Model\querys\UserStatusQuery
      */
     public function orderById($order = Sql::ASC) {
         $this->orderBy(UserStatus::FIELD_USER_STATUS_ID, $order);
@@ -137,7 +137,7 @@ class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserStatusQuery
+     * @return \Model\querys\UserStatusQuery
      */
     public function selectName($alias = null) {
         $this->setSelect(UserStatus::FIELD_USER_STATUS_NAME, $alias);
@@ -148,7 +148,7 @@ class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserStatusQuery
+     * @return \Model\querys\UserStatusQuery
      */
     public function filterByName($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserStatus::FIELD_USER_STATUS_NAME, $values, $operator);
@@ -157,7 +157,7 @@ class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserStatusQuery
+     * @return \Model\querys\UserStatusQuery
      */
     public function groupByName() {
         $this->groupBy(UserStatus::FIELD_USER_STATUS_NAME);
@@ -167,7 +167,7 @@ class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserStatusQuery
+     * @return \Model\querys\UserStatusQuery
      */
     public function orderByName($order = Sql::ASC) {
         $this->orderBy(UserStatus::FIELD_USER_STATUS_NAME, $order);

@@ -20,6 +20,7 @@
 namespace Catrineta\db\mysql;
 
 use \Catrineta\register\CatExceptions;
+use \Catrineta\tools\StringTools;
 use \Catrineta\db\Sql;
 
 /**
@@ -31,13 +32,25 @@ use \Catrineta\db\Sql;
 class MysqlStatement 
 {
 
-    
+    /**
+     *
+     * @var array 
+     */
     protected $selects = [];
-    
+    /**
+     *
+     * @var string The primary table
+     */
     protected $table = null;
-    
+    /**
+     *
+     * @var string The alias for the primary table
+     */
     protected $table_alias = null;
-    
+    /**
+     *
+     * @var string This change with joins
+     */
     protected $alias = null;
     
     /**
@@ -232,7 +245,7 @@ class MysqlStatement
             $table = strstr($column, '.', true);
         }
         if($table != false){
-            $field = str_replace($table . '.', '', $column);
+            $field = StringTools::getStringAfterLastChar($column, '.');
             if($table == $this->table){
                 return $this->table_alias . '.' . $field;
             }else{

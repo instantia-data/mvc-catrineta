@@ -80,6 +80,7 @@ class DbSchemaTools
             $columns[$k]['Kind'] = $field['Type'];
             $columns[$k]['Size'] = 0;
             $type = $field['Type'];
+            $columns[$k]['Key'] = $field['Key'];
             /*
              * Determine string for index Kind that resume Type literaly
              * (varchar, int, datetime)
@@ -119,7 +120,7 @@ class DbSchemaTools
             WHERE i.CONSTRAINT_TYPE = 'FOREIGN KEY'
             AND i.TABLE_SCHEMA = '$db' ";
         if(null != $table){
-            $query .= " AND (i.TABLE_NAME = '$table') OR (k.REFERENCED_TABLE_NAME = '$table') ";
+            $query .= " AND (i.TABLE_NAME = '$table' OR k.REFERENCED_TABLE_NAME = '$table') ";
         }
         $query .= " GROUP BY i.TABLE_NAME, k.COLUMN_NAME";
         
@@ -129,6 +130,7 @@ class DbSchemaTools
         $i = 0;
         foreach ($results as $row) {
             $constrains[$i]['TABLE_NAME'] = $table;
+            $constrains[$i]['CONSTRAINED'] = $row[0];
             $constrains[$i]['CONSTRAINT_TYPE'] = $row[1];
             $constrains[$i]['REFERENCED_TABLE_NAME'] = ($row[0] == $table)?$row[2] : $row[0];
             $constrains[$i]['REFERENCED_COLUMN_NAME'] = ($row[0] == $table)? $row[3] : $row[4];

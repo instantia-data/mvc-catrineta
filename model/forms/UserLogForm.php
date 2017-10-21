@@ -26,7 +26,7 @@ use \Model\models\UserLog;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-13 12:27
- * Updated @Updated @2017-10-13 12:27 with columns id, user_id, user_event, timestamp * * * * *
+ * Updated @Updated @2017-10-13 12:27 with columns id, user_id, user_event, timestamp * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserLogForm extends \Catrineta\form\Form {
 

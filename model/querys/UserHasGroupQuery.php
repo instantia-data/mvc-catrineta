@@ -27,7 +27,7 @@ use \Catrineta\db\Sql;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-20 17:13
- * Updated @Updated @2017-10-20 17:13 with columns user_id, user_group *
+ * Updated @Updated @2017-10-20 17:13 with columns user_id, user_group * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
     
@@ -35,7 +35,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
      * 
      * @param string $merge Possible values: ALL the columns | ONLY the id | false columns
      * @param string $alias Alias for the table
-     * @return \model\querys\UserHasGroupQuery
+     * @return \Model\querys\UserHasGroupQuery
      */
     public static function init($merge = ALL, $alias = null){
         $obj = new UserHasGroupQuery(new UserHasGroup(), $alias);
@@ -46,7 +46,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Used to merge query classes on join tables
      * @param \Catrineta\orm\query\QuerySelect $merge The primary class
-     * @return \model\querys\UserHasGroupQuery
+     * @return \Model\querys\UserHasGroupQuery
      */
     public static function useModel(\Catrineta\orm\query\QuerySelect $merge){
         $obj = new UserHasGroupQuery(new UserHasGroup());
@@ -58,7 +58,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
      * Completes the join and return primary query,
      * because Netbeans we put child query on return, the program will get primary class function endUse()
      *
-     * @return \model\querys\UserHasGroupQuery
+     * @return \Model\querys\UserHasGroupQuery
      */
     public function endUse(){
         return parent::completeMerge();
@@ -68,7 +68,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query and return a collection of UserHasGroup objects
      *
-     * @return \model\models\UserHasGroup[]
+     * @return \Model\models\UserHasGroup[]
      */
     public function find() {
         return parent::find();
@@ -77,7 +77,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query with limit 1.
      *
-     * @return \model\models\UserHasGroup
+     * @return \Model\models\UserHasGroup
      */
     public function findOne(){
         return parent::findOne();
@@ -86,7 +86,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * Completes query. If result is 0 create object
      *
-     * @return \model\models\UserHasGroup
+     * @return \Model\models\UserHasGroup
      */
     public function findOneOrCreate(){
         return parent::findOneOrCreate();
@@ -96,7 +96,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserHasGroupQuery
+     * @return \Model\querys\UserHasGroupQuery
      */
     public function selectUserId($alias = null) {
         $this->setSelect(UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID, $alias);
@@ -107,7 +107,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserHasGroupQuery
+     * @return \Model\querys\UserHasGroupQuery
      */
     public function filterByUserId($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID, $values, $operator);
@@ -116,7 +116,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserHasGroupQuery
+     * @return \Model\querys\UserHasGroupQuery
      */
     public function groupByUserId() {
         $this->groupBy(UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID);
@@ -126,7 +126,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserHasGroupQuery
+     * @return \Model\querys\UserHasGroupQuery
      */
     public function orderByUserId($order = Sql::ASC) {
         $this->orderBy(UserHasGroup::FIELD_USER_HAS_GROUP_USER_ID, $order);
@@ -137,7 +137,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
 
     /**
      * 
-     * @return \model\querys\UserHasGroupQuery
+     * @return \Model\querys\UserHasGroupQuery
      */
     public function selectUserGroup($alias = null) {
         $this->setSelect(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP, $alias);
@@ -148,7 +148,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
      * @param mixed $values 
      * @param string $operator SQL Operator
      * 
-     * @return \model\querys\UserHasGroupQuery
+     * @return \Model\querys\UserHasGroupQuery
      */
     public function filterByUserGroup($values, $operator = Sql::EQUAL) {
         $this->filterByColumn(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP, $values, $operator);
@@ -157,7 +157,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
     
     /**
      * 
-     * @return \model\querys\UserHasGroupQuery
+     * @return \Model\querys\UserHasGroupQuery
      */
     public function groupByUserGroup() {
         $this->groupBy(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP);
@@ -167,7 +167,7 @@ class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
     /**
      * @param string $order (ASC | DESC)
      * 
-     * @return \model\querys\UserHasGroupQuery
+     * @return \Model\querys\UserHasGroupQuery
      */
     public function orderByUserGroup($order = Sql::ASC) {
         $this->orderBy(UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP, $order);

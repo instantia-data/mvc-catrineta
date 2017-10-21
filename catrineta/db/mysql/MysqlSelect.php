@@ -69,7 +69,7 @@ class MysqlSelect extends \Catrineta\db\mysql\MysqlStatement
         if(count($this->limit) > 0){
             $statement['limit'] = 'LIMIT ' . $this->limit[0];
         }
-        #echo implode(' ', $statement) . '<hr />';
+        
         return 'SELECT SQL_CALC_FOUND_ROWS ' . implode(' ', $statement);
     }
     
@@ -84,7 +84,7 @@ class MysqlSelect extends \Catrineta\db\mysql\MysqlStatement
      */
     public function setSelect($column, $alias = null)
     {
-        $str = $this->getColumnAliased($column, $this->table_alias);
+        $str = $this->getColumnAliased($column, $this->alias);
         if(null != $alias){
             $str .= ' AS ' . $alias;
         }
@@ -194,10 +194,9 @@ class MysqlSelect extends \Catrineta\db\mysql\MysqlStatement
         if(null != $alias){
             $str .= 'AS ' . $alias . ' ';
         }
-        $str .= 'ON ' . $this->table_alias . '.' . $left . '=' . $this->alias . '.' . $right;
+        $str .= 'ON ' . $this->getColumnAliased($left, $this->table_alias) . '=' . str_replace($table, $this->alias, $right);       
         
-        
-        $this->join[$alias] = $str;
+        $this->joins[$this->alias] = $str;
         return $this;
     }
     

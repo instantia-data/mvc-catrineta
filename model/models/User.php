@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of User
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-10-13 12:27
- * Updated @2017-10-13 12:27 with columns id, name, email, cellphone, user_status, created
+ * Created @2017-10-21 21:20
+ * Updated @2017-10-21 21:20 with columns id, name, email, cellphone, user_status, created
  */
 class User extends \Catrineta\orm\Model 
 {
@@ -47,6 +47,8 @@ class User extends \Catrineta\orm\Model
     protected $primaryKey = ['id'];
     //auto increment field
     protected $autoincrement = 'id';
+    //Foreign keys
+    protected $foreignKeys = ['user_status'];
     
     protected function setModel(){
         $this->columnNames[$this->tableName] = $this->fields;
@@ -124,10 +126,10 @@ class User extends \Catrineta\orm\Model
     /**
     * Return model object
     * 
-    * @return new \Model\models\UserLog;
+    * @return new \Model\models\UserStatus;
     */
-    public function getJoinUserLog() {
-        $obj = new \Model\models\UserLog();
+    public function getJoinUserStatus() {
+        $obj = new \Model\models\UserStatus();
         $obj->merge($this);
         return $obj;
     }
@@ -137,10 +139,49 @@ class User extends \Catrineta\orm\Model
     /**
     * Return model object
     * 
-    * @return new \Model\models\UserStatus;
+    * @return new \Model\models\UserDetails;
     */
-    public function getJoinUserStatus() {
-        $obj = new \Model\models\UserStatus();
+    public function getJoinUserDetails() {
+        $obj = new \Model\models\UserDetails();
+        $obj->merge($this);
+        return $obj;
+    }
+    
+    
+    
+    /**
+    * Return model object
+    * 
+    * @return new \Model\models\UserGuard;
+    */
+    public function getJoinUserGuard() {
+        $obj = new \Model\models\UserGuard();
+        $obj->merge($this);
+        return $obj;
+    }
+    
+    
+    
+    /**
+    * Return model object
+    * 
+    * @return new \Model\models\UserHasGroup;
+    */
+    public function getJoinUserHasGroup() {
+        $obj = new \Model\models\UserHasGroup();
+        $obj->merge($this);
+        return $obj;
+    }
+    
+    
+    
+    /**
+    * Return model object
+    * 
+    * @return new \Model\models\UserLog;
+    */
+    public function getJoinUserLog() {
+        $obj = new \Model\models\UserLog();
         $obj->merge($this);
         return $obj;
     }

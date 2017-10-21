@@ -26,7 +26,7 @@ use \Model\models\UserEvent;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-13 12:27
- * Updated @Updated @2017-10-13 12:27 with columns id, name * * * * *
+ * Updated @Updated @2017-10-13 12:27 with columns id, name * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserEventForm extends \Catrineta\form\Form {
 
@@ -54,6 +54,49 @@ class UserEventForm extends \Catrineta\form\Form {
         return $this;
     }
     
+    
+    
+    
+    /**
+    * Create and return the input associeted with field
+    * 
+    * @return \lib\form\input\HiddenInput;
+    */
+    public function setIdInput($input = null) {
+        if($input == null){
+            $input = \Catrineta\form\input\HiddenInput::create(UserEvent::FIELD_USER_EVENT_ID);
+        }else{
+            $input->setElementId(UserEvent::FIELD_USER_EVENT_ID); 
+        }
+        
+        $this->setFieldInput(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_ID, $input);
+        
+        return $input;
+    }
+    
+    public function setIdDefault($value) {
+        $this->setDefault(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_ID, $value);
+    }
+    
+    public function unsetIdInput() {
+        $this->unsetFieldInput(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_ID);
+    }
+    
+    /**
+    * @return \lib\form\input\HiddenInput;
+    */
+    public function getIdInput(){
+        return $this->forminputs[UserEvent::TABLE][UserEvent::FIELD_USER_EVENT_ID];
+    }
+    
+    public function getIdValue(){
+        return $this->getInputValue(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_ID);
+    }
+    
+    public function validateIdInput() {
+        $input = $this->getIdInput();
+        return $input->validate();
+    }
     
     
     
@@ -100,53 +143,6 @@ class UserEventForm extends \Catrineta\form\Form {
     
     
     
-    
-    
-    
-    /**
-    * Create and return the input associeted with field
-    * 
-    * @return \lib\form\input\SelectInput;
-    */
-    public function setIdInput($input = null) {
-        if($input == null){
-            $input = \Catrineta\form\input\SelectInput::create(UserEvent::FIELD_USER_EVENT_ID)
-                ->setModel(\Model\querys\UserLogQuery::start())
-		->setOptionIndex(\Model\models\UserLog::FIELD_USER_LOG_USER_EVENT)->addEmpty()
-                ->setRequired(true)
-                ->setDefault('null');
-        }else{
-            $input->setElementId(UserEvent::FIELD_USER_EVENT_ID); 
-        }
-        
-        $this->setFieldInput(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_ID, $input);
-        
-        return $input;
-    }
-    
-    public function setIdDefault($value) {
-        $this->setDefault(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_ID, $value);
-    }
-    
-    public function unsetIdInput() {
-        $this->unsetFieldInput(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_ID);
-    }
-    
-    /**
-    * @return \lib\form\input\SelectInput;
-    */
-    public function getIdInput(){
-        return $this->forminputs[UserEvent::TABLE][UserEvent::FIELD_USER_EVENT_ID];
-    }
-    
-    public function getIdValue(){
-        return $this->getInputValue(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_ID);
-    }
-    
-    public function validateIdInput() {
-        $input = $this->getIdInput();
-        return $input->validate();
-    }
     
     
     

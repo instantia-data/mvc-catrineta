@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of UserHasGroup
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-10-13 12:27
- * Updated @2017-10-13 12:27 with columns user_id, user_group
+ * Created @2017-10-21 21:20
+ * Updated @2017-10-21 21:20 with columns user_id, user_group
  */
 class UserHasGroup extends \Catrineta\orm\Model 
 {
@@ -43,6 +43,8 @@ class UserHasGroup extends \Catrineta\orm\Model
     protected $primaryKey = ['user_id', 'user_group'];
     //auto increment field
     protected $autoincrement = null;
+    //Foreign keys
+    protected $foreignKeys = ['user_group', 'user_id'];
     
     protected function setModel(){
         $this->columnNames[$this->tableName] = $this->fields;

@@ -44,8 +44,9 @@ class CrudForm extends \Catrineta\console\crud\ModelCrud
             }
             $this->makeDeclare($parse, $field);
             $this->makeValidate($parse, $field);
-            if(isset($this->constrains[$field['Field']])){
-                $this->makeMuls($parse, $field, 'mul', $this->constrains[$field['Field']]);
+            if($field['Key'] == 'MUL'){
+                $constrain = $this->getConstrainIndex($field['Field']);
+                $this->makeMuls($parse, $field, 'mul', $constrain);
             } elseif ($field['Kind'] == 'set' || $field['Kind'] == 'enum') {
                 $this->makeMuls($parse, $field, 'set');
             } else {

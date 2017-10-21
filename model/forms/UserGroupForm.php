@@ -26,7 +26,7 @@ use \Model\models\UserGroup;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-13 12:27
- * Updated @Updated @2017-10-13 12:27 with columns id, name, description * * * * *
+ * Updated @Updated @2017-10-13 12:27 with columns id, name, description * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserGroupForm extends \Catrineta\form\Form {
 
@@ -55,6 +55,49 @@ class UserGroupForm extends \Catrineta\form\Form {
         return $this;
     }
     
+    
+    
+    
+    /**
+    * Create and return the input associeted with field
+    * 
+    * @return \lib\form\input\HiddenInput;
+    */
+    public function setIdInput($input = null) {
+        if($input == null){
+            $input = \Catrineta\form\input\HiddenInput::create(UserGroup::FIELD_USER_GROUP_ID);
+        }else{
+            $input->setElementId(UserGroup::FIELD_USER_GROUP_ID); 
+        }
+        
+        $this->setFieldInput(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_ID, $input);
+        
+        return $input;
+    }
+    
+    public function setIdDefault($value) {
+        $this->setDefault(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_ID, $value);
+    }
+    
+    public function unsetIdInput() {
+        $this->unsetFieldInput(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_ID);
+    }
+    
+    /**
+    * @return \lib\form\input\HiddenInput;
+    */
+    public function getIdInput(){
+        return $this->forminputs[UserGroup::TABLE][UserGroup::FIELD_USER_GROUP_ID];
+    }
+    
+    public function getIdValue(){
+        return $this->getInputValue(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_ID);
+    }
+    
+    public function validateIdInput() {
+        $input = $this->getIdInput();
+        return $input->validate();
+    }
     
     
     
@@ -144,53 +187,6 @@ class UserGroupForm extends \Catrineta\form\Form {
     
     
     
-    
-    
-    
-    /**
-    * Create and return the input associeted with field
-    * 
-    * @return \lib\form\input\SelectInput;
-    */
-    public function setIdInput($input = null) {
-        if($input == null){
-            $input = \Catrineta\form\input\SelectInput::create(UserGroup::FIELD_USER_GROUP_ID)
-                ->setModel(\Model\querys\UserHasGroupQuery::start())
-		->setOptionIndex(\Model\models\UserHasGroup::FIELD_USER_HAS_GROUP_USER_GROUP)->addEmpty()
-                ->setRequired(true)
-                ->setDefault('null');
-        }else{
-            $input->setElementId(UserGroup::FIELD_USER_GROUP_ID); 
-        }
-        
-        $this->setFieldInput(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_ID, $input);
-        
-        return $input;
-    }
-    
-    public function setIdDefault($value) {
-        $this->setDefault(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_ID, $value);
-    }
-    
-    public function unsetIdInput() {
-        $this->unsetFieldInput(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_ID);
-    }
-    
-    /**
-    * @return \lib\form\input\SelectInput;
-    */
-    public function getIdInput(){
-        return $this->forminputs[UserGroup::TABLE][UserGroup::FIELD_USER_GROUP_ID];
-    }
-    
-    public function getIdValue(){
-        return $this->getInputValue(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_ID);
-    }
-    
-    public function validateIdInput() {
-        $input = $this->getIdInput();
-        return $input->validate();
-    }
     
     
     

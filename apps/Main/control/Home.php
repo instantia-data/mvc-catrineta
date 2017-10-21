@@ -8,6 +8,8 @@
 
 namespace Apps\Main\control;
 
+use \Model\querys\UserQuery;
+
 /**
  * Description of Home
  *
@@ -17,6 +19,11 @@ namespace Apps\Main\control;
 class Home extends \Catrineta\framework\FrontController {
 
     public function index(){
+        
+        $user = UserQuery::init()->filterByName('auto')
+                ->joinUserStatus()->selectName('status')->filterByName('Active')->endUse()
+                ->findOneOrCreate();
+        //var_dump($user->get());
          
         $this->setView('home.html');
     }

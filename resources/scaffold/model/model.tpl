@@ -42,6 +42,8 @@ class %$className% extends \Catrineta\orm\Model
     protected $primaryKey = ['%$primaryKeys%'];
     //auto increment field
     protected $autoincrement = %$incrementKey%;
+    //Foreign keys
+    protected $foreignKeys = [%$foreignKeys%];
     
     protected function setModel(){
         $this->columnNames[$this->tableName] = $this->fields;

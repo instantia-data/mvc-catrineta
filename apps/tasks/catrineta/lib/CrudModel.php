@@ -97,8 +97,27 @@ class CrudModel extends \Catrineta\console\crud\ModelCrud
         $this->string = str_replace('%$primaryKeys%', implode("', '", $primaryKeys), $this->string);
         $this->string = str_replace('%$incrementKey%', $increment, $this->string);
         $this->string = str_replace('#%$fieldconstant%', implode("\n    ", $constants), $this->string);
+        $this->string = str_replace('%$foreignKeys%', $this->getFKInfo(), $this->string);
         
         file_put_contents($this->file, $this->string);
+    }
+    
+    private function getFKInfo()
+    {
+        $fks = [];
+   
+        foreach ($this->constrains as $constrain){
+            
+            if($constrain['CONSTRAINED'] == $this->table){
+                print_r($constrain);
+                $fks[] = $constrain['COLUMN_NAME'];
+            }
+        }
+        if(count($fks) > 0){
+            return "'". implode("', '", $fks) . "'";
+        }
+
+        return '';
     }
     
     public function parseLoops()

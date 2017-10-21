@@ -26,7 +26,7 @@ use \Model\models\UserDetails;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-13 12:27
- * Updated @Updated @2017-10-13 12:27 with columns user_id, address, zip_code, local * * * * *
+ * Updated @Updated @2017-10-13 12:27 with columns user_id, address, zip_code, local * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserDetailsForm extends \Catrineta\form\Form {
 
@@ -56,6 +56,49 @@ class UserDetailsForm extends \Catrineta\form\Form {
         return $this;
     }
     
+    
+    
+    
+    /**
+    * Create and return the input associeted with field
+    * 
+    * @return \lib\form\input\HiddenInput;
+    */
+    public function setUserIdInput($input = null) {
+        if($input == null){
+            $input = \Catrineta\form\input\HiddenInput::create(UserDetails::FIELD_USER_DETAILS_USER_ID);
+        }else{
+            $input->setElementId(UserDetails::FIELD_USER_DETAILS_USER_ID); 
+        }
+        
+        $this->setFieldInput(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_USER_ID, $input);
+        
+        return $input;
+    }
+    
+    public function setUserIdDefault($value) {
+        $this->setDefault(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_USER_ID, $value);
+    }
+    
+    public function unsetUserIdInput() {
+        $this->unsetFieldInput(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_USER_ID);
+    }
+    
+    /**
+    * @return \lib\form\input\HiddenInput;
+    */
+    public function getUserIdInput(){
+        return $this->forminputs[UserDetails::TABLE][UserDetails::FIELD_USER_DETAILS_USER_ID];
+    }
+    
+    public function getUserIdValue(){
+        return $this->getInputValue(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_USER_ID);
+    }
+    
+    public function validateUserIdInput() {
+        $input = $this->getUserIdInput();
+        return $input->validate();
+    }
     
     
     
@@ -188,53 +231,6 @@ class UserDetailsForm extends \Catrineta\form\Form {
     
     
     
-    
-    
-    
-    /**
-    * Create and return the input associeted with field
-    * 
-    * @return \lib\form\input\SelectInput;
-    */
-    public function setUserIdInput($input = null) {
-        if($input == null){
-            $input = \Catrineta\form\input\SelectInput::create(UserDetails::FIELD_USER_DETAILS_USER_ID)
-                ->setModel(\Model\querys\UserQuery::start())
-		->setOptionIndex(\Model\models\User::FIELD_USER_ID)->addEmpty()
-                ->setRequired(true)
-                ->setDefault('null');
-        }else{
-            $input->setElementId(UserDetails::FIELD_USER_DETAILS_USER_ID); 
-        }
-        
-        $this->setFieldInput(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_USER_ID, $input);
-        
-        return $input;
-    }
-    
-    public function setUserIdDefault($value) {
-        $this->setDefault(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_USER_ID, $value);
-    }
-    
-    public function unsetUserIdInput() {
-        $this->unsetFieldInput(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_USER_ID);
-    }
-    
-    /**
-    * @return \lib\form\input\SelectInput;
-    */
-    public function getUserIdInput(){
-        return $this->forminputs[UserDetails::TABLE][UserDetails::FIELD_USER_DETAILS_USER_ID];
-    }
-    
-    public function getUserIdValue(){
-        return $this->getInputValue(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_USER_ID);
-    }
-    
-    public function validateUserIdInput() {
-        $input = $this->getUserIdInput();
-        return $input->validate();
-    }
     
     
     

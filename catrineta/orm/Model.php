@@ -152,6 +152,9 @@ class Model
      */
     public function insert()
     {
+        if(!$this->checkConstrains()){
+            return null;
+        }
         $query = $this->setQuery($this->columns);
         try {
             $id = $query->insert($this->autoincrement);
@@ -164,6 +167,16 @@ class Model
         }
         Monitor::add(Monitor::MODEL, 'Model '. ModelTools::buildModelName($this->tableName).' inserted:' . print_r($this->get(), 1));
         return $this;
+    }
+    
+    private function checkConstrains(){
+        foreach($this->foreignKeys as $key){
+            $column = ModelTools::completeColumnName($this->tableName, $key);
+            if($this->getColumnValue($column) == null){
+                throw new CatExceptions('Integrity constraint violation, no value defined for ' . $column, CatExceptions::CODE_ORM);
+            }
+        }
+        return true;
     }
 
     /**

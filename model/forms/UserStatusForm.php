@@ -26,7 +26,7 @@ use \Model\models\UserStatus;
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @2017-10-13 12:27
- * Updated @Updated @2017-10-13 12:27 with columns id, name * * * * *
+ * Updated @Updated @2017-10-13 12:27 with columns id, name * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 class UserStatusForm extends \Catrineta\form\Form {
 
@@ -54,6 +54,49 @@ class UserStatusForm extends \Catrineta\form\Form {
         return $this;
     }
     
+    
+    
+    
+    /**
+    * Create and return the input associeted with field
+    * 
+    * @return \lib\form\input\HiddenInput;
+    */
+    public function setIdInput($input = null) {
+        if($input == null){
+            $input = \Catrineta\form\input\HiddenInput::create(UserStatus::FIELD_USER_STATUS_ID);
+        }else{
+            $input->setElementId(UserStatus::FIELD_USER_STATUS_ID); 
+        }
+        
+        $this->setFieldInput(UserStatus::TABLE, UserStatus::FIELD_USER_STATUS_ID, $input);
+        
+        return $input;
+    }
+    
+    public function setIdDefault($value) {
+        $this->setDefault(UserStatus::TABLE, UserStatus::FIELD_USER_STATUS_ID, $value);
+    }
+    
+    public function unsetIdInput() {
+        $this->unsetFieldInput(UserStatus::TABLE, UserStatus::FIELD_USER_STATUS_ID);
+    }
+    
+    /**
+    * @return \lib\form\input\HiddenInput;
+    */
+    public function getIdInput(){
+        return $this->forminputs[UserStatus::TABLE][UserStatus::FIELD_USER_STATUS_ID];
+    }
+    
+    public function getIdValue(){
+        return $this->getInputValue(UserStatus::TABLE, UserStatus::FIELD_USER_STATUS_ID);
+    }
+    
+    public function validateIdInput() {
+        $input = $this->getIdInput();
+        return $input->validate();
+    }
     
     
     
@@ -100,53 +143,6 @@ class UserStatusForm extends \Catrineta\form\Form {
     
     
     
-    
-    
-    
-    /**
-    * Create and return the input associeted with field
-    * 
-    * @return \lib\form\input\SelectInput;
-    */
-    public function setIdInput($input = null) {
-        if($input == null){
-            $input = \Catrineta\form\input\SelectInput::create(UserStatus::FIELD_USER_STATUS_ID)
-                ->setModel(\Model\querys\UserQuery::start())
-		->setOptionIndex(\Model\models\User::FIELD_USER_USER_STATUS)->addEmpty()
-                ->setRequired(true)
-                ->setDefault('null');
-        }else{
-            $input->setElementId(UserStatus::FIELD_USER_STATUS_ID); 
-        }
-        
-        $this->setFieldInput(UserStatus::TABLE, UserStatus::FIELD_USER_STATUS_ID, $input);
-        
-        return $input;
-    }
-    
-    public function setIdDefault($value) {
-        $this->setDefault(UserStatus::TABLE, UserStatus::FIELD_USER_STATUS_ID, $value);
-    }
-    
-    public function unsetIdInput() {
-        $this->unsetFieldInput(UserStatus::TABLE, UserStatus::FIELD_USER_STATUS_ID);
-    }
-    
-    /**
-    * @return \lib\form\input\SelectInput;
-    */
-    public function getIdInput(){
-        return $this->forminputs[UserStatus::TABLE][UserStatus::FIELD_USER_STATUS_ID];
-    }
-    
-    public function getIdValue(){
-        return $this->getInputValue(UserStatus::TABLE, UserStatus::FIELD_USER_STATUS_ID);
-    }
-    
-    public function validateIdInput() {
-        $input = $this->getIdInput();
-        return $input->validate();
-    }
     
     
     
