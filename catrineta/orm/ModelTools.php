@@ -29,6 +29,18 @@ use \Catrineta\tools\StringTools;
  */
 class ModelTools
 {
+    
+    /**
+     * 
+     * @param string $table
+     * @return \Catrineta\orm\Model
+     */
+    public static function startModel($table)
+    {
+        $class = self::getModelNamespace($table);
+        $model = new $class();
+        return $model;
+    }
 
     /**
      * @param $name
@@ -99,7 +111,7 @@ class ModelTools
      */
     public static function getColumnName($column)
     {
-        return StringTools::getStringUntilLastChar($column, '.');
+        return StringTools::getStringAfterLastChar($column, '.');
     }
     
     public static function completeColumnName($table, $column)

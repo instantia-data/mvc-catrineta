@@ -34,6 +34,12 @@ class QuerySelect extends \Catrineta\orm\query\Query
 {
     
     /**
+     *
+     * @var \Catrineta\db\mysql\MysqlSelect
+     */
+    protected $statement = null;
+    
+    /**
      * 
      * @param Model $model Valid model in database
      * @param string $alias
@@ -184,12 +190,13 @@ class QuerySelect extends \Catrineta\orm\query\Query
      * @param string $alias
      * @return $this
      */
-    protected function join($table, $condition, $leftcol, $rightcol, $alias = null)
+    public function join($table, $condition, $leftcol, $rightcol, $alias = null)
     {
         if($alias == null){
-            $alias = $this->statement->getAlias($table);
+            $alias = $this->statement->convertToAlias($table);
         }
         $this->statement->setJoin($table, $leftcol, $rightcol, $condition, $alias);
+        $this->model->setJoin($table, $leftcol, $rightcol);
         
         return $this;
     }

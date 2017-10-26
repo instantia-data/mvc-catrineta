@@ -83,8 +83,9 @@ class Query
         }else{
             $this->statement->setCondition($column, $value, $operator);
         }
-        if(!is_array($value)){
+        if(!is_array($value) && $operator == Sql::EQUAL){
             $this->model->setColumnValue($column, $value);
+            $this->model->joinCondition($this->statement->getActualTable(), $column, $value);
         }
         
         return $this;

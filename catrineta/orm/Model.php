@@ -20,6 +20,7 @@
 namespace Catrineta\orm;
 
 use \Catrineta\register\CatExceptions;
+use \Catrineta\orm\query\QuerySelect;
 use \Catrineta\register\Monitor;
 use \Catrineta\orm\ModelTools;
 
@@ -171,12 +172,34 @@ class Model
     
     private function checkConstrains(){
         foreach($this->foreignKeys as $key){
-            $column = ModelTools::completeColumnName($this->tableName, $key);
+            $column = ModelTools::completeColumnName($this->tableName, $key);            
             if($this->getColumnValue($column) == null){
-                throw new CatExceptions('Integrity constraint violation, no value defined for ' . $column, CatExceptions::CODE_ORM);
+                $value = $this->findConstraintValue($column);
+                if($value != false){
+                    $this->setColumnValue($column, $value);
+                }else{
+                    throw new CatExceptions('Integrity constraint violation, no value defined for ' . $column, CatExceptions::CODE_ORM);
+                }
+                
             }
         }
         return true;
+    }
+    
+    private function findConstraintValue($column)
+    {
+        foreach($this->joins as $table=>$join){
+            if($join['column'] == $column){
+                $query = new QuerySelect(ModelTools::startModel($table));
+                $query->setSelect($join['ref']);
+                foreach ($join['wheres'] as $col=>$value){
+                    $query->filterByColumn($col, $value);
+                }
+                $result = $query->findOne();
+                return $result->getColumnValue($join['ref']);
+            }
+        }
+        return false;
     }
 
     /**
@@ -233,6 +256,35 @@ class Model
             }
         }
         return true;
+    }
+    
+    /**
+     *
+     * @var array 
+     */
+    protected $joins = [];
+
+
+    /**
+     * 
+     * @param string $table
+     * @param string $column
+     * @param string $referenced_field
+     */
+    public function setJoin($table, $column, $referenced_field)
+    {
+        $field = ModelTools::getColumnName($column);
+        if(in_array($field, $this->foreignKeys)){
+            $this->joins[$table] = ['column'=>$column, 'ref'=>$referenced_field];
+            $this->joins[$table]['wheres'] = [];
+        }
+    }
+    
+    public function joinCondition($table, $column, $value)
+    {
+        if(isset($this->joins[$table])){
+            $this->joins[$table]['wheres'][$column] = $value;
+        }
     }
     
 

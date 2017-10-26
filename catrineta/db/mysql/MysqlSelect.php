@@ -46,9 +46,9 @@ class MysqlSelect extends \Catrineta\db\mysql\MysqlStatement
             $statement['select_expr'] = implode(', ', $this->selects);
         }
  
-        $statement['table'] = ' FROM ' . $this->table;
-        if ($this->table_alias != $this->table) {
-            $statement['table'] = ' AS ' . $this->table_alias;
+        $statement['table'] = ' FROM ' . $this->main_table;
+        if ($this->getFirstAlias() != $this->main_table) {
+            $statement['table'] = ' AS ' . $this->getFirstAlias();
         }
 
         if(count($this->joins) > 0){
@@ -189,12 +189,13 @@ class MysqlSelect extends \Catrineta\db\mysql\MysqlStatement
     {
         
         $this->alias = ($alias == null)? $table : $alias;
+        $this->putJoinOnStack($table, $alias);
         
         $str = $join . ' ' . $table . ' ';
         if(null != $alias){
             $str .= 'AS ' . $alias . ' ';
         }
-        $str .= 'ON ' . $this->getColumnAliased($left, $this->table_alias) . '=' . str_replace($table, $this->alias, $right);       
+        $str .= 'ON ' . $this->getColumnAliased($left, $this->getPreviousAlias()) . '=' . str_replace($table, $this->alias, $right);       
         
         $this->joins[$this->alias] = $str;
         return $this;
@@ -236,7 +237,8 @@ class MysqlSelect extends \Catrineta\db\mysql\MysqlStatement
     
     public function endUse()
     {
-        $this->alias = $this->table_alias;
+        $this->stack_of_joins = array_pop($this->stack_of_joins);
+        $this->alias = $this->getAlias();
     }
     
     

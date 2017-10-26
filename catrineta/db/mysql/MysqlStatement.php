@@ -41,7 +41,7 @@ class MysqlStatement
      *
      * @var string The primary table
      */
-    protected $table = null;
+    protected $main_table = null;
     /**
      *
      * @var string The alias for the primary table
@@ -51,7 +51,7 @@ class MysqlStatement
      *
      * @var string This change with joins
      */
-    protected $alias = null;
+    public $alias = null;
     
     /**
      * 
@@ -60,10 +60,10 @@ class MysqlStatement
      */
     function __construct($table, $alias = null)
     {
-        $this->table = $table;
+        $this->main_table = $table;
         
-        $this->table_alias = (null == $alias) ? $this->table : $alias;
-        $this->alias = $this->table_alias;
+        $this->alias = (null == $alias) ? $this->main_table : $alias;
+        $this->putJoinOnStack($table, $this->alias);
     }
     
     /**
@@ -246,8 +246,8 @@ class MysqlStatement
         }
         if($table != false){
             $field = StringTools::getStringAfterLastChar($column, '.');
-            if($table == $this->table){
-                return $this->table_alias . '.' . $field;
+            if($table == $this->main_table){
+                return $this->getFirstAlias() . '.' . $field;
             }else{
                 foreach($this->joins as $alias => $join){
                     if(strpos($join, 'JOIN ' . $table) || 
@@ -259,8 +259,13 @@ class MysqlStatement
         }
     }
     
-    
-    public function getAlias($table, $i = 0)
+    /**
+     * 
+     * @param type $table
+     * @param type $i
+     * @return type
+     */
+    public function convertToAlias($table, $i = 0)
     {
         if($i == 0){
             $alias = strtoupper(substr($table, 0, 1));
@@ -270,6 +275,63 @@ class MysqlStatement
             return $this->getAlias($alias . $i, $i);
         }
         return $alias;
+    }
+    
+    /**
+     *
+     * @var array
+     */
+    protected $stack_of_joins = [];
+
+
+    /**
+     * 
+     * @param string $table
+     * @param string $alias
+     */
+    protected function putJoinOnStack($table, $alias)
+    {
+        $this->stack_of_joins[$table] = $alias;
+    }
+    
+    /**
+     * Return the actual alias
+     * @return string
+     */
+    public function getAlias()
+    {
+        return end($this->stack_of_joins);
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function getActualTable()
+    {
+        $arr = array_keys($this->stack_of_joins);
+        return end($arr);
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    protected function getPreviousAlias()
+    {
+        end($this->stack_of_joins);
+        prev($this->stack_of_joins);
+        return current($this->stack_of_joins);
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    protected function getFirstAlias()
+    {
+        reset($this->stack_of_joins);
+        return current($this->stack_of_joins);
     }
 
 }

@@ -69,7 +69,7 @@ GROUP BY s.prp_campaign_id, s.company_target_id, s.product_target_id
             $statement['values'] = 'VALUES (' . implode(', ', $this->values) . ')';
         }
 
-        return 'INSERT INTO ' . $this->table . implode(' ', $statement);
+        return 'INSERT INTO ' . $this->main_table . implode(' ', $statement);
     }
     
     public function getUpdateString()
@@ -87,7 +87,7 @@ GROUP BY s.prp_campaign_id, s.company_target_id, s.product_target_id
             $statement['wheres'] = 'WHERE ' . implode(' AND ', $this->wheres);
         }
         #echo implode(' ', $statement) . '<hr />';
-        return 'UPDATE ' . $this->table . ' ' . implode(' ', $statement);
+        return 'UPDATE ' . $this->main_table . ' ' . implode(' ', $statement);
     }
 
     public function getDeleteString()
@@ -99,7 +99,7 @@ GROUP BY s.prp_campaign_id, s.company_target_id, s.product_target_id
         if (count($this->wheres) > 0) {
             $statement['wheres'] = 'WHERE ' . implode(' AND ', $this->wheres);
         }
-        return 'DELETE FROM ' . $this->table . ' WHERE ' . implode(' ', $statement);
+        return 'DELETE FROM ' . $this->main_table . ' WHERE ' . implode(' ', $statement);
     }
     
     protected $select_table = null;
