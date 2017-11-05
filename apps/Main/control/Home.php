@@ -22,7 +22,7 @@ class Home extends \Catrineta\framework\FrontController {
         
         $user = UserQuery::init()->filterByName('auto')
                 ->joinUserStatus()->selectName('status')->filterByName('Active')->endUse()
-                ->findOneOrCreate();
+                ->findOne();
         //var_dump($user->get());
          
         $this->setView('home.html');

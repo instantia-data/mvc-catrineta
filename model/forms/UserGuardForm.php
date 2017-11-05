@@ -25,8 +25,8 @@ use \Model\models\UserGuard;
  * Description of UserGuardForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-10-13 12:27
- * Updated @Updated @2017-10-13 12:27 with columns user_id, username, salt, userkey * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Created @%$dateCreated%
+ * Updated @%$dateUpdated% *
  */
 class UserGuardForm extends \Catrineta\form\Form {
 

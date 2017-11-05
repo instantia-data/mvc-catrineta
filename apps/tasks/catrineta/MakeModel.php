@@ -19,12 +19,12 @@
 
 namespace Tasks\catrineta;
 
+use \Catrineta\console\lib\CrudMigrate;
 use \Catrineta\db\mysql\DbSchemaTools;
 use \Catrineta\register\Configurator;
-use \Tasks\catrineta\lib\CrudMigrate;
-use \Tasks\catrineta\lib\CrudModel;
-use \Tasks\catrineta\lib\CrudQuery;
-use \Tasks\catrineta\lib\CrudForm;
+use \Catrineta\console\lib\CrudModel;
+use \Catrineta\console\lib\CrudQuery;
+use \Catrineta\console\lib\CrudForm;
 use \Catrineta\orm\ModelTools;
 
 /**
@@ -44,9 +44,6 @@ class MakeModel extends \Catrineta\console\Task
     public static function boot()
     {
         $task = new MakeModel();
-        $task->loopTables();
-        
-        echo "end task \n";
         return $task;
     }
 
@@ -57,6 +54,12 @@ class MakeModel extends \Catrineta\console\Task
     {
         $this->tables = DbSchemaTools::getTables();
         echo "Starting task model\n";
+    }
+    
+    public function execute()
+    {
+        $this->loopTables();
+        echo "end task \n";
     }
     
     

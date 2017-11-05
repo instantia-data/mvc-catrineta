@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of UserStatus
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-10-21 21:20
- * Updated @2017-10-21 21:20 with columns id, name
+ * Created @%$dateCreated%
+ * %$dateUpdated%
  */
 class UserStatus extends \Catrineta\orm\Model 
 {
@@ -45,6 +45,8 @@ class UserStatus extends \Catrineta\orm\Model
     protected $autoincrement = 'id';
     //Foreign keys
     protected $foreignKeys = [];
+    //Constrain by tables
+    protected $foreignTables = [];
     
     protected function setModel(){
         $this->columnNames[$this->tableName] = $this->fields;

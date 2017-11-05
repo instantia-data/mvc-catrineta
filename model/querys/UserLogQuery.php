@@ -26,8 +26,8 @@ use \Catrineta\db\Sql;
  * Description of UserLog
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-10-20 17:13
- * Updated @Updated @2017-10-20 17:13 with columns id, user_id, user_event, timestamp * * * * * * * * * * * * * * * * * * * * * * *
+ * Created @%$dateCreated%
+ * Updated @%$dateUpdated% *
  */
 class UserLogQuery extends \Catrineta\orm\query\QuerySelect {
     

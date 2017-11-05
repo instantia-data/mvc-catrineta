@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of UserGuard
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-10-21 21:20
- * Updated @2017-10-21 21:20 with columns user_id, username, salt, userkey
+ * Created @%$dateCreated%
+ * %$dateUpdated%
  */
 class UserGuard extends \Catrineta\orm\Model 
 {
@@ -47,6 +47,8 @@ class UserGuard extends \Catrineta\orm\Model
     protected $autoincrement = null;
     //Foreign keys
     protected $foreignKeys = ['user_id'];
+    //Constrain by tables
+    protected $foreignTables = ['user'];
     
     protected function setModel(){
         $this->columnNames[$this->tableName] = $this->fields;

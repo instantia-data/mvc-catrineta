@@ -20,6 +20,7 @@
 namespace Catrineta\orm\query;
 
 use \Catrineta\register\CatExceptions;
+use \Catrineta\register\Monitor;
 use \Catrineta\orm\Model;
 use \Catrineta\db\Sql;
 
@@ -49,26 +50,6 @@ class QuerySelect extends \Catrineta\orm\query\Query
         $this->model = $model;
         $this->statement = $this->setSelectStatement($alias);
         
-    }
-    
-    protected $columns = [];
-    
-    /**
-     * 
-     * @param array $columns
-     */
-    public function setColumns($columns)
-    {
-        $this->columns = $columns;
-    }
-    
-    /**
-     * 
-     * @return array
-     */
-    public function getColumns()
-    {
-        return $this->columns;
     }
     
     /**
@@ -231,6 +212,7 @@ class QuerySelect extends \Catrineta\orm\query\Query
         $this->primary_class->setStatement($this->statement);
         //give back columns
         $this->primary_class->setColumns($this->columns);
+        $this->primary_class->mergeFetch($this->fetch);
         //give back the class
         return $this->primary_class;
     }
@@ -391,6 +373,7 @@ class QuerySelect extends \Catrineta\orm\query\Query
         foreach ($rows as $row) {
             $collection[] = $this->getRow($this->model, $row);
         }
+        Monitor::add(Monitor::MODEL, 'Fetching columns: [' . implode(', ', $this->fetch) . ']');
         
         return $collection;
     }

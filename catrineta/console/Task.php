@@ -28,31 +28,82 @@ namespace Catrineta\console;
 class Task
 {
 
-    protected $name = '';
+    public $name = '';
     
     public function setName($name)
     {
         $this->name = $name;
     }
     
-    protected $app = '';
+    protected function issetName()
+    {
+        if(empty($this->name)){
+            echo "add option -n to give your app a name\n";
+            return false;
+        }
+        return true;
+    }
+    
+    public $app = '';
     
     public function setApp($app)
     {
         $this->app = $app;
     }
     
-    protected $model = '';
+    protected function issetApp()
+    {
+        if(empty($this->app)){
+            echo "add option -a to give your app a folder app\n";
+            return false;
+        }
+        return true;
+    }
+    
+    public $model = '';
     
     public function setModel($model)
     {
         $this->model = $model;
     }
     
-    protected $option = '';
+    public $option = '';
     
     public function setOption($option)
     {
         $this->option = $option;
+    }
+    
+    protected $folder;
+    
+    /**
+     * Get or create the folders for /apps
+     * @param string $name
+     * @return $this
+     */
+    protected function setAppFolder($name)
+    {
+        $this->folder = APPS_DIR . $name;
+        if (!is_dir($this->folder)) {
+            if (mkdir($this->folder) == true) {
+                echo "Generate backend app " . $this->app . " ... \n";
+                echo " \n";
+            } else {
+                echo "Generated app " . $this->app . " failed ... \n";
+            }
+        }else{
+            echo "Generated app " . $this->app . " already created ... \n";
+        }
+        
+        $subfolders = ['control', 'model', 'view', 'assets', 'lang'];
+        foreach ($subfolders as $fold) {
+            if (!is_dir($this->folder . DS . $fold)) {
+                 if (mkdir($this->folder . DS . $fold) == true) {
+                     echo "folder " . $this->app . DS . $fold . ", ";
+                 }
+            }
+        }
+        echo " \n";
+        return $this->folder . DS;
     }
 }

@@ -20,6 +20,7 @@
 namespace Catrineta\console\crud;
 
 use \Catrineta\tools\ClassInfo;
+use \Catrineta\orm\ModelTools;
 
 /**
  * Description of CrudTools
@@ -41,15 +42,18 @@ class CrudTools
     {
         copy($source, $dst);
         $string = file_get_contents($dst);
-        $string = str_replace('%$dateCreated%', $arr['created'], $string);
-        $string = str_replace('%$dateUpdated%', $arr['updated'], $string);
-        $string = str_replace('%$className%', $arr['class'], $string);
+        
+        foreach ($arr as $index=>$piece){
+            $string = str_replace('%$'.$index.'%', $piece, $string);
+        }
+        
         file_put_contents($dst, $string);
         
         return $string;
     }
+    
 
-        
+    
     /**
      * 
      * @param string $class Class name with namespace
@@ -66,10 +70,26 @@ class CrudTools
      * @param String $maintable
      * @return string
      */
-    public static function writeFieldConstantName($table, $field, $maintable = null)
+    public static function writeFieldConstantName($table, $field)
     {
-        $str = ($maintable == null || $table == $maintable)? '' : StringTools::getStringAfterLastChar($table, '_') . '_';
+        //$str = ($maintable == null || $table == $maintable)? '' : StringTools::getStringAfterLastChar($table, '_') . '_';
         return 'FIELD_' . strtoupper($table) . '_' . strtoupper($field);
+    }
+    
+    /**
+     * Return array of columns with alias from table and constrain tables
+     * @param string $maintable
+     * @return array
+     */
+    public static function collectColumns($maintable)
+    {
+        $columns = ModelTools::getColumns($maintable);
+        $model = ModelTools::startModel($maintable);
+        $tables = $model->getConstrainTables();
+        foreach($tables as $table){
+            $columns = array_merge($columns, ModelTools::getColumns($table, false));
+        }
+        return $columns;
     }
 
 }

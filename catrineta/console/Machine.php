@@ -126,6 +126,8 @@ class Machine extends \Catrineta\console\Console
                 }
             }
             
+            $task->execute();
+            
             return true;
         }
         

@@ -25,8 +25,8 @@ use \Model\models\UserEvent;
  * Description of UserEventForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-10-13 12:27
- * Updated @Updated @2017-10-13 12:27 with columns id, name * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Created @%$dateCreated%
+ * Updated @%$dateUpdated% *
  */
 class UserEventForm extends \Catrineta\form\Form {
 

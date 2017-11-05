@@ -19,25 +19,108 @@
 
 namespace Tasks\catrineta;
 
+use \Catrineta\console\Console;
+use \Catrineta\orm\ModelTools;
+
 /**
  * Description of MakeApp
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @Sep 1, 2017
  */
-class MakeApp
+class MakeApp extends \Catrineta\console\Task
 {
 
-    private $var;
+    public static function boot()
+    {
+        $task = new MakeApp();
+        
+        return $task;
+    }
 
-    function __construct()
+    function __construct(){}
+    
+    public function execute()
+    {
+        $this->test();
+        $this->folder = $this->setAppFolder($this->app);
+        
+        $type = $this->getType();
+        if($type == 'app'){
+            $this->buildApp();
+        }
+        if($type == 'admin'){
+            $this->buildAdmin();
+        }
+        if($type == 'cms'){
+            $this->buildCms();
+        }
+        
+        echo "end task \n";
+    }
+    
+    
+    private function test()
+    {
+        //test arguments
+        $this->issetName();
+        $this->issetApp();
+        if(empty($this->name) || empty($this->app)){
+            die();
+        }
+
+    }
+    
+    /**
+     *
+     * @var array of types of controller we want to build
+     */
+    private $types = ['app', 'admin', 'cms'];
+    
+    /**
+     * 
+     * @return string The type of controller we want to build 
+     */
+    private function getType()
+    {
+        $type = Console::ask('Wich type of controller you want to create? ' . implode(', ', $this->types));
+        if(in_array($type, $this->types)){
+            return $type;
+        }
+        echo "Type is not valid, choose valid type";
+        return $this->getType();
+    }
+    
+    private function buildApp()
     {
         
     }
     
-    public static function boot()
+    /**
+     * We build controller type admin and useful files
+     */
+    private function buildAdmin()
+    {
+        $crud = new \Catrineta\console\lib\CrudAdmin($this->folder, $this->app, $this->name);
+        $table = $crud->getTable();
+        $this->model = ModelTools::buildModelName($table);
+        $arr = [
+            'className'=>$this->name, 'created'=>date('Y-m-d H:i'), 'updated'=>date('Y-m-d H:i'), 
+            'nameApp' => $this->app, 'modelName'=> $this->model
+                ];
+        $crud->writeQuery($arr);
+        $crud->writeForm($arr);
+        $crud->writeController($arr);
+        $crud->writeView($table);
+        $crud->writeLang();
+    }
+    
+    private function buildCms()
     {
         
     }
+    
+
+    
 
 }

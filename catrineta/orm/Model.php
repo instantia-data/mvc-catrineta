@@ -287,5 +287,10 @@ class Model
         }
     }
     
+    public function getConstrainTables()
+    {
+        return $this->foreignTables;
+    }
+    
 
 }

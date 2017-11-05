@@ -146,7 +146,7 @@ class Boot
             $this->controller = new $class();
             //boot method
             $action = Routing::getAction();
-            $this->controller->$action();
+            $this->output = $this->controller->$action();
         } catch (CatExceptions $ex) {
             $ex->output();
         }
@@ -163,7 +163,7 @@ class Boot
     }
 
     /**
-     * output rendered template
+     * Output rendered template
      */
     public function display()
     {

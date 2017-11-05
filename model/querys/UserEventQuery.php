@@ -26,8 +26,8 @@ use \Catrineta\db\Sql;
  * Description of UserEvent
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-10-20 17:13
- * Updated @Updated @2017-10-20 17:13 with columns id, name * * * * * * * * * * * * * * * * * * * * * * *
+ * Created @%$dateCreated%
+ * Updated @%$dateUpdated% *
  */
 class UserEventQuery extends \Catrineta\orm\query\QuerySelect {
     

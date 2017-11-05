@@ -28,7 +28,17 @@ namespace Catrineta\form;
 class Form
 {
 
-    private $var;
+    /**
+     *
+     * @var array The queue for merged forms
+     */
+    protected $queue = [];
+    
+    /**
+     *
+     * @var array The models to be merged
+     */
+    protected $models = [];
 
     function __construct()
     {

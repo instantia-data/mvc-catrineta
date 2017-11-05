@@ -75,7 +75,7 @@ class ModelTools
 
     /**
      * @param $table
-     * @return mixed
+     * @return \Catrineta\orm\Model
      */
     public static function getModel($table)
     {
@@ -116,7 +116,7 @@ class ModelTools
     
     public static function completeColumnName($table, $column)
     {
-        return $table . '.' . $column;
+        return $table . '.' . self::getColumnName($column);
     }
 
     /**
@@ -153,6 +153,44 @@ class ModelTools
             }
             return ['removes'=>$removes, 'added'=>$new_columns, 'resume'=>$str];
         }
+    }
+    
+    /**
+     * Get the columns with alias from a table
+     * @param string $table
+     * @param boolean $id If false don't return primary keys
+     * @return array
+     */
+    public static function getColumns($table, $id = true)
+    {
+        $columns = [];
+        $model = self::startModel($table);
+        $fields = $model->getFields();
+        $pks = $model->getPrimaryKeys();
+        foreach($fields as $field){
+            if($id == false && in_array($field, $pks)){
+                continue;
+            }
+            $columns[] = self::completeColumnName($table, $field);
+
+        }
+        return $columns;
+    }
+    
+    /**
+     * 
+     * @param string $table
+     * @return array
+     */
+    public static function getPrimary($table)
+    {
+        $arr = [];
+        $model = self::startModel($table);
+        foreach($model->getPrimaryKeys() as $pk){
+            $arr[] = self::completeColumnName($table, $pk);
+        }
+        
+        return $arr;
     }
 
 }

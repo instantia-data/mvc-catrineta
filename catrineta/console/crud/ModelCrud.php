@@ -104,7 +104,7 @@ class ModelCrud
         $this->template = $template;
         $this->file = $file;
         
-        $writearr = ['class'=>$this->classname, 'created'=>date('Y-m-d H:i'), 
+        $writearr = ['className'=>$this->classname, 'created'=>date('Y-m-d H:i'), 
             'updated'=>'Updated @' . date('Y-m-d H:i') . ' with columns ' . implode(", ", $this->col_names)];
         
         /*

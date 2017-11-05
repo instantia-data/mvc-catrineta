@@ -44,6 +44,37 @@ class Query
      */
     protected $fetch = [];
     
+    protected $columns = [];
+    
+    /**
+     * 
+     * @param array $columns
+     */
+    public function setColumns($columns)
+    {
+        $this->columns = $columns;
+    }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function getColumns()
+    {
+        return $this->columns;
+    }
+    
+    
+    /**
+     * 
+     * @return array Get the fetched columns
+     */
+    public function mergeFetch($fetch)
+    {
+        
+        return $this->fetch = array_merge($this->fetch, $fetch);
+    }
+    
 
     /**
      * 
@@ -155,15 +186,17 @@ class Query
         $item = new $className();
         $i = 0;
         foreach($row as $col => $value){
-            $column = $this->fetch[$i++];
-            if(!strpos($column, $col)){
-                throw new CatExceptions('no fetch for ' . $col . ' and ' . $value, CatExceptions::CODE_ORM);
+            if(!isset($this->fetch[$i])){
+                throw new CatExceptions('no fetch with index ' . $i . ' for field ' 
+                        . $col . ' and ' . $value, CatExceptions::CODE_ORM);
             }
+            $column = $this->fetch[$i];
             //utf8_encode($value)
             if(!mb_check_encoding ($value, 'UTF-8')){
                 $value  = utf8_encode($value);
             }
-
+            
+            $i++;
 
             $item->setColumnValue($column, $value);
         }

@@ -19,7 +19,7 @@
 
 namespace Catrineta\framework;
 
-use \Catrineta\framework\View;
+use \Catrineta\view\View;
 
 /**
  * Description of ParentController
@@ -69,13 +69,16 @@ class JobsController {
 
 
     /**
-     *
+     * Output rendered template
+     * @return string The rendered template
      */
     public function dispatch()
     {
+        //test view file
         $view = new View($this->view);
+        //load the Twig
         $view->loadTwig();
-        $this->data['title'] = 'Teste';
+        // return the view
         return $view->render($this->data);
     }
 }

@@ -85,5 +85,11 @@ class Console
         return getopt($shortopts, $longopts);
     }
     
+    public static function ask($question)
+    {
+        echo $question . "\n";
+        return trim(fgets(STDIN));
+    }
+    
 
 }
