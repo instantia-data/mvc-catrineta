@@ -35,6 +35,8 @@ class CrudModel extends \Catrineta\console\crud\ModelCrud
     
     
     private $migrate = [];
+    
+    private $migrateFk = [];
 
     /**
      * Create model file
@@ -45,9 +47,13 @@ class CrudModel extends \Catrineta\console\crud\ModelCrud
         $this->template = RESOURCES_DIR . 'scaffold' . DS . 'model' . DS . 'model.tpl';
         $this->file = MODEL_DIR . 'models' . DS . $this->classname . '.php';
         $this->migrate = ['new'=> $this->columns];
+        $this->migrateFk['new'] = ModelTools::getReferencedConstraints($this->constraints, $this->table);
+        if(count($this->migrateFk['new']) == 0){
+            $this->migrateFk = [];
+        }
         
-        $writearr = ['className'=>$this->classname, 'created'=>date('Y-m-d H:i'), 
-            'updated'=>'Updated @' . date('Y-m-d H:i') . ' with columns ' . implode(", ", $this->col_names)];
+        $writearr = ['className'=>$this->classname, 'dateCreated'=>date('Y-m-d H:i'), 
+            'dateUpdated'=>'Updated @' . date('Y-m-d H:i') . ' with columns ' . implode(", ", $this->col_names)];
         
         if(is_file($this->file)){
             echo $this->file . ' for class ' . $class . " exists \n";
@@ -55,17 +61,15 @@ class CrudModel extends \Catrineta\console\crud\ModelCrud
             $writearr['created'] = $info->getClassComment('Created @');
             $writearr['updated'] = implode("\n * ", $info->getLines('Updated @'));
             
-            $this->migrate = [];
-            $update = ModelTools::isModelUpdated(
-                    $info->getProperty('fields'), $this->columns
-                    );
+            $this->migrate = $this->migrateFk = [];
+            $update = ModelTools::isModelUpdated
+                    ($info->getProperty('fields'), $this->columns);
             if($update != false){
                 $this->migrate = $update;
+                $this->migrateFk = ModelTools::hasConstraintsToChange($this->migrateFk, $update);
                 $writearr['updated'] .= "\n * Updated @" . date('Y-m-d H:i') . ' with ' . $this->migrate['resume'];
                 
             }
-            
-            unlink($this->file);
             
         }
         $this->string = CrudTools::copyFile($this->template, $this->file, $writearr);
@@ -107,7 +111,7 @@ class CrudModel extends \Catrineta\console\crud\ModelCrud
     {
         $fks = [];
    
-        foreach ($this->constrains as $constrain){
+        foreach ($this->constraints as $constrain){
             
             if($constrain['CONSTRAINED'] == $this->table){
                 //print_r($constrain);
@@ -125,7 +129,7 @@ class CrudModel extends \Catrineta\console\crud\ModelCrud
     {
         $fks = [];
    
-        foreach ($this->constrains as $constrain){
+        foreach ($this->constraints as $constrain){
             
             if($constrain['CONSTRAINED'] == $this->table){
                 //print_r($constrain);
@@ -162,7 +166,7 @@ class CrudModel extends \Catrineta\console\crud\ModelCrud
     
     public function loopJoins(ParseLoop $parse)
     {
-        foreach($this->constrains as $constrain){
+        foreach($this->constraints as $constrain){
             $parse->setData('joins', [
                 'tableJoin'=>ModelTools::buildModelName($constrain['REFERENCED_TABLE_NAME']),
             ]);
@@ -176,6 +180,15 @@ class CrudModel extends \Catrineta\console\crud\ModelCrud
     public function getMigrate()
     {
         return $this->migrate;
+    }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function getMigrateFk()
+    {
+        return $this->migrateFk;
     }
 
 

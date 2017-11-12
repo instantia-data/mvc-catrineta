@@ -3,12 +3,12 @@
 use Phinx\Migration\AbstractMigration;
 
 /**
- * Description of UserGroupMigration
+ * Description of UserDetailsMigration
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @%$dateCreated%
+ * Created @2017-11-12 21:13
  */
-class UserGroupMigration extends AbstractMigration
+class UserDetailsMigration extends AbstractMigration
 {
     /**
      * Change Method.
@@ -34,12 +34,11 @@ class UserGroupMigration extends AbstractMigration
     public function change()
     {
         // create the table
-        $table = $this->table('user_group');
-        $table
-        ->addColumn('id', '{$item.fieldType}')
-        ->addColumn('name', '{$item.fieldType}')
-        ->addColumn('description', '{$item.fieldType}')
-        
+        $table = $this->table('user_details');
+        $table->addColumn('user_id', 'integer')
+        ->addColumn('address', 'varchar')
+        ->addColumn('zip_code', 'varchar')
+        ->addColumn('local', 'varchar')
         ->create();
     }
     
@@ -48,13 +47,11 @@ class UserGroupMigration extends AbstractMigration
      */
     public function up()
     {
-        $table = $this->table('user_group');
-        $table
-        ->addColumn('id', 'integer', ['limit' => 6])
-        ->addColumn('name', 'varchar', ['limit' => 50])
-        ->addColumn('description', 'varchar', ['limit' => 100])
-        
-        
+        $table = $this->table('user_details', ['id' => false, 'primary_key' => ['user_id']]);
+        $table->addColumn('user_id', 'integer', ['limit' => 6])
+        ->addColumn('address', 'varchar', ['limit' => 150])
+        ->addColumn('zip_code', 'varchar', ['limit' => 30])
+        ->addColumn('local', 'varchar', ['limit' => 100])
         ->save();
     }
 
@@ -63,15 +60,13 @@ class UserGroupMigration extends AbstractMigration
      */
     public function down()
     {
-        $table = $this->table('user_group');
-        $table
-        ->removeColumn('id')
-        ->removeColumn('name')
-        ->removeColumn('description')
-        
-        
+        $table = $this->table('user_details');
+        $table->removeColumn('user_id')
+        ->removeColumn('address')
+        ->removeColumn('zip_code')
+        ->removeColumn('local')
         ->save();
         
-        $this->dropTable('user_group');
+        $this->dropTable('user_details');
     }
 }

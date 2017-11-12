@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of UserLog
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @%$dateCreated%
- * %$dateUpdated%
+ * Created @2017-11-12 21:13
+ * Updated @2017-11-12 21:13 with columns id, user_id, user_event, timestamp
  */
 class UserLog extends \Catrineta\orm\Model 
 {

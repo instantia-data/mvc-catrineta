@@ -153,7 +153,7 @@ class Model
      */
     public function insert()
     {
-        if(!$this->checkConstrains()){
+        if(!$this->checkConstraints()){
             return null;
         }
         $query = $this->setQuery($this->columns);
@@ -170,7 +170,7 @@ class Model
         return $this;
     }
     
-    private function checkConstrains(){
+    private function checkConstraints(){
         foreach($this->foreignKeys as $key){
             $column = ModelTools::completeColumnName($this->tableName, $key);            
             if($this->getColumnValue($column) == null){

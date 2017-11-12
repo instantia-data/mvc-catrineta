@@ -19,18 +19,14 @@
 
 namespace Tasks\catrineta;
 
-use \Catrineta\console\lib\CrudMigrate;
 use \Catrineta\db\mysql\DbSchemaTools;
 use \Catrineta\register\Configurator;
-use \Catrineta\console\lib\CrudModel;
-use \Catrineta\console\lib\CrudQuery;
-use \Catrineta\console\lib\CrudForm;
 use \Catrineta\orm\ModelTools;
 
 /**
  * Description of MakeModel
  * @info Build the basic model classes reading the database
- * 1. Query database and get Constrains
+ * 1. Query database and get Constraints
  * 2. Loop tables and for each verify if has file otherwise create new file
  * 3. Get template source 
  * 4. Replace string
@@ -54,6 +50,9 @@ class MakeModel extends \Catrineta\console\Task
     {
         $this->tables = DbSchemaTools::getTables();
         echo "Starting task model\n";
+        
+        //only for tests
+        //$this->cleanFolders();
     }
     
     public function execute()
@@ -65,37 +64,46 @@ class MakeModel extends \Catrineta\console\Task
     
     public function loopTables()
     {
+        $i = 0;
+        $migrateFk = [];
         foreach ($this->tables as $table){
             $class = ModelTools::buildModelName($table);
             
             echo $table . ' is ' . $class . "\n";
             //get the array of columns
             $columns = DbSchemaTools::getColumns($table);
-            //get the rray of constrains
-            $constrains = DbSchemaTools::getConstrains(Configurator::getConfig()->db, $table);
+            //get the rray of constraints
+            $constraints = DbSchemaTools::getConstraints(Configurator::getConfig()->db, $table);
             //build model class file
-            $m  = $this->buildModel($table, $class, $columns, $constrains);
+            $m  = $this->buildModel($table, $class, $columns, $constraints);
             //weather is new or updated
             $migration = $m->getMigrate();
+            //return migrations to foreign keys
+            if(count($m->getMigrateFk()) > 0){
+                $migrateFk[$table] = $m->getMigrateFk();
+            }
             //build migration file
-            $this->buildMigration($table, $class, $columns, $migration);
+            $this->buildMigration($table, $class, $columns, $migration, $i++);
             //build form class file
-            $this->buildForm($table, $class, $columns, $constrains, $migration);
+            $this->buildForm($table, $class, $columns, $constraints, $migration);
             //build query class file
-            $this->buildQuery($table, $class, $columns, $constrains, $migration);
+            $this->buildQuery($table, $class, $columns, $constraints, $migration);
             
             
-            echo "***********\n";
+            
         }
+        $this->buildFkMigration($migrateFk, $i++);
+        echo "***** Models done ******\n";
+        
     }
     
-    private function buildModel($table, $class, $columns, $constrains)
+    private function buildModel($table, $class, $columns, $constraints)
     {
         echo "Building model \n";
-        $crud  = new CrudModel($table, $class);
+        $crud  = new \Catrineta\console\lib\CrudModel($table, $class);
         $columnnames = $crud->setColumns($columns);
         echo "Columns: " . implode(', ', $columnnames) . "\n";
-        $crud->setConstrains($constrains);
+        $crud->setConstraints($constraints);
         $crud->modelFile(ModelTools::getModelNamespace($table));
         $crud->crudInfos();
         $crud->parseLoops();
@@ -103,26 +111,27 @@ class MakeModel extends \Catrineta\console\Task
         return $crud;
     }
     
-    private function buildMigration($table, $class, $columns, $migration)
+    private function buildMigration($table, $class, $columns, $migration, $counter)
     {
         echo "Building migration \n";
-        $crud = new CrudMigrate($table, $class);
+        $crud = new \Catrineta\console\lib\CrudMigrate($table, $class);
 
         if ($crud->setMigrates($migration)) {
-            echo "Generating migration " . $crud->migrateFile() . "\n";
             $crud->setColumns($columns);
+            $crud->setIndexes(DbSchemaTools::getIndexes(Configurator::getConfig()->db, $table));
+            echo "Generating migration " . $crud->migrateFile($counter) . "\n";
             $crud->parseLoops();
         }
     }
     
-    private function buildForm($table, $class, $columns, $constrains, $migration)
+    private function buildForm($table, $class, $columns, $constraints, $migration)
     {
         echo "Form  ";
-        $crud = new CrudForm($table, $class, true);
+        $crud = new \Catrineta\console\lib\CrudForm($table, $class, true);
         echo "building ...\n ";
         
         $crud->setColumns($columns);
-        $crud->setConstrains($constrains);
+        $crud->setConstraints($constraints);
         
         $template = RESOURCES_DIR. 'scaffold' . DS . 'model' . DS . 'form.tpl';
         $file = MODEL_DIR . 'forms' . DS . $class . 'Form.php';
@@ -131,14 +140,14 @@ class MakeModel extends \Catrineta\console\Task
         echo "is done \n";
     }
     
-    private function buildQuery($table, $class, $columns, $constrains, $migration)
+    private function buildQuery($table, $class, $columns, $constraints, $migration)
     {
         echo "Query ";
-        $crud = new CrudQuery($table, $class, true);
+        $crud = new \Catrineta\console\lib\CrudQuery($table, $class, true);
         echo "building ... ";
 
         $crud->setColumns($columns);
-        $crud->setConstrains($constrains);
+        $crud->setConstraints($constraints);
 
         $template = RESOURCES_DIR. 'scaffold' . DS . 'model' . DS . 'query.tpl';
         $file = MODEL_DIR . 'querys' . DS . $class . 'Query.php';
@@ -147,12 +156,28 @@ class MakeModel extends \Catrineta\console\Task
         echo "is done \n";
         
     }
+    
+    private function buildFkMigration($migration, $counter)
+    {
+        echo "Building foreign keys migration \n";
+        $crud = new \Catrineta\console\lib\CrudFkMigration('constraint' . date('YmdHis'));
+        
+        if ($crud->setMigrates($migration)) {
+            echo "Generating migration " . $crud->migrateFile($counter) . "\n";
+            $crud->parseLoops();
+        }
+    }
 
     private function cleanFolders()
     {
         foreach (['models', 'querys', 'forms'] as $folder){
             array_map('unlink', glob(MODEL_DIR . $folder . DS . '*'));
         }
+        
+        foreach (['db/migrations'] as $folder){
+            array_map('unlink', glob(RESOURCES_DIR . $folder . DS . '*'));
+        }
     }
+    
 
 }

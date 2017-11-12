@@ -30,7 +30,7 @@ class ParseLoop
 
     private $output = '';
     
-    private $data = [];
+    public $data = [];
 
     function __construct($output)
     {

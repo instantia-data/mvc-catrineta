@@ -55,14 +55,16 @@ class CrudMigrate extends \Catrineta\console\crud\ModelCrud
      * Create model file
      * @param string $class The namespace class
      */
-    public function migrateFile()
+    public function migrateFile($counter)
     {
-        $filename = date('YmdH') . '_' . $this->table . '_migration.php';
+        $filename = date('YmdH') . str_pad($counter, 2, '0', STR_PAD_LEFT) . '_' . $this->table . '_migration.php';
         $this->template = RESOURCES_DIR . 'scaffold' . DS . 'model' . DS . 'migration.tpl';
         $this->file = RESOURCES_DIR . 'db' . DS. 'migrations' . DS . $filename;
         
-        $writearr = ['className'=>$this->classname, 'created'=>date('Y-m-d H:i'), 
-            'updated'=>'Updated @' . date('Y-m-d H:i')];
+        $writearr = ['className'=>$this->classname, 'dateCreated'=>date('Y-m-d H:i'), 
+            'updated'=>'Updated @' . date('Y-m-d H:i'),
+            'tableName'=>$this->table, 
+            'primaryKeys'=>"'" . implode("', '", $this->getPrimaryKeys()) . "'"];
         
         if(is_file($this->file)){
 
@@ -70,10 +72,6 @@ class CrudMigrate extends \Catrineta\console\crud\ModelCrud
             
         }
         $this->string = CrudTools::copyFile($this->template, $this->file, $writearr);
-        
-        //set table name
-        $this->string = str_replace('%$tableName%', $this->table, $this->string);
-        file_put_contents($this->file, $this->string);
         
         return $filename;
 
@@ -84,6 +82,7 @@ class CrudMigrate extends \Catrineta\console\crud\ModelCrud
         $parse = new ParseLoop($this->string);
         $this->loopNew($parse);
         $this->loopUpdate($parse);
+        $this->loopIndexes($parse);
         
         file_put_contents($this->file, $parse->parseWhile());
     }
@@ -117,6 +116,15 @@ class CrudMigrate extends \Catrineta\console\crud\ModelCrud
         }
     }
     
+    public function loopIndexes(ParseLoop $parse)
+    {
+        foreach ($this->indexes as $index){
+            
+            echo "\n";
+            $parse->setData('indexes', ['fieldName'=>$index['Column_name']]);
+        }
+    }
+    
     /**
      * 
      * @param array $field
@@ -137,6 +145,17 @@ class CrudMigrate extends \Catrineta\console\crud\ModelCrud
             'fieldKind' => str_replace(['int'], ['integer'], $field['Kind']),
             'fieldAttributes'=>$attrs
         ];
+    }
+    
+    private function getPrimaryKeys()
+    {
+        $primaryKeys = [];
+        foreach ($this->columns as $field){
+            if($field['Key']=='PRI'){
+                $primaryKeys[] = $field['Field'];
+            }
+        }
+        return $primaryKeys;
     }
 
 }

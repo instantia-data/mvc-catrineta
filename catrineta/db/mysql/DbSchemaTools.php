@@ -107,9 +107,9 @@ class DbSchemaTools
      * @param string $table
      * @return array
      */
-    public static function getConstrains($db, $table = null)
+    public static function getConstraints($db, $table = null)
     {
-        $constrains = [];
+        $constraints = [];
         $pdo = ConnMysql::getConn();
         
         $query = "SELECT
@@ -129,27 +129,49 @@ class DbSchemaTools
         $results = $sth->fetchAll();
         $i = 0;
         foreach ($results as $row) {
-            $constrains[$i]['TABLE_NAME'] = $table;
-            $constrains[$i]['CONSTRAINED'] = $row[0];
-            $constrains[$i]['CONSTRAINT_TYPE'] = $row[1];
-            $constrains[$i]['REFERENCED_TABLE_NAME'] = ($row[0] == $table)?$row[2] : $row[0];
-            $constrains[$i]['REFERENCED_COLUMN_NAME'] = ($row[0] == $table)? $row[3] : $row[4];
-            $constrains[$i]['COLUMN_NAME'] = ($row[0] == $table)? $row[4] : $row[3];
+            $constraints[$i]['TABLE_NAME'] = $table;
+            $constraints[$i]['CONSTRAINED'] = $row[0];
+            $constraints[$i]['CONSTRAINT_TYPE'] = $row[1];
+            $constraints[$i]['REFERENCED_TABLE_NAME'] = ($row[0] == $table)?$row[2] : $row[0];
+            $constraints[$i]['REFERENCED_COLUMN_NAME'] = ($row[0] == $table)? $row[3] : $row[4];
+            $constraints[$i]['COLUMN_NAME'] = ($row[0] == $table)? $row[4] : $row[3];
+            $constraints[$i]['CONSTRAINT_NAME'] = $row[5];
             $i++;
         }
 
-        return $constrains;
+        return $constraints;
         
     }
     
-    public static function getOrderConstrains($db)
+    public static function getIndexes($db, $table)
+    {
+        $pdo = ConnMysql::getConn();
+        $query = "SHOW INDEX FROM $table FROM $db ";
+        $indexes = [];
+        $sth = $pdo->prepare($query);
+        $sth->execute();
+        $results = $sth->fetchAll();
+        foreach ($results as $row) {
+            if ($row['Key_name'] != 'PRIMARY') {
+                $indexes[] = [
+                    'Key_name' => $row['Key_name'],
+                    'Column_name' => $row['Column_name']
+                ];
+            }
+        }
+        
+        return $indexes;
+    }
+
+
+    public static function getOrderConstraints($db)
     {
         $query = "SELECT 
         TABLE_NAME, GROUP_CONCAT(CONSTRAINT_NAME) AS constraints, COUNT(*) AS Rows
         FROM TABLE_CONSTRAINTS 
         WHERE TABLE_SCHEMA = '$db' AND CONSTRAINT_TYPE LIKE 'FOREIGN_KEY' GROUP BY TABLE_NAME ORDER BY Rows DESC"; 
         
-        $constrains = [];
+        $constraints = [];
         
         $sth = $pdo->prepare($query);
         $sth->execute();
@@ -157,7 +179,7 @@ class DbSchemaTools
         foreach ($results as $row) {
             
         }
-        return $constrains;
+        return $constraints;
     }
 
 }

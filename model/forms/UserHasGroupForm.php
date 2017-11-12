@@ -25,8 +25,8 @@ use \Model\models\UserHasGroup;
  * Description of UserHasGroupForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @%$dateCreated%
- * Updated @%$dateUpdated% *
+ * Created @2017-11-12 21:13
+ * Updated @Updated @2017-11-12 21:13 with columns user_id, user_group *
  */
 class UserHasGroupForm extends \Catrineta\form\Form {
 

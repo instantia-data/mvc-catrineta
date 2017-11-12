@@ -51,7 +51,7 @@ class CrudAdmin
     
     private $columns = [];
     
-    private $constrains = [];
+    private $constraints = [];
     
     /**
      * 
@@ -69,8 +69,8 @@ class CrudAdmin
         }
         //get the array of columns
         $this->columns = CrudTools::collectColumns($table);
-        //get the array of constrains
-        $this->constrains = DbSchemaTools::getConstrains(Configurator::getConfig()->db, $table);
+        //get the array of constraints
+        $this->constraints = DbSchemaTools::getConstraints(Configurator::getConfig()->db, $table);
         
         return $table;
     }
@@ -174,7 +174,7 @@ class CrudAdmin
     
     private function loopJoins(ParseLoop $parse)
     {
-        foreach($this->constrains as $constrain){
+        foreach($this->constraints as $constrain){
             $table = $constrain['REFERENCED_TABLE_NAME'];
             $columns = DbSchemaTools::getColumns($table);
             $selects = [];

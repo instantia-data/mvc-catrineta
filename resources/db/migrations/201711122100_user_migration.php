@@ -3,12 +3,12 @@
 use Phinx\Migration\AbstractMigration;
 
 /**
- * Description of UserStatusMigration
+ * Description of UserMigration
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @%$dateCreated%
+ * Created @2017-11-12 21:13
  */
-class UserStatusMigration extends AbstractMigration
+class UserMigration extends AbstractMigration
 {
     /**
      * Change Method.
@@ -34,11 +34,13 @@ class UserStatusMigration extends AbstractMigration
     public function change()
     {
         // create the table
-        $table = $this->table('user_status');
-        $table
-        ->addColumn('id', '{$item.fieldType}')
-        ->addColumn('name', '{$item.fieldType}')
-        
+        $table = $this->table('user');
+        $table->addColumn('id', 'integer')
+        ->addColumn('name', 'varchar')
+        ->addColumn('email', 'varchar')
+        ->addColumn('cellphone', 'varchar')
+        ->addColumn('user_status', 'integer')
+        ->addColumn('created', 'datetime')
         ->create();
     }
     
@@ -47,12 +49,14 @@ class UserStatusMigration extends AbstractMigration
      */
     public function up()
     {
-        $table = $this->table('user_status');
-        $table
-        ->addColumn('id', 'integer', ['limit' => 6])
+        $table = $this->table('user', ['id' => false, 'primary_key' => ['id']]);
+        $table->addColumn('id', 'integer', ['limit' => 6])
         ->addColumn('name', 'varchar', ['limit' => 100])
-        
-        
+        ->addColumn('email', 'varchar', ['limit' => 150])
+        ->addColumn('cellphone', 'varchar', ['limit' => 20])
+        ->addColumn('user_status', 'integer', ['limit' => 6])
+        ->addColumn('created', 'datetime', ['default' => CURRENT_TIMESTAMP])
+        ->addIndex(['user_status'])
         ->save();
     }
 
@@ -61,14 +65,15 @@ class UserStatusMigration extends AbstractMigration
      */
     public function down()
     {
-        $table = $this->table('user_status');
-        $table
-        ->removeColumn('id')
+        $table = $this->table('user');
+        $table->removeColumn('id')
         ->removeColumn('name')
-        
-        
+        ->removeColumn('email')
+        ->removeColumn('cellphone')
+        ->removeColumn('user_status')
+        ->removeColumn('created')
         ->save();
         
-        $this->dropTable('user_status');
+        $this->dropTable('user');
     }
 }

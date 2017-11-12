@@ -29,6 +29,7 @@ use \Catrineta\tools\StringTools;
  */
 class ModelTools
 {
+    use \Catrineta\orm\ModelCrudTools;
     
     /**
      * 
@@ -119,43 +120,7 @@ class ModelTools
         return $table . '.' . self::getColumnName($column);
     }
 
-    /**
-     * Used by crud 
-     * @param array $list
-     * @param array $columns
-     * @return boolean | array
-     */
-    public static function isModelUpdated($list, $columns)
-    {
-        $removes = [];
-        foreach ($list as $col){
-            if(!isset($columns[$col])){
-                $removes[] = $col;
-            }
-        }
-        $added = $new_columns = [];
-        foreach($columns as $key=>$column){
-            if(!in_array($key, $list)){
-                $new_columns[$key] = $column;
-                $added[] = $key;
-            }
-        }
-        
-        if(empty($removes) && empty($added)){
-            return false;
-        }else{
-            $str = '';
-            if(!empty($removes)){
-                $str .= 'removed fields: ' . implode(', ', $removes) . '; ';
-            }
-            if(!empty($added)){
-                $str .= 'added fields: ' . implode(', ',  $added) . '; ';
-            }
-            return ['removes'=>$removes, 'added'=>$new_columns, 'resume'=>$str];
-        }
-    }
-    
-    /**
+        /**
      * Get the columns with alias from a table
      * @param string $table
      * @param boolean $id If false don't return primary keys
@@ -188,6 +153,18 @@ class ModelTools
         $model = self::startModel($table);
         foreach($model->getPrimaryKeys() as $pk){
             $arr[] = self::completeColumnName($table, $pk);
+        }
+        
+        return $arr;
+    }
+    
+    public static function getReferencedConstraints($constraints, $table)
+    {
+        $arr = [];
+        foreach($constraints as $constrain){
+            if($constrain['CONSTRAINED'] == $table){
+                $arr[$constrain['COLUMN_NAME']] = $constrain;
+            }
         }
         
         return $arr;

@@ -39,7 +39,7 @@ class CrudQuery extends  \Catrineta\console\crud\ModelCrud
             $this->makeMethods($parse, $field);
         }
         
-        foreach ($this->constrains as $join){
+        foreach ($this->constraints as $join){
             
             $this->makeJoins($parse, $join);
         }

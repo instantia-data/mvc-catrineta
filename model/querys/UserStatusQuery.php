@@ -26,8 +26,8 @@ use \Catrineta\db\Sql;
  * Description of UserStatus
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @%$dateCreated%
- * Updated @%$dateUpdated% *
+ * Created @2017-11-12 21:13
+ * Updated @Updated @2017-11-12 21:13 with columns id, name *
  */
 class UserStatusQuery extends \Catrineta\orm\query\QuerySelect {
     

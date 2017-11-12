@@ -25,8 +25,8 @@ use \Model\models\UserStatus;
  * Description of UserStatusForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @%$dateCreated%
- * Updated @%$dateUpdated% *
+ * Created @2017-11-12 21:13
+ * Updated @Updated @2017-11-12 21:13 with columns id, name *
  */
 class UserStatusForm extends \Catrineta\form\Form {
 

@@ -3,12 +3,12 @@
 use Phinx\Migration\AbstractMigration;
 
 /**
- * Description of UserHasGroupMigration
+ * Description of UserGroupMigration
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @%$dateCreated%
+ * Created @2017-11-12 21:13
  */
-class UserHasGroupMigration extends AbstractMigration
+class UserGroupMigration extends AbstractMigration
 {
     /**
      * Change Method.
@@ -34,11 +34,10 @@ class UserHasGroupMigration extends AbstractMigration
     public function change()
     {
         // create the table
-        $table = $this->table('user_has_group');
-        $table
-        ->addColumn('user_id', '{$item.fieldType}')
-        ->addColumn('user_group', '{$item.fieldType}')
-        
+        $table = $this->table('user_group');
+        $table->addColumn('id', 'integer')
+        ->addColumn('name', 'varchar')
+        ->addColumn('description', 'varchar')
         ->create();
     }
     
@@ -47,12 +46,10 @@ class UserHasGroupMigration extends AbstractMigration
      */
     public function up()
     {
-        $table = $this->table('user_has_group');
-        $table
-        ->addColumn('user_id', 'integer', ['limit' => 6])
-        ->addColumn('user_group', 'integer', ['limit' => 6])
-        
-        
+        $table = $this->table('user_group', ['id' => false, 'primary_key' => ['id']]);
+        $table->addColumn('id', 'integer', ['limit' => 6])
+        ->addColumn('name', 'varchar', ['limit' => 50])
+        ->addColumn('description', 'varchar', ['limit' => 100])
         ->save();
     }
 
@@ -61,14 +58,12 @@ class UserHasGroupMigration extends AbstractMigration
      */
     public function down()
     {
-        $table = $this->table('user_has_group');
-        $table
-        ->removeColumn('user_id')
-        ->removeColumn('user_group')
-        
-        
+        $table = $this->table('user_group');
+        $table->removeColumn('id')
+        ->removeColumn('name')
+        ->removeColumn('description')
         ->save();
         
-        $this->dropTable('user_has_group');
+        $this->dropTable('user_group');
     }
 }

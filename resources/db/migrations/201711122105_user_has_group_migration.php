@@ -3,12 +3,12 @@
 use Phinx\Migration\AbstractMigration;
 
 /**
- * Description of UserLogMigration
+ * Description of UserHasGroupMigration
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @%$dateCreated%
+ * Created @2017-11-12 21:13
  */
-class UserLogMigration extends AbstractMigration
+class UserHasGroupMigration extends AbstractMigration
 {
     /**
      * Change Method.
@@ -34,13 +34,9 @@ class UserLogMigration extends AbstractMigration
     public function change()
     {
         // create the table
-        $table = $this->table('user_log');
-        $table
-        ->addColumn('id', '{$item.fieldType}')
-        ->addColumn('user_id', '{$item.fieldType}')
-        ->addColumn('user_event', '{$item.fieldType}')
-        ->addColumn('timestamp', '{$item.fieldType}')
-        
+        $table = $this->table('user_has_group');
+        $table->addColumn('user_id', 'integer')
+        ->addColumn('user_group', 'integer')
         ->create();
     }
     
@@ -49,14 +45,11 @@ class UserLogMigration extends AbstractMigration
      */
     public function up()
     {
-        $table = $this->table('user_log');
-        $table
-        ->addColumn('id', 'integer', ['limit' => 6])
-        ->addColumn('user_id', 'integer', ['limit' => 6])
-        ->addColumn('user_event', 'integer', ['limit' => 6])
-        ->addColumn('timestamp', 'datetime', ['default' => CURRENT_TIMESTAMP])
-        
-        
+        $table = $this->table('user_has_group', ['id' => false, 'primary_key' => ['user_id', 'user_group']]);
+        $table->addColumn('user_id', 'integer', ['limit' => 6])
+        ->addColumn('user_group', 'integer', ['limit' => 6])
+        ->addIndex(['user_group'])
+        ->addIndex(['user_id'])
         ->save();
     }
 
@@ -65,16 +58,11 @@ class UserLogMigration extends AbstractMigration
      */
     public function down()
     {
-        $table = $this->table('user_log');
-        $table
-        ->removeColumn('id')
-        ->removeColumn('user_id')
-        ->removeColumn('user_event')
-        ->removeColumn('timestamp')
-        
-        
+        $table = $this->table('user_has_group');
+        $table->removeColumn('user_id')
+        ->removeColumn('user_group')
         ->save();
         
-        $this->dropTable('user_log');
+        $this->dropTable('user_has_group');
     }
 }

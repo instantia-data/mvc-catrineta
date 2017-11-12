@@ -3,12 +3,12 @@
 use Phinx\Migration\AbstractMigration;
 
 /**
- * Description of UserEventMigration
+ * Description of UserGuardMigration
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @%$dateCreated%
+ * Created @2017-11-12 21:13
  */
-class UserEventMigration extends AbstractMigration
+class UserGuardMigration extends AbstractMigration
 {
     /**
      * Change Method.
@@ -34,11 +34,11 @@ class UserEventMigration extends AbstractMigration
     public function change()
     {
         // create the table
-        $table = $this->table('user_event');
-        $table
-        ->addColumn('id', '{$item.fieldType}')
-        ->addColumn('name', '{$item.fieldType}')
-        
+        $table = $this->table('user_guard');
+        $table->addColumn('user_id', 'integer')
+        ->addColumn('username', 'varchar')
+        ->addColumn('salt', 'varchar')
+        ->addColumn('userkey', 'varchar')
         ->create();
     }
     
@@ -47,12 +47,11 @@ class UserEventMigration extends AbstractMigration
      */
     public function up()
     {
-        $table = $this->table('user_event');
-        $table
-        ->addColumn('id', 'integer', ['limit' => 6])
-        ->addColumn('name', 'varchar', ['limit' => 100])
-        
-        
+        $table = $this->table('user_guard', ['id' => false, 'primary_key' => ['user_id']]);
+        $table->addColumn('user_id', 'integer', ['limit' => 6])
+        ->addColumn('username', 'varchar', ['limit' => 100])
+        ->addColumn('salt', 'varchar', ['limit' => 128])
+        ->addColumn('userkey', 'varchar', ['limit' => 128])
         ->save();
     }
 
@@ -61,14 +60,13 @@ class UserEventMigration extends AbstractMigration
      */
     public function down()
     {
-        $table = $this->table('user_event');
-        $table
-        ->removeColumn('id')
-        ->removeColumn('name')
-        
-        
+        $table = $this->table('user_guard');
+        $table->removeColumn('user_id')
+        ->removeColumn('username')
+        ->removeColumn('salt')
+        ->removeColumn('userkey')
         ->save();
         
-        $this->dropTable('user_event');
+        $this->dropTable('user_guard');
     }
 }

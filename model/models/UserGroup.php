@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of UserGroup
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @%$dateCreated%
- * %$dateUpdated%
+ * Created @2017-11-12 21:13
+ * Updated @2017-11-12 21:13 with columns id, name, description
  */
 class UserGroup extends \Catrineta\orm\Model 
 {

@@ -76,20 +76,26 @@ class ModelCrud
         return $this->col_names;
     }
     
-    protected $constrains = [];
+    protected $constraints = [];
     
     /**
      * 
-     * @param array $constrains
+     * @param array $constraints
      */
-    public function setConstrains($constrains)
+    public function setConstraints($constraints)
     {
-        $this->constrains= $constrains;
-        /**
-        foreach ($constrains as $constrain){
-            $this->constrains[$constrain['COLUMN_NAME']] = $constrain;
-        }
-         */
+        $this->constraints= $constraints;
+    }
+    
+    protected $indexes = [];
+    
+    /**
+     * 
+     * @param array $indexes
+     */
+    public function setIndexes($indexes)
+    {
+        $this->indexes = $indexes;
     }
     
     
@@ -104,8 +110,8 @@ class ModelCrud
         $this->template = $template;
         $this->file = $file;
         
-        $writearr = ['className'=>$this->classname, 'created'=>date('Y-m-d H:i'), 
-            'updated'=>'Updated @' . date('Y-m-d H:i') . ' with columns ' . implode(", ", $this->col_names)];
+        $writearr = ['className'=>$this->classname, 'dateCreated'=>date('Y-m-d H:i'), 
+            'dateUpdated'=>'Updated @' . date('Y-m-d H:i') . ' with columns ' . implode(", ", $this->col_names)];
         
         /*
          * ['removes'=>$removes, 'added'=>$new_columns, 'resume'=>$str]
@@ -127,7 +133,7 @@ class ModelCrud
     
     protected function getConstrainIndex($field)
     {
-        foreach ($this->constrains as $constrain){
+        foreach ($this->constraints as $constrain){
             if($constrain['COLUMN_NAME'] == $field){
                 return $constrain;
             }

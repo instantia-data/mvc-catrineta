@@ -35,10 +35,8 @@ class %$className%Migration extends AbstractMigration
     {
         // create the table
         $table = $this->table('%$tableName%');
-        $table
-        {@while ($item in columns):}->addColumn('{$item.fieldName}', '{$item.fieldType}')
-        {@endwhile;}
-        ->create();
+        $table{@while ($item in columns):}->addColumn('{$item.fieldName}', '{$item.fieldKind}')
+        {@endwhile;}->create();
     }
     
     /**
@@ -46,13 +44,11 @@ class %$className%Migration extends AbstractMigration
      */
     public function up()
     {
-        $table = $this->table('%$tableName%');
-        $table
-        {@while ($item in adds):}->addColumn('{$item.fieldName}', '{$item.fieldKind}', [{$item.fieldAttributes}])
-        {@endwhile;}
-        {@while ($item in removes):}->removeColumn('{$item.fieldName}')
-        {@endwhile;}
-        ->save();
+        $table = $this->table('%$tableName%', ['id' => false, 'primary_key' => [%$primaryKeys%]]);
+        $table{@while ($item in adds):}->addColumn('{$item.fieldName}', '{$item.fieldKind}', [{$item.fieldAttributes}])
+        {@endwhile;}{@while ($item in removes):}->removeColumn('{$item.fieldName}')
+        {@endwhile;}{@while ($item in indexes):}->addIndex(['{$item.fieldName}'])
+        {@endwhile;}->save();
     }
 
     /**
@@ -61,12 +57,9 @@ class %$className%Migration extends AbstractMigration
     public function down()
     {
         $table = $this->table('%$tableName%');
-        $table
-        {@while ($item in downs):}->removeColumn('{$item.fieldName}')
-        {@endwhile;}
-        {@while ($item in resumes):}->addColumn('{$item.fieldName}', 'fill type', ['fill attributes'])
-        {@endwhile;}
-        ->save();
+        $table{@while ($item in downs):}->removeColumn('{$item.fieldName}')
+        {@endwhile;}{@while ($item in resumes):}->addColumn('{$item.fieldName}', 'fill type', ['fill attributes'])
+        {@endwhile;}->save();
         
         $this->dropTable('%$tableName%');
     }

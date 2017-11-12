@@ -3,12 +3,12 @@
 use Phinx\Migration\AbstractMigration;
 
 /**
- * Description of UserDetailsMigration
+ * Description of UserLogMigration
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @%$dateCreated%
+ * Created @2017-11-12 21:13
  */
-class UserDetailsMigration extends AbstractMigration
+class UserLogMigration extends AbstractMigration
 {
     /**
      * Change Method.
@@ -34,13 +34,11 @@ class UserDetailsMigration extends AbstractMigration
     public function change()
     {
         // create the table
-        $table = $this->table('user_details');
-        $table
-        ->addColumn('user_id', '{$item.fieldType}')
-        ->addColumn('address', '{$item.fieldType}')
-        ->addColumn('zip_code', '{$item.fieldType}')
-        ->addColumn('local', '{$item.fieldType}')
-        
+        $table = $this->table('user_log');
+        $table->addColumn('id', 'integer')
+        ->addColumn('user_id', 'integer')
+        ->addColumn('user_event', 'integer')
+        ->addColumn('timestamp', 'datetime')
         ->create();
     }
     
@@ -49,14 +47,13 @@ class UserDetailsMigration extends AbstractMigration
      */
     public function up()
     {
-        $table = $this->table('user_details');
-        $table
+        $table = $this->table('user_log', ['id' => false, 'primary_key' => ['id']]);
+        $table->addColumn('id', 'integer', ['limit' => 6])
         ->addColumn('user_id', 'integer', ['limit' => 6])
-        ->addColumn('address', 'varchar', ['limit' => 150])
-        ->addColumn('zip_code', 'varchar', ['limit' => 30])
-        ->addColumn('local', 'varchar', ['limit' => 100])
-        
-        
+        ->addColumn('user_event', 'integer', ['limit' => 6])
+        ->addColumn('timestamp', 'datetime', ['default' => CURRENT_TIMESTAMP])
+        ->addIndex(['user_id'])
+        ->addIndex(['user_event'])
         ->save();
     }
 
@@ -65,16 +62,13 @@ class UserDetailsMigration extends AbstractMigration
      */
     public function down()
     {
-        $table = $this->table('user_details');
-        $table
+        $table = $this->table('user_log');
+        $table->removeColumn('id')
         ->removeColumn('user_id')
-        ->removeColumn('address')
-        ->removeColumn('zip_code')
-        ->removeColumn('local')
-        
-        
+        ->removeColumn('user_event')
+        ->removeColumn('timestamp')
         ->save();
         
-        $this->dropTable('user_details');
+        $this->dropTable('user_log');
     }
 }
