@@ -107,11 +107,43 @@ class Configurator
         $config = new stdClass();
         $config->author = $data['author'];
         $config->project_title = $data['project']['title'];
+        $config->key = $data['personal_key'];
+        //langs
+        $config->langs = new stdClass();
+        self::setLangs($data, $config->langs);
 
         $config->theme_backend = $data['themes']['backend'];
         $config->theme_frontend = $data['themes']['frontend'];
 
         self::$config = $config;
+    }
+    
+    private static function setLangs($data, $object)
+    {
+        $object->collection = $data['project']['langs'];
+        foreach ($data['project']['langs'] as $key=>$lang){
+            if($key == ''){
+                $object->default = $lang;
+            }
+        }
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public static function getLangs()
+    {
+        return self::$config->langs->collection;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public static function getDefaultLang()
+    {
+        return self::$config->langs->default;
     }
 
     /**

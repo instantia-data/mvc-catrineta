@@ -21,6 +21,7 @@ namespace Catrineta\view;
 
 use \Catrineta\register\CatExceptions;
 use \Twig_Loader_Filesystem;
+use \Twig\TwigFunction;
 use \Twig_Environment;
 
 use \Catrineta\routing\Routing;
@@ -84,7 +85,7 @@ class View {
      *
      * @param array $params An array of options
      */
-    public function loadTwig($params = []) {
+    public function loadTwig() {
         
         //Twig_LoaderInterface $loader with
         //array of paths where to look for templates
@@ -92,11 +93,21 @@ class View {
                 [VIEW_DIR, $this->getFolderView()]
         );
         // Twig Constructor
-        $this->twig = new Twig_Environment($loader, $params);
+        $this->twig = new Twig_Environment($loader, [
+            'debug' => true,
+        ]);
         
-        $this->twig->addFunction( new Twig_Function('lang', function ($index) {
-            \Catrineta\lang\Lang::translate($index);
-                }));
+        $this->twig->addExtension(new \Twig_Extension_Debug());
+        
+        $this->addFunctions();
+                
+    }
+    
+    private function addFunctions()
+    {
+        $this->twig->addFunction(new TwigFunction('lang', function ($index) {
+            \Catrineta\lang\Translation::translate($index);
+        }));
     }
     
     /**

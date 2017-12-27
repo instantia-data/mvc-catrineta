@@ -22,6 +22,8 @@ namespace Catrineta\routing;
 use \Catrineta\routing\RoutesCollection;
 use \Catrineta\register\CatExceptions;
 use \Catrineta\routing\RoutingTools;
+use \Catrineta\register\Registry;
+use \Catrineta\register\Request;
 use \Catrineta\register\Monitor;
 use \Catrineta\url\UrlRegister;
 use \Catrineta\url\UrlParser;
@@ -93,7 +95,10 @@ class Routing extends \Catrineta\routing\RequestVars
         parent::isXmlHttpRequest();
         //parse request and convert to object
         self::$url = UrlRegister::getUrlRequest();
+        Request::setUrl(self::$url);
         Monitor::add(Monitor::ROUTE, 'Url is ' . self::$url);
+        //register GET on Request
+        Request::setHttpGet(UrlRegister::getGets());
     }
 
     /**
@@ -122,6 +127,8 @@ class Routing extends \Catrineta\routing\RequestVars
         //Get Catrineta\routing\Route from collection of routes
         $route = RoutingTools::chooseRoute(self::$request);
         Monitor::add(Monitor::ROUTE, 'Route is ' . $route->index . ' with uri ' . $route->uri);
+        //associate var and route content
+        Registry::defineVars($route->vars, self::$request->parts);
         //process the atribute $route->action ("Admin/User@edit")
         $route->processAction();
         //define variables from $route->vars to Registry

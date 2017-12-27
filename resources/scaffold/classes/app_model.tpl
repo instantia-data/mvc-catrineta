@@ -35,8 +35,8 @@ class %$className%UtilQueries {
     *
     * @return \Model\querys\%$modelName%Query;
     */
-    public static function getBaseQuery(){
-        $query = %$modelName%Query::start(){@while ($item in joins):}
+    public static function get%$className%(){
+        $query = %$modelName%Query::init(){@while ($item in joins):}
         ->join{$item.tableJoin}(){$item.selects}->endUse(){@endwhile;};
         
         return $query;

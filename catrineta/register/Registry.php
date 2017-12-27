@@ -20,6 +20,7 @@
 namespace Catrineta\register;
 
 use \Catrineta\register\Monitor;
+use \Catrineta\register\Request;
 
 /**
  * Description of Registry
@@ -54,9 +55,35 @@ class Registry
      * @param string $key
      * @return mixed
      */
-    public static function getVar($key)
+    public static function get($key = null)
     {
+        if(null == $key){
+            return self::$vars;
+        }
         return self::$vars[$key];
+    }
+    
+
+    /**
+     * 
+     * @param array $sequence
+     * @param \stdClass $request
+     */
+    public static function defineVars($sequence, $request)
+    {
+        foreach($sequence as $i =>$var){
+            if(!empty($var) && isset($request[$i])){
+                self::setVar($var, $request[$i]->content);
+                if($var == 'id'){
+                    Request::$id = $request[$i]->content;
+                    Monitor::add(Monitor::ROUTE, 'Request id is ' . Request::$id);
+                }
+                if($var == 'canonical'){
+                    Request::$canonical = $request[$i]->content;
+                    Monitor::add(Monitor::ROUTE, 'Request canonical is ' . Request::$canonical);
+                }
+            }
+        }
     }
 
 }

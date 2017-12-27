@@ -20,7 +20,7 @@
 namespace Catrineta\register;
 
 /**
- * Description of Registry
+ * Description of FrameworkMonitor
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @Jun 16, 2017

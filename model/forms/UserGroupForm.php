@@ -25,11 +25,16 @@ use \Model\models\UserGroup;
  * Description of UserGroupForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-11-12 21:13
- * Updated @Updated @2017-11-12 21:13 with columns id, name, description *
+ * Created @2017-12-07 18:20
+ * Updated @Updated @2017-12-07 18:20 with columns id, name, description *
  */
 class UserGroupForm extends \Catrineta\form\Form {
 
+    /**
+     * 
+     * @param boolean $declare
+     * @return \Model\forms\UserGroupForm
+     */
     public static function initialize($declare = true){
         $form = new UserGroupForm();
         if($declare == true){
@@ -38,11 +43,16 @@ class UserGroupForm extends \Catrineta\form\Form {
         return $form;
     }
     
-    
+    /**
+     * Initialize all inputs
+     * @return $this
+     */
     public function declareInputs(){
-        $this->queue[] = UserGroup::TABLE;
         $this->models[UserGroup::TABLE] = new UserGroup();
         
+        $this->setIdInput();
+        $this->setNameInput();
+        $this->setDescriptionInput();
         return $this;
     }
     

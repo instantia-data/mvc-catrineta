@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of UserDetails
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-11-12 21:13
- * Updated @2017-11-12 21:13 with columns user_id, address, zip_code, local
+ * Created @2017-12-07 18:20
+ * Updated @2017-12-07 18:20 with columns user_id, address, zip_code, local
  */
 class UserDetails extends \Catrineta\orm\Model 
 {

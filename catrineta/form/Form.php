@@ -19,6 +19,8 @@
 
 namespace Catrineta\form;
 
+use \Catrineta\form\Input;
+
 /**
  * Description of Form
  *
@@ -27,12 +29,6 @@ namespace Catrineta\form;
  */
 class Form
 {
-
-    /**
-     *
-     * @var array The queue for merged forms
-     */
-    protected $queue = [];
     
     /**
      *
@@ -43,6 +39,45 @@ class Form
     function __construct()
     {
         
+    }
+    
+    /**
+     * @var array
+     */
+    protected $forminputs = [];
+    
+    /**
+     * @param string $table
+     * @param string $field
+     * @param \Catrineta\form\Input $input
+     * @return \Catrineta\form\Input
+     */
+    public function setFieldInput($table, $field, Input $input)
+    {
+        $this->forminputs[$table][$field] = $input;
+        return $this->forminputs[$table][$field];
+    }
+    
+    /**
+     * @param $table
+     * @param $field
+     * @return $this
+     */
+    public function unsetFieldInput($table, $field)
+    {
+        unset($this->forminputs[$table][$field]);
+        return $this;
+    }
+    
+    /**
+     * @param $table
+     * @param $field
+     * @param $value
+     * @return mixed
+     */
+    public function setFieldValue($table, $field, $value)
+    {
+        return $this->forminputs[$table][$field]->setValue($value);
     }
 
 }

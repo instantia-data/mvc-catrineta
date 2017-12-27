@@ -25,11 +25,16 @@ use \Model\models\UserLog;
  * Description of UserLogForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-11-12 21:13
- * Updated @Updated @2017-11-12 21:13 with columns id, user_id, user_event, timestamp *
+ * Created @2017-12-07 18:20
+ * Updated @Updated @2017-12-07 18:20 with columns id, user_id, user_event, timestamp *
  */
 class UserLogForm extends \Catrineta\form\Form {
 
+    /**
+     * 
+     * @param boolean $declare
+     * @return \Model\forms\UserLogForm
+     */
     public static function initialize($declare = true){
         $form = new UserLogForm();
         if($declare == true){
@@ -38,11 +43,16 @@ class UserLogForm extends \Catrineta\form\Form {
         return $form;
     }
     
-    
+    /**
+     * Initialize all inputs
+     * @return $this
+     */
     public function declareInputs(){
-        $this->queue[] = UserLog::TABLE;
         $this->models[UserLog::TABLE] = new UserLog();
         
+        $this->setIdInput();
+        $this->setUserIdInput();
+        $this->setUserEventInput();
         return $this;
     }
     

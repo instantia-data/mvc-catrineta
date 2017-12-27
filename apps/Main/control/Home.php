@@ -16,7 +16,7 @@ use \Model\querys\UserQuery;
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @Jul 23, 2017
  */
-class Home extends \Catrineta\framework\FrontController {
+class Home extends \Catrineta\framework\control\FrontController {
 
     public function index(){
         

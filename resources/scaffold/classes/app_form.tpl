@@ -30,7 +30,8 @@ use \Model\models\%$modelName%;
  * Created @%$dateCreated%
  * Updated @%$dateUpdated% *
  */
-class %$className%UtilForm {
+class %$className%UtilForm extends \Catrineta\form\MergeForm 
+{
 
     /**
     * Create and return the common object to this class

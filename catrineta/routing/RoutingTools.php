@@ -51,7 +51,7 @@ class RoutingTools {
          * 
          */
         if (!class_exists($class)) {
-            throw new CatExceptions('(RoutingTools) Class "' . $class . '" is not valid',
+            throw new CatExceptions('Class "' . $class . '" is not valid',
                     CatExceptions::CODE_ROUTE);
         }
         

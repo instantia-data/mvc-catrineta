@@ -25,11 +25,16 @@ use \Model\models\UserEvent;
  * Description of UserEventForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-11-12 21:13
- * Updated @Updated @2017-11-12 21:13 with columns id, name *
+ * Created @2017-12-07 18:20
+ * Updated @Updated @2017-12-07 18:20 with columns id, name *
  */
 class UserEventForm extends \Catrineta\form\Form {
 
+    /**
+     * 
+     * @param boolean $declare
+     * @return \Model\forms\UserEventForm
+     */
     public static function initialize($declare = true){
         $form = new UserEventForm();
         if($declare == true){
@@ -38,11 +43,15 @@ class UserEventForm extends \Catrineta\form\Form {
         return $form;
     }
     
-    
+    /**
+     * Initialize all inputs
+     * @return $this
+     */
     public function declareInputs(){
-        $this->queue[] = UserEvent::TABLE;
         $this->models[UserEvent::TABLE] = new UserEvent();
         
+        $this->setIdInput();
+        $this->setNameInput();
         return $this;
     }
     

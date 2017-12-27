@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of UserEvent
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-11-12 21:13
- * Updated @2017-11-12 21:13 with columns id, name
+ * Created @2017-12-07 18:20
+ * Updated @2017-12-07 18:20 with columns id, name
  */
 class UserEvent extends \Catrineta\orm\Model 
 {

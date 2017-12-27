@@ -54,7 +54,7 @@ class Boot
         /**
          * filter the request
          */
-        $page->filter();
+        $page->middleware();
         /**
          * launch controller
          */
@@ -114,7 +114,7 @@ class Boot
      */
     public function post()
     {
-        
+        \Catrineta\register\PostRegister::registPosts();
     }
 
     /**
@@ -122,16 +122,17 @@ class Boot
      */
     public function session()
     {
-        
+        $session = new \Catrineta\session\Session();
+        $session->refresh();
     }
 
     /**
-     * Boot filters before the controller
+     * Boot middlewares before the controller
      * @param array $filters
      */
-    public function filter()
+    public function middleware()
     {
-        
+        \Catrineta\middleware\KernelMiddleware::run();
     }
 
     private $controller = '';

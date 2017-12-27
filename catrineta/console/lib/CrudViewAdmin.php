@@ -43,7 +43,7 @@ class CrudViewAdmin
     function __construct($folder, $app, $name)
     {
         $this->folder= $folder;
-        $this->app = strtolower($app);
+        $this->app = $app;
         $this->name = strtolower($name);
         $this->subfolder = $this->folder . 'view' . DS . $this->name ;
         if (!is_dir($this->subfolder)) {
@@ -51,14 +51,14 @@ class CrudViewAdmin
         }
     }
     
-    public function writeMainView()
+    public function writeMainView($arr)
     {
         $template = RESOURCES_DIR . 'scaffold' . DS . 'views' . DS . 'admin' . DS . 'index.tpl';
         $file = $this->folder . 'view' . DS . $this->name . '.html';
         if(!is_file($file)){
-            return CrudTools::copyFile($template, $file, [
-                'viewName'=> $this->name
-            ]);
+            return CrudTools::copyFile($template, $file,
+                array_merge($arr, ['viewName'=> $this->name])
+            );
         }
     }
     
@@ -67,21 +67,27 @@ class CrudViewAdmin
     {
         $template = RESOURCES_DIR . 'scaffold' . DS . 'views' . DS . 'admin' . DS . 'table.tpl';
         $file = $this->folder . 'view' . DS . $this->name . DS . 'table.html';
-        $this->copy($template, $file, $columns, $pks);
+        if (!is_file($file)) {
+            $this->copy($template, $file, $columns, $pks);
+        }
     }
-    
+
     public function writeForm($columns)
     {
         $template = RESOURCES_DIR . 'scaffold' . DS . 'views' . DS . 'admin' . DS . 'form.tpl';
         $file = $this->folder . 'view' . DS . $this->name . DS . 'form.html';
-        $this->copy($template, $file, $columns);
+        if (!is_file($file)) {
+            $this->copy($template, $file, $columns);
+        }
     }
-    
+
     public function writeFilter($columns)
     {
         $template = RESOURCES_DIR . 'scaffold' . DS . 'views' . DS . 'admin' . DS . 'filter.tpl';
         $file = $this->folder . 'view' . DS . $this->name . DS . 'filter.html';
-        $this->copy($template, $file, $columns);
+        if (!is_file($file)) {
+            $this->copy($template, $file, $columns);
+        }
     }
     
     private function copy($template, $file, $columns, $pks = [])
@@ -97,7 +103,7 @@ class CrudViewAdmin
     private function getArrReplace($pks = [])
     {
         return [
-            'name' => $this->name, 'appurl' => $this->app,
+            'name' => $this->name, 'app' => $this->app, 'appurl' => strtolower($this->app),
             'nameurl' => strtolower($this->name), 'name' => strtolower($this->name), 'id' => implode('-', $pks)
         ];
     }
@@ -106,7 +112,8 @@ class CrudViewAdmin
     {
         foreach($columns as $column){
             $parse->setData('columns', [
-                'colname'=>$column
+                'column'=>$column,
+                'colname'=> ModelTools::getColumnName($column),
             ]);
         }
     }

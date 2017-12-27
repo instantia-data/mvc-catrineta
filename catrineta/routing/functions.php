@@ -52,6 +52,20 @@ function route_post($uri, $action){
 
 /**
  * 
+ * @param string $baseuri
+ * @param string $action
+ * @return type
+ */
+function route_admin_pack($baseuri, $action)
+{
+    route_get($baseuri, $action . '@index');
+    route_get($baseuri . '/new', $action . '@create');
+    route_get($baseuri . '/edit/{id:d}', $action . '@edit');
+    route_post($baseuri . '/bind/{id:d}', $action . '@bind');
+}
+
+/**
+ * 
  * @param array $attributes
  * @param mixed $routes
  * @return null

@@ -29,7 +29,7 @@ use \Apps\Admin\model\%$className%UtilQueries;
  * Created @%$dateCreated%
  * Updated @%$dateUpdated% *
  */
-class %$className%Controller extends \Catrineta\framework\BackendController {
+class %$className%Controller extends \Catrineta\framework\control\BackendController {
 
     protected $query;
     

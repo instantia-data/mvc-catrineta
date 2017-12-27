@@ -318,6 +318,8 @@ class MysqlSelect extends \Catrineta\db\mysql\MysqlStatement
         
         return $this;
     }
+    
+    protected $limit = [];
 
     /**
      * @param int $row_count

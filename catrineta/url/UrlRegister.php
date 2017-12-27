@@ -8,6 +8,8 @@
 
 namespace Catrineta\url;
 
+use \Catrineta\register\Configurator;
+
 /**
  * Description of UrlRegister
  *
@@ -65,8 +67,11 @@ class UrlRegister {
      * @param $key
      * @return bool|mixed
      */
-    public static function getGets($key)
+    public static function getGets($key = null)
     {
+        if(null == $key){
+            return self::$gets;
+        }
         return (isset(self::$gets [$key])) ? self::$gets [$key] : false;
     }
     
@@ -77,6 +82,30 @@ class UrlRegister {
     public static function getMainPart(){
         return (isset(self::$gets [self::KEY_MAIN]))?
             self::$gets [self::KEY_MAIN] : '';
+    }
+    
+    /**
+     * @param $string
+     * @return mixed
+     */
+    public static function encUrl($string)
+    {
+        $key = Configurator::getConfig()->key;
+        $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $string, MCRYPT_MODE_CBC, md5(md5($key))));
+        return urlencode($encrypted);
+    }
+
+    /**
+     * @param $string
+     * @return mixed
+     */
+    public static function decUrl($string)
+    {
+        $key = Configurator::getConfig()->key;
+        $encrypted = $string;
+        $decrypted = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($encrypted), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
+
+        return json_decode(trim($decrypted));
     }
 
 }

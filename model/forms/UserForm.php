@@ -25,11 +25,16 @@ use \Model\models\User;
  * Description of UserForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-11-12 21:13
- * Updated @Updated @2017-11-12 21:13 with columns id, name, email, cellphone, user_status, created *
+ * Created @2017-12-07 18:20
+ * Updated @Updated @2017-12-07 18:20 with columns id, name, email, cellphone, user_status, created *
  */
 class UserForm extends \Catrineta\form\Form {
 
+    /**
+     * 
+     * @param boolean $declare
+     * @return \Model\forms\UserForm
+     */
     public static function initialize($declare = true){
         $form = new UserForm();
         if($declare == true){
@@ -38,11 +43,18 @@ class UserForm extends \Catrineta\form\Form {
         return $form;
     }
     
-    
+    /**
+     * Initialize all inputs
+     * @return $this
+     */
     public function declareInputs(){
-        $this->queue[] = User::TABLE;
         $this->models[User::TABLE] = new User();
         
+        $this->setIdInput();
+        $this->setNameInput();
+        $this->setEmailInput();
+        $this->setCellphoneInput();
+        $this->setUserStatusInput();
         return $this;
     }
     

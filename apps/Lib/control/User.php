@@ -25,7 +25,7 @@ namespace Apps\Lib\control;
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @Aug 14, 2017
  */
-class User extends \Catrineta\framework\FrontController
+class User extends \Catrineta\framework\control\FrontController
 {
 
     public function index(){

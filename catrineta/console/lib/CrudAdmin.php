@@ -86,12 +86,13 @@ class CrudAdmin
         $template = RESOURCES_DIR . 'scaffold' . DS . 'classes' . DS . 'app_model.tpl';
         $file = $this->folder . 'model' . DS . $this->name . 'UtilQueries.php';
         
-        $string = $this->copy($template, $file, $arr, 'UtilQueries');
-        $parse = new ParseLoop($string);
-        $this->loopJoins($parse);
-        
-        file_put_contents($file, $parse->parseWhile());
-        
+        if (!is_file($file)) {
+            $string = $this->copy($template, $file, $arr, 'UtilQueries');
+            $parse = new ParseLoop($string);
+            $this->loopJoins($parse);
+
+            file_put_contents($file, $parse->parseWhile());
+        }
     }
     
     /**
@@ -104,8 +105,11 @@ class CrudAdmin
         
         $template = RESOURCES_DIR . 'scaffold' . DS . 'classes' . DS . 'app_form.tpl';
         $file = $this->folder . 'model' . DS . $this->name . 'UtilForm.php';
+        if(!is_file($file)){
+            $this->copy($template, $file, $arr, 'UtilForm');
+        }
         
-        $this->copy($template, $file, $arr, 'UtilForm');
+        
         
     }
     
@@ -119,17 +123,21 @@ class CrudAdmin
         $template = RESOURCES_DIR . 'scaffold' . DS . 'classes' . DS . 'app_controller.tpl';
         $file = $this->folder . 'control' . DS . $this->name . 'Controller.php';
         
-        $this->copy($template, $file, $arr, 'Controller');
+        if(!is_file($file)){
+            $this->copy($template, $file, $arr, 'Controller');
+        }
+        
     }
     
     /**
      * 
      * @param string $table
+     * @param array $arr
      */
-    public function writeView($table)
+    public function writeView($table, $arr = [])
     {
         $crud = new \Catrineta\console\lib\CrudViewAdmin($this->folder, $this->app, $this->name);
-        $crud->writeMainView();
+        $crud->writeMainView($arr);
         $pks = ModelTools::getPrimary($table);
         $crud->writeTable($this->columns, $pks);
         $columns = ModelTools::getColumns($table);
@@ -140,19 +148,29 @@ class CrudAdmin
     
     public function writeLang()
     {
-        $template = RESOURCES_DIR . 'scaffold' . DS . 'lang.tpl';
-        $file = $this->folder . 'lang' . DS . strtolower($this->name) . '.php';
-        
-        $string = $this->copy($template, $file, [], 'lang');
-        $parse = new ParseLoop($string);
-        foreach($this->columns as $column){
-            $parse->setData('columns', [
-                'colname'=>$column,
-                'translation'=> ucwords(str_replace(['.','_'], ' ', $column))
-            ]);
+        foreach(Configurator::getConfig()->langs as $lang){
+            $this->writeOneLang($lang);
         }
+    }
+    
+    private function writeOneLang($lang)
+    {
+        $template = RESOURCES_DIR . 'scaffold' . DS . 'lang.tpl';
+        $file = $this->folder . 'lang' . DS . $lang . DS . strtolower($this->name) . '.php';
         
-        file_put_contents($file, $parse->parseWhile());
+        if (!is_file($file)) {
+            $string = $this->copy($template, $file, [], 'lang');
+
+            $parse = new ParseLoop($string);
+            foreach ($this->columns as $column) {
+                $parse->setData('columns', [
+                    'colname' => ModelTools::getColumnName($column),
+                    'translation' => ucwords(str_replace(['.', '_'], ' ', $column))
+                ]);
+            }
+
+            file_put_contents($file, $parse->parseWhile());
+        }
     }
     
     /**
@@ -165,10 +183,6 @@ class CrudAdmin
      */
     private function copy($template, $file, $arr, $name)
     {
-        if(is_file($file)){
-            echo "File " . $this->name . $name .'.php' . " exists, delete it to write \n";
-            return;
-        }
         return CrudTools::copyFile($template, $file, $arr);
     }
     

@@ -24,6 +24,7 @@ use \Catrineta\orm\ModelTools;
 
 /**
  * Description of MakeApp
+ * @info Build one basic app Controller, Views and Models
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @Sep 1, 2017
@@ -106,12 +107,13 @@ class MakeApp extends \Catrineta\console\Task
         $this->model = ModelTools::buildModelName($table);
         $arr = [
             'className'=>$this->name, 'created'=>date('Y-m-d H:i'), 'updated'=>date('Y-m-d H:i'), 
-            'nameApp' => $this->app, 'modelName'=> $this->model
+            'nameApp' => $this->app, 'modelName'=> $this->model, 
+            'nameurl'=> strtolower($this->name), 'appurl'=> strtolower($this->app)
                 ];
         $crud->writeQuery($arr);
         $crud->writeForm($arr);
         $crud->writeController($arr);
-        $crud->writeView($table);
+        $crud->writeView($table, $arr);
         $crud->writeLang();
     }
     

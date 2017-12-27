@@ -25,11 +25,16 @@ use \Model\models\UserHasGroup;
  * Description of UserHasGroupForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-11-12 21:13
- * Updated @Updated @2017-11-12 21:13 with columns user_id, user_group *
+ * Created @2017-12-07 18:20
+ * Updated @Updated @2017-12-07 18:20 with columns user_id, user_group *
  */
 class UserHasGroupForm extends \Catrineta\form\Form {
 
+    /**
+     * 
+     * @param boolean $declare
+     * @return \Model\forms\UserHasGroupForm
+     */
     public static function initialize($declare = true){
         $form = new UserHasGroupForm();
         if($declare == true){
@@ -38,11 +43,15 @@ class UserHasGroupForm extends \Catrineta\form\Form {
         return $form;
     }
     
-    
+    /**
+     * Initialize all inputs
+     * @return $this
+     */
     public function declareInputs(){
-        $this->queue[] = UserHasGroup::TABLE;
         $this->models[UserHasGroup::TABLE] = new UserHasGroup();
         
+        $this->setUserIdInput();
+        $this->setUserGroupInput();
         return $this;
     }
     

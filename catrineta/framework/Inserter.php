@@ -19,7 +19,7 @@
 
 namespace Catrineta\framework;
 
-use \Catrineta\framework\JobsController;
+use \Catrineta\framework\control\JobsController;
 
 /**
  * Description of Inserter

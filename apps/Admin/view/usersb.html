@@ -1,0 +1,28 @@
+{% extends "sb-admin/main.htm" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block head %}  
+
+<style>
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div>Teste</div>
+{% endblock %}
+
+{% block scripts %} 
+
+
+<script>
+$(document).ready(function () {
+    
+});
+
+{{ inlineJS | raw }}
+
+</script>
+{% endblock %}

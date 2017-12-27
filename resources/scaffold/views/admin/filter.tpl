@@ -1,7 +1,7 @@
-<form action="/%$appurl%/filter_%$nameurl%/">
+<form action="/%$appurl%/%$nameurl%/filter">
     {@while ($item in columns):}<div class="form-group">
-        <label>{{ form.{$item.colname}.label }}</label>
-        {{ form.{$item.colname}.input }}
+        <label>{{ form['{$item.column}.label'] }}</label>
+        {{ form['{$item.column}.input'] }}
     </div>
     {@endwhile;}
     <div>

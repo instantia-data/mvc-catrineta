@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 {@while ($item in columns):}
-                <th>{{ lang('%$name%.{$item.colname}') }}</th>{@endwhile;}
+                <th>{{ lang('%$app%.%$name%.{$item.colname}') }}</th>{@endwhile;}
                 <th></th>
                 <th></th>
             </tr> 
@@ -11,26 +11,26 @@
         <tbody>
             <tr data-id="%$id%" style="display: none">
                 <th>#</th>{@while ($item in columns):}
-                <td data-field="{$item.colname}"></td>{@endwhile;}
+                <td data-field="{$item.column}"></td>{@endwhile;}
                 <td class="icon-cell">
-                    <a data-action="/%$appurl%/edit_%$nameurl%/" 
+                    <a data-action="/%$appurl%/%$nameurl%/edit" 
                        title="{{ lang('admin.edit') }}" class="btn-edit fa fa-pencil"></a>
                 </td>
                 <td class="icon-cell">
-                    <a data-action="/%$appurl%/delete_%$nameurl%/" 
+                    <a data-action="/%$appurl%/%$nameurl%/delete" 
                        title="{{ lang('admin.delete') }}" class="btn-edit fa fa-trash-o"></a>
                 </td>
             </tr>
             {% for item in list %}
-            <tr data-id="{{ item.%$id% }}">
+            <tr data-id="{{ item['%$id%'] }}">
                 <th>#</th>{@while ($item in columns):}
-                <td data-field="{$item.colname}">{{ item.{$item.colname} }}</td>{@endwhile;}
+                <td data-field="{$item.column}">{{ item['{$item.column}'] }}</td>{@endwhile;}
                 <td class="icon-cell">
-                    <a data-action="/%$appurl%/edit_%$nameurl%/{{ item.%$id% }}" 
+                    <a data-action="/%$appurl%/%$nameurl%/edit/{{ item['%$id%'] }}" 
                        title="{{ lang('admin.edit') }}" class="btn-edit fa fa-pencil"></a>
                 </td>
                 <td class="icon-cell">
-                    <a data-action="/%$appurl%/delete_%$nameurl%/{{ item.%$id% }}" 
+                    <a data-action="/%$appurl%/%$nameurl%/delete/{{ item['%$id%'] }}" 
                        title="{{ lang('admin.delete') }}" class="btn-edit fa fa-trash-o"></a>
                 </td>
             </tr>

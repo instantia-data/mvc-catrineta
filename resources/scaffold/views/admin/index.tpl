@@ -9,25 +9,26 @@
 </style>
 {% endblock %}
 
-{% block heading %} <h1>Heading</h1> {% endblock %}
+{% block heading %} {% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h2></h2>
+                <h2 class="pull-left"></h2>
                 <div class="pull-right">
                     <div class="table-buttons">
-                        <a data-action="/%$appurl%/new_%$nameurl%" data-id="" class="btn-new btn btn-xs btn-default ">
-                            <span class="glyphicon glyphicon-plus"></span> {{ lang(admin.insert) }}</a>
-                        <a href="/%$appurl%/export_%$nameurl%" class="btn btn-xs btn-default">
-                            <span class="glyphicon glyphicon-export"></span> {{ lang(admin.export) }}</a>
-                        <a data-action="/%$appurl%/filter_%$nameurl%" class="btn-showfilter btn btn-xs btn-primary">                            
-                            <span class="glyphicon glyphicon-filter"></span> {{ lang(admin.filter) }}</a>
+                        <a data-action="/%$appurl%/%$nameurl%/new" data-id="" class="btn-new btn btn-xs btn-default ">
+                            <span class="glyphicon glyphicon-plus"></span> {{ lang('admin.insert') }}</a>
+                        <a href="/%$appurl%/%$nameurl%/export" class="btn btn-xs btn-default">
+                            <span class="glyphicon glyphicon-export"></span> {{ lang('admin.export') }}</a>
+                        <a data-action="/%$appurl%/%$nameurl%/filter" class="btn-showfilter btn btn-xs btn-primary">                            
+                            <span class="glyphicon glyphicon-filter"></span> {{ lang('admin.filter') }}</a>
                         <div class="table-filters" style="display: none">{% include '%$viewName%/filter.html' %}</div>
                     </div>
                 </div>
+                <br />
             </div>
             <div class="panel-body">
                 {% include '%$viewName%/table.html' %}
@@ -59,7 +60,9 @@
 
 {% endblock %}
 
-{% block footer %} 
+{% block footer %} {% endblock %}
+
+{% block scripts %} 
 
 <script>
 $(document).ready(function () {

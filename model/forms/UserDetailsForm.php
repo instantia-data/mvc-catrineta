@@ -25,11 +25,16 @@ use \Model\models\UserDetails;
  * Description of UserDetailsForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-11-12 21:13
- * Updated @Updated @2017-11-12 21:13 with columns user_id, address, zip_code, local *
+ * Created @2017-12-07 18:20
+ * Updated @Updated @2017-12-07 18:20 with columns user_id, address, zip_code, local *
  */
 class UserDetailsForm extends \Catrineta\form\Form {
 
+    /**
+     * 
+     * @param boolean $declare
+     * @return \Model\forms\UserDetailsForm
+     */
     public static function initialize($declare = true){
         $form = new UserDetailsForm();
         if($declare == true){
@@ -38,11 +43,17 @@ class UserDetailsForm extends \Catrineta\form\Form {
         return $form;
     }
     
-    
+    /**
+     * Initialize all inputs
+     * @return $this
+     */
     public function declareInputs(){
-        $this->queue[] = UserDetails::TABLE;
         $this->models[UserDetails::TABLE] = new UserDetails();
         
+        $this->setUserIdInput();
+        $this->setAddressInput();
+        $this->setZipCodeInput();
+        $this->setLocalInput();
         return $this;
     }
     

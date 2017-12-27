@@ -1,0 +1,32 @@
+<form action="/admin/users/filter">
+    <div class="form-group">
+        <label>{{ form['user.id.label'] }}</label>
+        {{ form['user.id.input'] }}
+    </div>
+    <div class="form-group">
+        <label>{{ form['user.name.label'] }}</label>
+        {{ form['user.name.input'] }}
+    </div>
+    <div class="form-group">
+        <label>{{ form['user.email.label'] }}</label>
+        {{ form['user.email.input'] }}
+    </div>
+    <div class="form-group">
+        <label>{{ form['user.cellphone.label'] }}</label>
+        {{ form['user.cellphone.input'] }}
+    </div>
+    <div class="form-group">
+        <label>{{ form['user.user_status.label'] }}</label>
+        {{ form['user.user_status.input'] }}
+    </div>
+    <div class="form-group">
+        <label>{{ form['user.created.label'] }}</label>
+        {{ form['user.created.input'] }}
+    </div>
+    
+    <div>
+        <button type="submit" class="btn btn-default btn-filter">{{ lang('admin.filter') }}</button>
+        <button type="reset" class="btn btn-default btn-reset">{{ lang('admin.clean') }}</button>
+    </div>
+</form>
+

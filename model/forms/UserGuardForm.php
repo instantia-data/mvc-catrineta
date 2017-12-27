@@ -25,11 +25,16 @@ use \Model\models\UserGuard;
  * Description of UserGuardForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-11-12 21:13
- * Updated @Updated @2017-11-12 21:13 with columns user_id, username, salt, userkey *
+ * Created @2017-12-07 18:20
+ * Updated @Updated @2017-12-07 18:20 with columns user_id, username, salt, userkey *
  */
 class UserGuardForm extends \Catrineta\form\Form {
 
+    /**
+     * 
+     * @param boolean $declare
+     * @return \Model\forms\UserGuardForm
+     */
     public static function initialize($declare = true){
         $form = new UserGuardForm();
         if($declare == true){
@@ -38,11 +43,17 @@ class UserGuardForm extends \Catrineta\form\Form {
         return $form;
     }
     
-    
+    /**
+     * Initialize all inputs
+     * @return $this
+     */
     public function declareInputs(){
-        $this->queue[] = UserGuard::TABLE;
         $this->models[UserGuard::TABLE] = new UserGuard();
         
+        $this->setUserIdInput();
+        $this->setUsernameInput();
+        $this->setSaltInput();
+        $this->setUserkeyInput();
         return $this;
     }
     

@@ -53,7 +53,8 @@ class CatExceptions extends Exception {
 
     public function output() {
         if(Configurator::getDevMode()){
-            Monitor::setWarning("-> [{$this->code}]: {$this->message}\n");
+            Monitor::setWarning("-> [{$this->code}]: "
+            . "<b>{$this->message}</b> (in {$this->file}, line {$this->line})\n");
         }else{
             Informant::setUserMessage($this->code);
             header('/error');

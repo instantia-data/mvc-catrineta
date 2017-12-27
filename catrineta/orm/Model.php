@@ -292,5 +292,19 @@ class Model
         return $this->foreignTables;
     }
     
+     /**
+     * Convert query result to array, called from Controller
+     *
+     * @return array
+     */
+    public function getToArray()
+    {
+        $row = [];
+        foreach (array_keys($this->columns) as $column) {
+            $row[$column] = trim($this->getColumnValue($column));
+        }
+        return $row;
+    }
+    
 
 }

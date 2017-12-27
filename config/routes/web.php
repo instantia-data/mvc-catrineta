@@ -24,19 +24,12 @@ route_group(['prefix' => 'user'], function () {
 
 route_group(['prefix' => 'user'], function () {
     route_get('/', 'Lib/User@index');
-    route_get('edit/{id:d}', 'Lib/User@edit');
 });
 
 route_group(['prefix' => 'admin', 'filter'=> 'AdminAuth'], function () {
-    route_group(['prefix' => 'user'], function () {
-        route_get('/', 'Admin/User@index');
-        route_get('edit/{id:d}', 'Admin/User@edit');
-    });
+    route_admin_pack('users', 'Admin/UsersController');
+    //route_admin_pack('pages', 'Admin/PagesController');
     
-    route_group(['prefix' => 'pages'], function () {
-        route_get('/', 'Admin/Pages@index');
-        route_get('edit/{id:d}', 'Admin/Pages@edit');
-    });
 });
 
 route_group(['prefix' => 'news'], function () {

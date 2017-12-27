@@ -19,6 +19,8 @@
 
 namespace Catrineta\console;
 
+use \Catrineta\register\Configurator;
+
 /**
  * Description of Task
  *
@@ -103,6 +105,14 @@ class Task
                  }
             }
         }
+        
+        foreach(Configurator::getConfig()->langs as $lang){
+            if (!is_dir($this->folder . DS . 'lang' . DS . $lang)) {
+                mkdir($this->folder . DS . 'lang' . DS . $lang);
+            }
+        }
+        
+        
         echo " \n";
         return $this->folder . DS;
     }

@@ -1,0 +1,79 @@
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" data-id="table-users">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>{{ lang('Admin.users.id') }}</th>
+                <th>{{ lang('Admin.users.name') }}</th>
+                <th>{{ lang('Admin.users.email') }}</th>
+                <th>{{ lang('Admin.users.cellphone') }}</th>
+                <th>{{ lang('Admin.users.created') }}</th>
+                <th>{{ lang('Admin.users.status') }}</th>
+                <th></th>
+                <th></th>
+            </tr> 
+        </thead>
+        <tbody>
+            <tr data-id="user.id" style="display: none">
+                <th>#</th>
+                <td data-field="user.id"></td>
+                <td data-field="user.name"></td>
+                <td data-field="user.email"></td>
+                <td data-field="user.cellphone"></td>
+                <td data-field="user.created"></td>
+                <td data-field="user_status.name"></td>
+                <td class="icon-cell">
+                    <a data-action="/admin/users/edit" 
+                       title="{{ lang('admin.edit') }}" class="btn-edit fa fa-pencil"></a>
+                </td>
+                <td class="icon-cell">
+                    <a data-action="/admin/users/delete" 
+                       title="{{ lang('admin.delete') }}" class="btn-edit fa fa-trash-o"></a>
+                </td>
+            </tr>
+            {% for item in list %}
+            <tr data-id="{{ item['user.id'] }}">
+                <th>#</th>
+                <td data-field="user.id">{{ item['user.id'] }}</td>
+                <td data-field="user.name">{{ item['user.name'] }}</td>
+                <td data-field="user.email">{{ item['user.email'] }}</td>
+                <td data-field="user.cellphone">{{ item['user.cellphone'] }}</td>
+                <td data-field="user.created">{{ item['user.created'] }}</td>
+                <td data-field="user_status.name">{{ item['user_status.name'] }}</td>
+                <td class="icon-cell">
+                    <a data-action="/admin/users/edit/{{ item['user.id'] }}" 
+                       title="{{ lang('admin.edit') }}" class="btn-edit fa fa-pencil"></a>
+                </td>
+                <td class="icon-cell">
+                    <a data-action="/admin/users/delete/{{ item['user.id'] }}" 
+                       title="{{ lang('admin.delete') }}" class="btn-edit fa fa-trash-o"></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="dataTables_info" role="status" aria-live="polite">
+            {{ lang('admin.table-resume')|format(resume.start, resume.end, resume.total) }}
+        </div> 
+    </div>
+    <div class="col-sm-6">
+        <div class="dataTables_paginate paging_simple_numbers">
+            <ul class="pagination">
+                <li class="paginate_button previous {{ resume.previous }}" tabindex="0">
+                    <a href="#">{{ lang('admin.previous') }}</a>
+                </li>
+                {% for item in page %}
+                <li class="paginate_button {{ item.active }}" tabindex="0">
+                    <a href="#">{{ item.number }}</a>
+                </li>
+                {% endfor %}
+                <li class="paginate_button next {{ resume.next }}" tabindex="0">
+                    <a href="#">{{ lang('admin.next') }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

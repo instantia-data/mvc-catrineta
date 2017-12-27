@@ -30,6 +30,11 @@ use \Model\models\%$className%;
  */
 class %$className%Form extends \Catrineta\form\Form {
 
+    /**
+     * 
+     * @param boolean $declare
+     * @return \Model\forms\%$className%Form
+     */
     public static function initialize($declare = true){
         $form = new %$className%Form();
         if($declare == true){
@@ -38,11 +43,14 @@ class %$className%Form extends \Catrineta\form\Form {
         return $form;
     }
     
-    
+    /**
+     * Initialize all inputs
+     * @return $this
+     */
     public function declareInputs(){
-        $this->queue[] = %$className%::TABLE;
         $this->models[%$className%::TABLE] = new %$className%();
-        {@while ($item in methods):}
+        {@while ($item in columns):}
+        $this->set{$item.method}Input();{@endwhile;}{@while ($item in selects):}
         $this->set{$item.method}Input();{@endwhile;}
         return $this;
     }
@@ -106,11 +114,11 @@ class %$className%Form extends \Catrineta\form\Form {
     /**
     * Create and return the input associeted with field
     * 
-    * @return \lib\form\input\{$item.inputMethod};
+    * @return \Catrineta\form\inputs\{$item.inputMethod};
     */
     public function set{$item.method}Input($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\{$item.inputMethod}::create({$item.field})
+            $input = \Catrineta\form\inputs\{$item.inputMethod}::create({$item.field})
                 {$item.extension}
                 ->setRequired(true)
                 ->setDefault('{$item.default}');
