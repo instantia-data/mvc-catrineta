@@ -25,8 +25,8 @@ use \Model\models\UserGroup;
  * Description of UserGroupForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-12-07 18:20
- * Updated @Updated @2017-12-07 18:20 with columns id, name, description *
+ * Created @2018-01-19 18:03
+ * Updated @Updated @2018-01-19 18:03 with columns id, name, description *
  */
 class UserGroupForm extends \Catrineta\form\Form {
 
@@ -75,12 +75,12 @@ class UserGroupForm extends \Catrineta\form\Form {
     */
     public function setIdInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\HiddenInput::create(UserGroup::FIELD_USER_GROUP_ID);
+            $input = \Catrineta\form\inputs\HiddenInput::create(UserGroup::FIELD_USER_GROUP_ID);
         }else{
             $input->setElementId(UserGroup::FIELD_USER_GROUP_ID); 
         }
         
-        $this->setFieldInput(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_ID, $input);
+        $this->setFieldInput(UserGroup::FIELD_USER_GROUP_ID, $input);
         
         return $input;
     }
@@ -90,18 +90,18 @@ class UserGroupForm extends \Catrineta\form\Form {
     }
     
     public function unsetIdInput() {
-        $this->unsetFieldInput(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_ID);
+        $this->unsetFieldInput(UserGroup::FIELD_USER_GROUP_ID);
     }
     
     /**
     * @return \lib\form\input\HiddenInput;
     */
     public function getIdInput(){
-        return $this->forminputs[UserGroup::TABLE][UserGroup::FIELD_USER_GROUP_ID];
+        return $this->forminputs[UserGroup::FIELD_USER_GROUP_ID];
     }
     
     public function getIdValue(){
-        return $this->getInputValue(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_ID);
+        return $this->getInputValue(UserGroup::FIELD_USER_GROUP_ID);
     }
     
     public function validateIdInput() {
@@ -118,12 +118,12 @@ class UserGroupForm extends \Catrineta\form\Form {
     */
     public function setNameInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\InputText::create(UserGroup::FIELD_USER_GROUP_NAME)->setMaxlength('50');
+            $input = \Catrineta\form\inputs\InputText::create(UserGroup::FIELD_USER_GROUP_NAME)->setMaxlength('50');
         }else{
             $input->setElementId(UserGroup::FIELD_USER_GROUP_NAME); 
         }
         
-        $this->setFieldInput(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_NAME, $input);
+        $this->setFieldInput(UserGroup::FIELD_USER_GROUP_NAME, $input);
         
         return $input;
     }
@@ -133,18 +133,18 @@ class UserGroupForm extends \Catrineta\form\Form {
     }
     
     public function unsetNameInput() {
-        $this->unsetFieldInput(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_NAME);
+        $this->unsetFieldInput(UserGroup::FIELD_USER_GROUP_NAME);
     }
     
     /**
     * @return \lib\form\input\InputText;
     */
     public function getNameInput(){
-        return $this->forminputs[UserGroup::TABLE][UserGroup::FIELD_USER_GROUP_NAME];
+        return $this->forminputs[UserGroup::FIELD_USER_GROUP_NAME];
     }
     
     public function getNameValue(){
-        return $this->getInputValue(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_NAME);
+        return $this->getInputValue(UserGroup::FIELD_USER_GROUP_NAME);
     }
     
     public function validateNameInput() {
@@ -161,12 +161,12 @@ class UserGroupForm extends \Catrineta\form\Form {
     */
     public function setDescriptionInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\InputText::create(UserGroup::FIELD_USER_GROUP_DESCRIPTION)->setMaxlength('100');
+            $input = \Catrineta\form\inputs\InputText::create(UserGroup::FIELD_USER_GROUP_DESCRIPTION)->setMaxlength('100');
         }else{
             $input->setElementId(UserGroup::FIELD_USER_GROUP_DESCRIPTION); 
         }
         
-        $this->setFieldInput(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_DESCRIPTION, $input);
+        $this->setFieldInput(UserGroup::FIELD_USER_GROUP_DESCRIPTION, $input);
         
         return $input;
     }
@@ -176,18 +176,18 @@ class UserGroupForm extends \Catrineta\form\Form {
     }
     
     public function unsetDescriptionInput() {
-        $this->unsetFieldInput(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_DESCRIPTION);
+        $this->unsetFieldInput(UserGroup::FIELD_USER_GROUP_DESCRIPTION);
     }
     
     /**
     * @return \lib\form\input\InputText;
     */
     public function getDescriptionInput(){
-        return $this->forminputs[UserGroup::TABLE][UserGroup::FIELD_USER_GROUP_DESCRIPTION];
+        return $this->forminputs[UserGroup::FIELD_USER_GROUP_DESCRIPTION];
     }
     
     public function getDescriptionValue(){
-        return $this->getInputValue(UserGroup::TABLE, UserGroup::FIELD_USER_GROUP_DESCRIPTION);
+        return $this->getInputValue(UserGroup::FIELD_USER_GROUP_DESCRIPTION);
     }
     
     public function validateDescriptionInput() {

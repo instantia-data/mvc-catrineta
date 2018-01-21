@@ -55,6 +55,7 @@ class UsersController extends \Catrineta\framework\control\BackendController
         $this->add('heading', 'User edit');
         $this->setView('users/form.html');
         $form = UsersUtilForm::initialize();
+        $this->add('form', $form->render());
     }
 
 }

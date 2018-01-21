@@ -169,5 +169,10 @@ class ModelTools
         
         return $arr;
     }
+    
+    public static function mergeName($name)
+    {
+        return str_replace('.', '_', $name);
+    }
 
 }

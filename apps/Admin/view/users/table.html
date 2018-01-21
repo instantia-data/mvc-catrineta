@@ -32,20 +32,20 @@
                 </td>
             </tr>
             {% for item in list %}
-            <tr data-id="{{ item['user.id'] }}">
+            <tr data-id="{{ item.id }}">
                 <th>#</th>
-                <td data-field="user.id">{{ item['user.id'] }}</td>
-                <td data-field="user.name">{{ item['user.name'] }}</td>
-                <td data-field="user.email">{{ item['user.email'] }}</td>
-                <td data-field="user.cellphone">{{ item['user.cellphone'] }}</td>
-                <td data-field="user.created">{{ item['user.created'] }}</td>
-                <td data-field="user_status.name">{{ item['user_status.name'] }}</td>
+                <td data-field="user.id">{{ item.id }}</td>
+                <td data-field="user.name">{{ item.name }}</td>
+                <td data-field="user.email">{{ item.email }}</td>
+                <td data-field="user.cellphone">{{ item.cellphone }}</td>
+                <td data-field="user.created">{{ item.created }}</td>
+                <td data-field="user_status.name">{{ item.status }}</td>
                 <td class="icon-cell">
-                    <a data-action="/admin/users/edit/{{ item['user.id'] }}" 
+                    <a data-action="/admin/users/edit/{{ item.id }}" 
                        title="{{ lang('admin.edit') }}" class="btn-edit fa fa-pencil"></a>
                 </td>
                 <td class="icon-cell">
-                    <a data-action="/admin/users/delete/{{ item['user.id'] }}" 
+                    <a data-action="/admin/users/delete/{{ item.id }}" 
                        title="{{ lang('admin.delete') }}" class="btn-edit fa fa-trash-o"></a>
                 </td>
             </tr>

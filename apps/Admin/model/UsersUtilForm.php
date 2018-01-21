@@ -39,7 +39,7 @@ class UsersUtilForm extends \Catrineta\form\MergeForm
     * @return UsersUtilForm;
     */
     public static function initialize(){
-        $form = new UserForm();
+        $form = new UsersUtilForm();
         $form->setQueue();
         return $form;
     }

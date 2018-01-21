@@ -23,6 +23,7 @@ use \Catrineta\register\CatExceptions;
 use \Catrineta\orm\query\QuerySelect;
 use \Catrineta\register\Monitor;
 use \Catrineta\orm\ModelTools;
+use \stdClass;
 
 /**
  * Description of Model
@@ -136,6 +137,24 @@ class Model
     public function getPrimaryKeys()
     {
         return $this->primaryKey;
+    }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function getForeignKeys()
+    {
+        return $this->foreignKeys;
+    }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function getConstraints()
+    {
+        return $this->constraints;
     }
     
     /**
@@ -289,7 +308,11 @@ class Model
     
     public function getConstrainTables()
     {
-        return $this->foreignTables;
+        $tables = [];
+        foreach ($this->constraints as $constraint){
+            $tables[] = $constraint['table'];
+        }
+        return $tables;
     }
     
      /**
@@ -297,11 +320,12 @@ class Model
      *
      * @return array
      */
-    public function getToArray()
+    public function getRow()
     {
-        $row = [];
+        $row = new stdClass();
         foreach (array_keys($this->columns) as $column) {
-            $row[$column] = trim($this->getColumnValue($column));
+            $col = ModelTools::getColumnName($column);
+            $row->$col = trim($this->getColumnValue($column));
         }
         return $row;
     }

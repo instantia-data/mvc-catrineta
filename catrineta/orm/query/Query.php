@@ -198,9 +198,21 @@ class Query
             
             $i++;
 
-            $item->setColumnValue($column, $value);
+            $item->setColumnValue($column, $this->sanitizeValue($value));
         }
         return $item;
+    }
+    
+    private function sanitizeValue($value)
+    {
+        if($value === 0){
+            return 0;
+        }
+        if(empty($value)){
+            return '';
+        }
+        
+        return $value;
     }
 
 }

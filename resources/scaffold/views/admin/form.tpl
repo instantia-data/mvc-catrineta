@@ -5,8 +5,8 @@
     </div>
     <div class="modal-body">
         {@while ($item in columns):}<div class="form-group">
-            <label>{{ form['{$item.column}.label'] }}</label>
-        {{ form['{$item.column}.input'] }}
+            <label>{{ lang('%$app%.%$name%.{$item.colname}') }}</label>
+        {{ input(form.{$item.merge_name}) }}
         </div>
         {@endwhile;}
     </div>

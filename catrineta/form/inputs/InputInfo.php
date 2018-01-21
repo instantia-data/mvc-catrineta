@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Catrineta\form\input;
+namespace Catrineta\form\inputs;
 
-use \lib\form\Input;
 
 /**
  * Description of InputInfo

@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Catrineta\form\input;
+namespace Catrineta\form\inputs;
 
-use \lib\form\Input;
+use \Catrineta\form\Input;
 
 /**
  * Description of HiddenInput
@@ -27,7 +27,7 @@ use \lib\form\Input;
  * @author Luís Pinto / luis.nestesitio@gmail.com
  * Created @Jan 9, 2015
  */
-class HiddenInput extends \Catrineta\form\Input
+class HiddenInput extends Input
 {
     /**
      * @param String $field The db table field name for reerence to input

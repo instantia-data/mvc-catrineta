@@ -26,8 +26,8 @@ use \Catrineta\db\Sql;
  * Description of UserHasGroup
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-12-07 18:20
- * Updated @Updated @2017-12-07 18:20 with columns user_id, user_group *
+ * Created @2018-01-19 18:03
+ * Updated @Updated @2018-01-19 18:03 with columns user_id, user_group *
  */
 class UserHasGroupQuery extends \Catrineta\orm\query\QuerySelect {
     

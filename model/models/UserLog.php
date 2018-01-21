@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of UserLog
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-12-07 18:20
- * Updated @2017-12-07 18:20 with columns id, user_id, user_event, timestamp
+ * Created @2018-01-19 18:03
+ * Updated @2018-01-19 18:03 with columns id, user_id, user_event, timestamp
  */
 class UserLog extends \Catrineta\orm\Model 
 {
@@ -47,8 +47,8 @@ class UserLog extends \Catrineta\orm\Model
     protected $autoincrement = 'id';
     //Foreign keys
     protected $foreignKeys = ['user_event', 'user_id'];
-    //Constrain by tables
-    protected $foreignTables = ['user_event', 'user'];
+    //Constraints
+    protected $constraints = ['user_event' => ['table'=>'user_event', 'field'=>'id'], 'user_id' => ['table'=>'user', 'field'=>'id']];
     
     protected function setModel(){
         $this->columnNames[$this->tableName] = $this->fields;

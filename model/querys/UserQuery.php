@@ -26,8 +26,8 @@ use \Catrineta\db\Sql;
  * Description of User
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-12-07 18:20
- * Updated @Updated @2017-12-07 18:20 with columns id, name, email, cellphone, user_status, created *
+ * Created @2018-01-19 18:03
+ * Updated @Updated @2018-01-19 18:03 with columns id, name, email, cellphone, user_status, created *
  */
 class UserQuery extends \Catrineta\orm\query\QuerySelect {
     

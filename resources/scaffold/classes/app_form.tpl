@@ -39,7 +39,7 @@ class %$className%UtilForm extends \Catrineta\form\MergeForm
     * @return %$className%UtilForm;
     */
     public static function initialize(){
-        $form = new %$modelName%Form();
+        $form = new %$className%Form();
         $form->setQueue();
         return $form;
     }

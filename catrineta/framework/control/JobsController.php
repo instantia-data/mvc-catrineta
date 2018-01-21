@@ -68,7 +68,7 @@ class JobsController {
     {
         $itens = [];
         foreach ($collection as $i=>$obj){
-            $itens[$i] = $obj->getToArray();
+            $itens[$i] = $obj->getRow();
         }
         return $itens;
     }

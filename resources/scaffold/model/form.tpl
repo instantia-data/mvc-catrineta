@@ -72,12 +72,12 @@ class %$className%Form extends \Catrineta\form\Form {
     */
     public function set{$item.method}Input($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\{$item.inputMethod}::create({$item.field}){$item.extension};
+            $input = \Catrineta\form\inputs\{$item.inputMethod}::create({$item.field}){$item.extension};
         }else{
             $input->setElementId({$item.field}); 
         }
         
-        $this->setFieldInput({$item.table}, {$item.field}, $input);
+        $this->setFieldInput({$item.field}, $input);
         
         return $input;
     }
@@ -87,18 +87,18 @@ class %$className%Form extends \Catrineta\form\Form {
     }
     
     public function unset{$item.method}Input() {
-        $this->unsetFieldInput({$item.table}, {$item.field});
+        $this->unsetFieldInput({$item.field});
     }
     
     /**
     * @return \lib\form\input\{$item.inputMethod};
     */
     public function get{$item.method}Input(){
-        return $this->forminputs[{$item.table}][{$item.field}];
+        return $this->forminputs[{$item.field}];
     }
     
     public function get{$item.method}Value(){
-        return $this->getInput{$item.getval}({$item.table}, {$item.field});
+        return $this->getInput{$item.getval}({$item.field});
     }
     
     public function validate{$item.method}Input() {
@@ -126,7 +126,7 @@ class %$className%Form extends \Catrineta\form\Form {
             $input->setElementId({$item.field}); 
         }
         
-        $this->setFieldInput({$item.table}, {$item.field}, $input);
+        $this->setFieldInput({$item.field}, $input);
         
         return $input;
     }

@@ -102,6 +102,9 @@ class CrudViewAdmin
     
     private function getArrReplace($pks = [])
     {
+        foreach ($pks as $pk) {
+            $pk = ModelTools::getColumnName($pk);
+        }
         return [
             'name' => $this->name, 'app' => $this->app, 'appurl' => strtolower($this->app),
             'nameurl' => strtolower($this->name), 'name' => strtolower($this->name), 'id' => implode('-', $pks)
@@ -114,6 +117,7 @@ class CrudViewAdmin
             $parse->setData('columns', [
                 'column'=>$column,
                 'colname'=> ModelTools::getColumnName($column),
+                'merge_name'=> ModelTools::mergeName($column),
             ]);
         }
     }

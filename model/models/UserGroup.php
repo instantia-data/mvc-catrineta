@@ -24,8 +24,8 @@ namespace Model\models;
  * Description of UserGroup
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-12-07 18:20
- * Updated @2017-12-07 18:20 with columns id, name, description
+ * Created @2018-01-19 18:03
+ * Updated @2018-01-19 18:03 with columns id, name, description
  */
 class UserGroup extends \Catrineta\orm\Model 
 {
@@ -46,8 +46,8 @@ class UserGroup extends \Catrineta\orm\Model
     protected $autoincrement = 'id';
     //Foreign keys
     protected $foreignKeys = [];
-    //Constrain by tables
-    protected $foreignTables = [];
+    //Constraints
+    protected $constraints = [];
     
     protected function setModel(){
         $this->columnNames[$this->tableName] = $this->fields;

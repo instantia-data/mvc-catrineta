@@ -47,37 +47,55 @@ class Form
     protected $forminputs = [];
     
     /**
-     * @param string $table
      * @param string $field
      * @param \Catrineta\form\Input $input
      * @return \Catrineta\form\Input
      */
-    public function setFieldInput($table, $field, Input $input)
+    public function setFieldInput($field, Input $input)
     {
-        $this->forminputs[$table][$field] = $input;
-        return $this->forminputs[$table][$field];
+        $this->forminputs[$field] = $input;
+        return $this->forminputs[$field];
     }
     
     /**
-     * @param $table
      * @param $field
      * @return $this
      */
-    public function unsetFieldInput($table, $field)
+    public function unsetFieldInput($field)
     {
-        unset($this->forminputs[$table][$field]);
+        unset($this->forminputs[$field]);
         return $this;
     }
     
     /**
-     * @param $table
      * @param $field
      * @param $value
      * @return mixed
      */
-    public function setFieldValue($table, $field, $value)
+    public function setFieldValue($field, $value)
     {
-        return $this->forminputs[$table][$field]->setValue($value);
+        return $this->forminputs[$field]->setValue($value);
+    }
+    
+    public function renderFormInputs()
+    {
+        $inputs = [];
+        foreach ($this->forminputs as $input){
+            $inputs[] = $input->parseInput();
+        }
+        
+        return $inputs;
+    }
+    
+    
+    public function getInputs()
+    {
+        return $this->forminputs;
+    }
+    
+    public static function renderInput($input)
+    {
+        echo $input;
     }
 
 }

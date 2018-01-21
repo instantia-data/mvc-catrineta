@@ -106,7 +106,7 @@ class Task
             }
         }
         
-        foreach(Configurator::getConfig()->langs as $lang){
+        foreach(Configurator::getConfig()->langs->collection as $lang){
             if (!is_dir($this->folder . DS . 'lang' . DS . $lang)) {
                 mkdir($this->folder . DS . 'lang' . DS . $lang);
             }

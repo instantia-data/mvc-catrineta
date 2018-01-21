@@ -25,8 +25,8 @@ use \Model\models\User;
  * Description of UserForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-12-07 18:20
- * Updated @Updated @2017-12-07 18:20 with columns id, name, email, cellphone, user_status, created *
+ * Created @2018-01-19 18:03
+ * Updated @Updated @2018-01-19 18:03 with columns id, name, email, cellphone, user_status, created *
  */
 class UserForm extends \Catrineta\form\Form {
 
@@ -79,12 +79,12 @@ class UserForm extends \Catrineta\form\Form {
     */
     public function setIdInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\HiddenInput::create(User::FIELD_USER_ID);
+            $input = \Catrineta\form\inputs\HiddenInput::create(User::FIELD_USER_ID);
         }else{
             $input->setElementId(User::FIELD_USER_ID); 
         }
         
-        $this->setFieldInput(User::TABLE, User::FIELD_USER_ID, $input);
+        $this->setFieldInput(User::FIELD_USER_ID, $input);
         
         return $input;
     }
@@ -94,18 +94,18 @@ class UserForm extends \Catrineta\form\Form {
     }
     
     public function unsetIdInput() {
-        $this->unsetFieldInput(User::TABLE, User::FIELD_USER_ID);
+        $this->unsetFieldInput(User::FIELD_USER_ID);
     }
     
     /**
     * @return \lib\form\input\HiddenInput;
     */
     public function getIdInput(){
-        return $this->forminputs[User::TABLE][User::FIELD_USER_ID];
+        return $this->forminputs[User::FIELD_USER_ID];
     }
     
     public function getIdValue(){
-        return $this->getInputValue(User::TABLE, User::FIELD_USER_ID);
+        return $this->getInputValue(User::FIELD_USER_ID);
     }
     
     public function validateIdInput() {
@@ -122,12 +122,12 @@ class UserForm extends \Catrineta\form\Form {
     */
     public function setNameInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\InputText::create(User::FIELD_USER_NAME)->setMaxlength('100');
+            $input = \Catrineta\form\inputs\InputText::create(User::FIELD_USER_NAME)->setMaxlength('100');
         }else{
             $input->setElementId(User::FIELD_USER_NAME); 
         }
         
-        $this->setFieldInput(User::TABLE, User::FIELD_USER_NAME, $input);
+        $this->setFieldInput(User::FIELD_USER_NAME, $input);
         
         return $input;
     }
@@ -137,18 +137,18 @@ class UserForm extends \Catrineta\form\Form {
     }
     
     public function unsetNameInput() {
-        $this->unsetFieldInput(User::TABLE, User::FIELD_USER_NAME);
+        $this->unsetFieldInput(User::FIELD_USER_NAME);
     }
     
     /**
     * @return \lib\form\input\InputText;
     */
     public function getNameInput(){
-        return $this->forminputs[User::TABLE][User::FIELD_USER_NAME];
+        return $this->forminputs[User::FIELD_USER_NAME];
     }
     
     public function getNameValue(){
-        return $this->getInputValue(User::TABLE, User::FIELD_USER_NAME);
+        return $this->getInputValue(User::FIELD_USER_NAME);
     }
     
     public function validateNameInput() {
@@ -165,12 +165,12 @@ class UserForm extends \Catrineta\form\Form {
     */
     public function setEmailInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\InputText::create(User::FIELD_USER_EMAIL)->setMaxlength('150');
+            $input = \Catrineta\form\inputs\InputText::create(User::FIELD_USER_EMAIL)->setMaxlength('150');
         }else{
             $input->setElementId(User::FIELD_USER_EMAIL); 
         }
         
-        $this->setFieldInput(User::TABLE, User::FIELD_USER_EMAIL, $input);
+        $this->setFieldInput(User::FIELD_USER_EMAIL, $input);
         
         return $input;
     }
@@ -180,18 +180,18 @@ class UserForm extends \Catrineta\form\Form {
     }
     
     public function unsetEmailInput() {
-        $this->unsetFieldInput(User::TABLE, User::FIELD_USER_EMAIL);
+        $this->unsetFieldInput(User::FIELD_USER_EMAIL);
     }
     
     /**
     * @return \lib\form\input\InputText;
     */
     public function getEmailInput(){
-        return $this->forminputs[User::TABLE][User::FIELD_USER_EMAIL];
+        return $this->forminputs[User::FIELD_USER_EMAIL];
     }
     
     public function getEmailValue(){
-        return $this->getInputValue(User::TABLE, User::FIELD_USER_EMAIL);
+        return $this->getInputValue(User::FIELD_USER_EMAIL);
     }
     
     public function validateEmailInput() {
@@ -208,12 +208,12 @@ class UserForm extends \Catrineta\form\Form {
     */
     public function setCellphoneInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\InputText::create(User::FIELD_USER_CELLPHONE)->setMaxlength('20');
+            $input = \Catrineta\form\inputs\InputText::create(User::FIELD_USER_CELLPHONE)->setMaxlength('20');
         }else{
             $input->setElementId(User::FIELD_USER_CELLPHONE); 
         }
         
-        $this->setFieldInput(User::TABLE, User::FIELD_USER_CELLPHONE, $input);
+        $this->setFieldInput(User::FIELD_USER_CELLPHONE, $input);
         
         return $input;
     }
@@ -223,18 +223,18 @@ class UserForm extends \Catrineta\form\Form {
     }
     
     public function unsetCellphoneInput() {
-        $this->unsetFieldInput(User::TABLE, User::FIELD_USER_CELLPHONE);
+        $this->unsetFieldInput(User::FIELD_USER_CELLPHONE);
     }
     
     /**
     * @return \lib\form\input\InputText;
     */
     public function getCellphoneInput(){
-        return $this->forminputs[User::TABLE][User::FIELD_USER_CELLPHONE];
+        return $this->forminputs[User::FIELD_USER_CELLPHONE];
     }
     
     public function getCellphoneValue(){
-        return $this->getInputValue(User::TABLE, User::FIELD_USER_CELLPHONE);
+        return $this->getInputValue(User::FIELD_USER_CELLPHONE);
     }
     
     public function validateCellphoneInput() {
@@ -250,12 +250,12 @@ class UserForm extends \Catrineta\form\Form {
     /**
     * Create and return the input associeted with field
     * 
-    * @return \lib\form\input\SelectInput;
+    * @return \Catrineta\form\inputs\SelectInput;
     */
     public function setUserStatusInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\SelectInput::create(User::FIELD_USER_USER_STATUS)
-                ->setModel(\Model\querys\UserStatusQuery::start())
+            $input = \Catrineta\form\inputs\SelectInput::create(User::FIELD_USER_USER_STATUS)
+                ->setModel(\Model\querys\UserStatusQuery::init())
 		->setOptionIndex(\Model\models\UserStatus::FIELD_USER_STATUS_ID)->addEmpty()
                 ->setRequired(true)
                 ->setDefault('null');
@@ -263,7 +263,7 @@ class UserForm extends \Catrineta\form\Form {
             $input->setElementId(User::FIELD_USER_USER_STATUS); 
         }
         
-        $this->setFieldInput(User::TABLE, User::FIELD_USER_USER_STATUS, $input);
+        $this->setFieldInput(User::FIELD_USER_USER_STATUS, $input);
         
         return $input;
     }

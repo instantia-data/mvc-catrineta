@@ -89,7 +89,7 @@ class CrudForm extends \Catrineta\console\crud\ModelCrud
     {
         /*
          * {$item.extension}
-         * ->setModel(\Model\querys\{$item.model}Query::start())->setOptionIndex({$item.index})->addEmpty()
+         * ->setModel(\Model\querys\{$item.model}Query::init())->setOptionIndex({$item.index})->addEmpty()
          * ->setValuesList({$item.values})
          */
         $default = 'null';
@@ -105,7 +105,7 @@ class CrudForm extends \Catrineta\console\crud\ModelCrud
             echo "CONSTRAINT: " . $constrain['REFERENCED_TABLE_NAME'] . '|' 
                     . $constrain['REFERENCED_COLUMN_NAME']. " | " . $index . "\n";
 
-            $extension = '->setModel('.$model.'Query::start())'."\n\t\t".'->setOptionIndex('.$index.')->addEmpty()';
+            $extension = '->setModel('.$model.'Query::init())'."\n\t\t".'->setOptionIndex('.$index.')->addEmpty()';
         }
         $parse->setData('selects', [
             'method' => ModelTools::buildModelName($field['Field']),
@@ -147,7 +147,7 @@ class CrudForm extends \Catrineta\console\crud\ModelCrud
     {
         $array['input'] = 'HiddenInput';
         $array['method'] = 'PrimaryKey';
-        $array['args'] = '\\Model\\querys\\' . ModelTools::buildModelName($this->table) . 'Query::start()';
+        $array['args'] = '\\Model\\querys\\' . ModelTools::buildModelName($this->table) . 'Query::init()';
         if($field['Kind'] == 'varchar'){
             $array['input'] = 'InputText';
         }

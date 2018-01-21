@@ -25,8 +25,8 @@ use \Model\models\UserEvent;
  * Description of UserEventForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-12-07 18:20
- * Updated @Updated @2017-12-07 18:20 with columns id, name *
+ * Created @2018-01-19 18:03
+ * Updated @Updated @2018-01-19 18:03 with columns id, name *
  */
 class UserEventForm extends \Catrineta\form\Form {
 
@@ -73,12 +73,12 @@ class UserEventForm extends \Catrineta\form\Form {
     */
     public function setIdInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\HiddenInput::create(UserEvent::FIELD_USER_EVENT_ID);
+            $input = \Catrineta\form\inputs\HiddenInput::create(UserEvent::FIELD_USER_EVENT_ID);
         }else{
             $input->setElementId(UserEvent::FIELD_USER_EVENT_ID); 
         }
         
-        $this->setFieldInput(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_ID, $input);
+        $this->setFieldInput(UserEvent::FIELD_USER_EVENT_ID, $input);
         
         return $input;
     }
@@ -88,18 +88,18 @@ class UserEventForm extends \Catrineta\form\Form {
     }
     
     public function unsetIdInput() {
-        $this->unsetFieldInput(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_ID);
+        $this->unsetFieldInput(UserEvent::FIELD_USER_EVENT_ID);
     }
     
     /**
     * @return \lib\form\input\HiddenInput;
     */
     public function getIdInput(){
-        return $this->forminputs[UserEvent::TABLE][UserEvent::FIELD_USER_EVENT_ID];
+        return $this->forminputs[UserEvent::FIELD_USER_EVENT_ID];
     }
     
     public function getIdValue(){
-        return $this->getInputValue(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_ID);
+        return $this->getInputValue(UserEvent::FIELD_USER_EVENT_ID);
     }
     
     public function validateIdInput() {
@@ -116,12 +116,12 @@ class UserEventForm extends \Catrineta\form\Form {
     */
     public function setNameInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\InputText::create(UserEvent::FIELD_USER_EVENT_NAME)->setMaxlength('100');
+            $input = \Catrineta\form\inputs\InputText::create(UserEvent::FIELD_USER_EVENT_NAME)->setMaxlength('100');
         }else{
             $input->setElementId(UserEvent::FIELD_USER_EVENT_NAME); 
         }
         
-        $this->setFieldInput(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_NAME, $input);
+        $this->setFieldInput(UserEvent::FIELD_USER_EVENT_NAME, $input);
         
         return $input;
     }
@@ -131,18 +131,18 @@ class UserEventForm extends \Catrineta\form\Form {
     }
     
     public function unsetNameInput() {
-        $this->unsetFieldInput(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_NAME);
+        $this->unsetFieldInput(UserEvent::FIELD_USER_EVENT_NAME);
     }
     
     /**
     * @return \lib\form\input\InputText;
     */
     public function getNameInput(){
-        return $this->forminputs[UserEvent::TABLE][UserEvent::FIELD_USER_EVENT_NAME];
+        return $this->forminputs[UserEvent::FIELD_USER_EVENT_NAME];
     }
     
     public function getNameValue(){
-        return $this->getInputValue(UserEvent::TABLE, UserEvent::FIELD_USER_EVENT_NAME);
+        return $this->getInputValue(UserEvent::FIELD_USER_EVENT_NAME);
     }
     
     public function validateNameInput() {

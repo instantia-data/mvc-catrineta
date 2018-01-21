@@ -19,6 +19,8 @@
 
 namespace Catrineta\form;
 
+use \Catrineta\orm\ModelTools;
+
 /**
  * Description of MergeForm
  *
@@ -46,6 +48,11 @@ class MergeForm
      */
     protected $inputs = [];
     
+    /**
+     *
+     */
+    const VIRTUALTABLE = 'no_table';
+    
     function __construct()
     {
         
@@ -53,9 +60,33 @@ class MergeForm
     
     protected function merge($fk_merge = true)
     {
+        
         foreach ($this->forms as $table=>$form){
-            $this->inputs[$table] = $form->renderFormInputs();
+            $this->inputs[$table] = $form->getInputs();
+            $constraints = $this->models[$table]->getConstraints();
+            foreach (array_keys($this->inputs[$table]) as $field) {
+                $column = ModelTools::getColumnName($field);
+                if ($fk_merge == true && isset($constraints[$column])
+                         && isset($this->forms[$constraints[$column]['table']])
+                        ){
+                    $form->setFieldInput($field, \Catrineta\form\inputs\HiddenInput::create($field));
+                }
+            }
         }
+    }
+    
+    public function render()
+    {
+        $view = new \stdClass();
+        foreach ($this->inputs as $form){
+            foreach ($form as $input){
+                $name = ModelTools::mergeName($input->getName());
+                $view->$name = $input->parseInput();
+            }
+            
+        }
+        
+        return $view;
     }
 
 }

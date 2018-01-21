@@ -102,7 +102,7 @@ class CrudModel extends \Catrineta\console\crud\ModelCrud
         $this->string = str_replace('%$incrementKey%', $increment, $this->string);
         $this->string = str_replace('#%$fieldconstant%', implode("\n    ", $constants), $this->string);
         $this->string = str_replace('%$foreignKeys%', $this->getFKInfo(), $this->string);
-        $this->string = str_replace('%$constrainTables%', $this->getFKTables(), $this->string);
+        $this->string = str_replace('%$constraints%', $this->constraints(), $this->string);
         
         file_put_contents($this->file, $this->string);
     }
@@ -125,22 +125,23 @@ class CrudModel extends \Catrineta\console\crud\ModelCrud
         return '';
     }
     
-    private function getFKTables()
+    private function constraints()
     {
-        $fks = [];
+        $arr = [];
    
         foreach ($this->constraints as $constrain){
             
             if($constrain['CONSTRAINED'] == $this->table){
                 //print_r($constrain);
-                $fks[] = $constrain['REFERENCED_TABLE_NAME'];
+                $arr[] = "'" . $constrain['COLUMN_NAME'] . "' => ["
+                        . "'table'=>'" . $constrain['REFERENCED_TABLE_NAME'] . "', "
+                        . "'field'=>'" . $constrain['REFERENCED_COLUMN_NAME'] . "'"
+                        . "]";
             }
         }
-        if(count($fks) > 0){
-            return "'". implode("', '", $fks) . "'";
+        if(count($arr) > 0){
+            return implode(', ', $arr);
         }
-
-        return '';
     }
 
 

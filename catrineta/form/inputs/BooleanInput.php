@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Catrineta\form\input;
+namespace Catrineta\form\inputs;
 
-use \lib\form\Input;
 
 /**
  * Description of CheckInput
@@ -44,7 +43,7 @@ class BooleanInput extends \Catrineta\form\Input
      * @param $label
      * @return string
      */
-    public function parseInput($label)
+    public function parseInput($label = '')
     {
         $this->class = '';
         $this->attributes();

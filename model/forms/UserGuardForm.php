@@ -25,8 +25,8 @@ use \Model\models\UserGuard;
  * Description of UserGuardForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-12-07 18:20
- * Updated @Updated @2017-12-07 18:20 with columns user_id, username, salt, userkey *
+ * Created @2018-01-19 18:03
+ * Updated @Updated @2018-01-19 18:03 with columns user_id, username, salt, userkey *
  */
 class UserGuardForm extends \Catrineta\form\Form {
 
@@ -77,12 +77,12 @@ class UserGuardForm extends \Catrineta\form\Form {
     */
     public function setUserIdInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\HiddenInput::create(UserGuard::FIELD_USER_GUARD_USER_ID);
+            $input = \Catrineta\form\inputs\HiddenInput::create(UserGuard::FIELD_USER_GUARD_USER_ID);
         }else{
             $input->setElementId(UserGuard::FIELD_USER_GUARD_USER_ID); 
         }
         
-        $this->setFieldInput(UserGuard::TABLE, UserGuard::FIELD_USER_GUARD_USER_ID, $input);
+        $this->setFieldInput(UserGuard::FIELD_USER_GUARD_USER_ID, $input);
         
         return $input;
     }
@@ -92,18 +92,18 @@ class UserGuardForm extends \Catrineta\form\Form {
     }
     
     public function unsetUserIdInput() {
-        $this->unsetFieldInput(UserGuard::TABLE, UserGuard::FIELD_USER_GUARD_USER_ID);
+        $this->unsetFieldInput(UserGuard::FIELD_USER_GUARD_USER_ID);
     }
     
     /**
     * @return \lib\form\input\HiddenInput;
     */
     public function getUserIdInput(){
-        return $this->forminputs[UserGuard::TABLE][UserGuard::FIELD_USER_GUARD_USER_ID];
+        return $this->forminputs[UserGuard::FIELD_USER_GUARD_USER_ID];
     }
     
     public function getUserIdValue(){
-        return $this->getInputValue(UserGuard::TABLE, UserGuard::FIELD_USER_GUARD_USER_ID);
+        return $this->getInputValue(UserGuard::FIELD_USER_GUARD_USER_ID);
     }
     
     public function validateUserIdInput() {
@@ -120,12 +120,12 @@ class UserGuardForm extends \Catrineta\form\Form {
     */
     public function setUsernameInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\InputText::create(UserGuard::FIELD_USER_GUARD_USERNAME)->setMaxlength('100');
+            $input = \Catrineta\form\inputs\InputText::create(UserGuard::FIELD_USER_GUARD_USERNAME)->setMaxlength('100');
         }else{
             $input->setElementId(UserGuard::FIELD_USER_GUARD_USERNAME); 
         }
         
-        $this->setFieldInput(UserGuard::TABLE, UserGuard::FIELD_USER_GUARD_USERNAME, $input);
+        $this->setFieldInput(UserGuard::FIELD_USER_GUARD_USERNAME, $input);
         
         return $input;
     }
@@ -135,18 +135,18 @@ class UserGuardForm extends \Catrineta\form\Form {
     }
     
     public function unsetUsernameInput() {
-        $this->unsetFieldInput(UserGuard::TABLE, UserGuard::FIELD_USER_GUARD_USERNAME);
+        $this->unsetFieldInput(UserGuard::FIELD_USER_GUARD_USERNAME);
     }
     
     /**
     * @return \lib\form\input\InputText;
     */
     public function getUsernameInput(){
-        return $this->forminputs[UserGuard::TABLE][UserGuard::FIELD_USER_GUARD_USERNAME];
+        return $this->forminputs[UserGuard::FIELD_USER_GUARD_USERNAME];
     }
     
     public function getUsernameValue(){
-        return $this->getInputValue(UserGuard::TABLE, UserGuard::FIELD_USER_GUARD_USERNAME);
+        return $this->getInputValue(UserGuard::FIELD_USER_GUARD_USERNAME);
     }
     
     public function validateUsernameInput() {
@@ -163,12 +163,12 @@ class UserGuardForm extends \Catrineta\form\Form {
     */
     public function setSaltInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\InputText::create(UserGuard::FIELD_USER_GUARD_SALT)->setMaxlength('128');
+            $input = \Catrineta\form\inputs\InputText::create(UserGuard::FIELD_USER_GUARD_SALT)->setMaxlength('128');
         }else{
             $input->setElementId(UserGuard::FIELD_USER_GUARD_SALT); 
         }
         
-        $this->setFieldInput(UserGuard::TABLE, UserGuard::FIELD_USER_GUARD_SALT, $input);
+        $this->setFieldInput(UserGuard::FIELD_USER_GUARD_SALT, $input);
         
         return $input;
     }
@@ -178,18 +178,18 @@ class UserGuardForm extends \Catrineta\form\Form {
     }
     
     public function unsetSaltInput() {
-        $this->unsetFieldInput(UserGuard::TABLE, UserGuard::FIELD_USER_GUARD_SALT);
+        $this->unsetFieldInput(UserGuard::FIELD_USER_GUARD_SALT);
     }
     
     /**
     * @return \lib\form\input\InputText;
     */
     public function getSaltInput(){
-        return $this->forminputs[UserGuard::TABLE][UserGuard::FIELD_USER_GUARD_SALT];
+        return $this->forminputs[UserGuard::FIELD_USER_GUARD_SALT];
     }
     
     public function getSaltValue(){
-        return $this->getInputValue(UserGuard::TABLE, UserGuard::FIELD_USER_GUARD_SALT);
+        return $this->getInputValue(UserGuard::FIELD_USER_GUARD_SALT);
     }
     
     public function validateSaltInput() {
@@ -206,12 +206,12 @@ class UserGuardForm extends \Catrineta\form\Form {
     */
     public function setUserkeyInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\InputText::create(UserGuard::FIELD_USER_GUARD_USERKEY)->setMaxlength('128');
+            $input = \Catrineta\form\inputs\InputText::create(UserGuard::FIELD_USER_GUARD_USERKEY)->setMaxlength('128');
         }else{
             $input->setElementId(UserGuard::FIELD_USER_GUARD_USERKEY); 
         }
         
-        $this->setFieldInput(UserGuard::TABLE, UserGuard::FIELD_USER_GUARD_USERKEY, $input);
+        $this->setFieldInput(UserGuard::FIELD_USER_GUARD_USERKEY, $input);
         
         return $input;
     }
@@ -221,18 +221,18 @@ class UserGuardForm extends \Catrineta\form\Form {
     }
     
     public function unsetUserkeyInput() {
-        $this->unsetFieldInput(UserGuard::TABLE, UserGuard::FIELD_USER_GUARD_USERKEY);
+        $this->unsetFieldInput(UserGuard::FIELD_USER_GUARD_USERKEY);
     }
     
     /**
     * @return \lib\form\input\InputText;
     */
     public function getUserkeyInput(){
-        return $this->forminputs[UserGuard::TABLE][UserGuard::FIELD_USER_GUARD_USERKEY];
+        return $this->forminputs[UserGuard::FIELD_USER_GUARD_USERKEY];
     }
     
     public function getUserkeyValue(){
-        return $this->getInputValue(UserGuard::TABLE, UserGuard::FIELD_USER_GUARD_USERKEY);
+        return $this->getInputValue(UserGuard::FIELD_USER_GUARD_USERKEY);
     }
     
     public function validateUserkeyInput() {

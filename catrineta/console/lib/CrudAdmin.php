@@ -87,7 +87,7 @@ class CrudAdmin
         $file = $this->folder . 'model' . DS . $this->name . 'UtilQueries.php';
         
         if (!is_file($file)) {
-            $string = $this->copy($template, $file, $arr, 'UtilQueries');
+            $string = $this->copy($template, $file, $arr);
             $parse = new ParseLoop($string);
             $this->loopJoins($parse);
 
@@ -106,7 +106,7 @@ class CrudAdmin
         $template = RESOURCES_DIR . 'scaffold' . DS . 'classes' . DS . 'app_form.tpl';
         $file = $this->folder . 'model' . DS . $this->name . 'UtilForm.php';
         if(!is_file($file)){
-            $this->copy($template, $file, $arr, 'UtilForm');
+            $this->copy($template, $file, $arr);
         }
         
         
@@ -124,7 +124,7 @@ class CrudAdmin
         $file = $this->folder . 'control' . DS . $this->name . 'Controller.php';
         
         if(!is_file($file)){
-            $this->copy($template, $file, $arr, 'Controller');
+            $this->copy($template, $file, $arr);
         }
         
     }
@@ -148,7 +148,7 @@ class CrudAdmin
     
     public function writeLang()
     {
-        foreach(Configurator::getConfig()->langs as $lang){
+        foreach(Configurator::getConfig()->langs->collection as $lang){
             $this->writeOneLang($lang);
         }
     }
@@ -159,7 +159,7 @@ class CrudAdmin
         $file = $this->folder . 'lang' . DS . $lang . DS . strtolower($this->name) . '.php';
         
         if (!is_file($file)) {
-            $string = $this->copy($template, $file, [], 'lang');
+            $string = $this->copy($template, $file, []);
 
             $parse = new ParseLoop($string);
             foreach ($this->columns as $column) {
@@ -181,7 +181,7 @@ class CrudAdmin
      * @param string $name Name of the file
      * @return string The file_get_content from copied file
      */
-    private function copy($template, $file, $arr, $name)
+    private function copy($template, $file, $arr)
     {
         return CrudTools::copyFile($template, $file, $arr);
     }

@@ -25,8 +25,8 @@ use \Model\models\UserDetails;
  * Description of UserDetailsForm
  *
  * @author Luís Pinto / luis.nestesitio@gmail.com
- * Created @2017-12-07 18:20
- * Updated @Updated @2017-12-07 18:20 with columns user_id, address, zip_code, local *
+ * Created @2018-01-19 18:03
+ * Updated @Updated @2018-01-19 18:03 with columns user_id, address, zip_code, local *
  */
 class UserDetailsForm extends \Catrineta\form\Form {
 
@@ -77,12 +77,12 @@ class UserDetailsForm extends \Catrineta\form\Form {
     */
     public function setUserIdInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\HiddenInput::create(UserDetails::FIELD_USER_DETAILS_USER_ID);
+            $input = \Catrineta\form\inputs\HiddenInput::create(UserDetails::FIELD_USER_DETAILS_USER_ID);
         }else{
             $input->setElementId(UserDetails::FIELD_USER_DETAILS_USER_ID); 
         }
         
-        $this->setFieldInput(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_USER_ID, $input);
+        $this->setFieldInput(UserDetails::FIELD_USER_DETAILS_USER_ID, $input);
         
         return $input;
     }
@@ -92,18 +92,18 @@ class UserDetailsForm extends \Catrineta\form\Form {
     }
     
     public function unsetUserIdInput() {
-        $this->unsetFieldInput(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_USER_ID);
+        $this->unsetFieldInput(UserDetails::FIELD_USER_DETAILS_USER_ID);
     }
     
     /**
     * @return \lib\form\input\HiddenInput;
     */
     public function getUserIdInput(){
-        return $this->forminputs[UserDetails::TABLE][UserDetails::FIELD_USER_DETAILS_USER_ID];
+        return $this->forminputs[UserDetails::FIELD_USER_DETAILS_USER_ID];
     }
     
     public function getUserIdValue(){
-        return $this->getInputValue(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_USER_ID);
+        return $this->getInputValue(UserDetails::FIELD_USER_DETAILS_USER_ID);
     }
     
     public function validateUserIdInput() {
@@ -120,12 +120,12 @@ class UserDetailsForm extends \Catrineta\form\Form {
     */
     public function setAddressInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\InputText::create(UserDetails::FIELD_USER_DETAILS_ADDRESS)->setMaxlength('150');
+            $input = \Catrineta\form\inputs\InputText::create(UserDetails::FIELD_USER_DETAILS_ADDRESS)->setMaxlength('150');
         }else{
             $input->setElementId(UserDetails::FIELD_USER_DETAILS_ADDRESS); 
         }
         
-        $this->setFieldInput(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_ADDRESS, $input);
+        $this->setFieldInput(UserDetails::FIELD_USER_DETAILS_ADDRESS, $input);
         
         return $input;
     }
@@ -135,18 +135,18 @@ class UserDetailsForm extends \Catrineta\form\Form {
     }
     
     public function unsetAddressInput() {
-        $this->unsetFieldInput(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_ADDRESS);
+        $this->unsetFieldInput(UserDetails::FIELD_USER_DETAILS_ADDRESS);
     }
     
     /**
     * @return \lib\form\input\InputText;
     */
     public function getAddressInput(){
-        return $this->forminputs[UserDetails::TABLE][UserDetails::FIELD_USER_DETAILS_ADDRESS];
+        return $this->forminputs[UserDetails::FIELD_USER_DETAILS_ADDRESS];
     }
     
     public function getAddressValue(){
-        return $this->getInputValue(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_ADDRESS);
+        return $this->getInputValue(UserDetails::FIELD_USER_DETAILS_ADDRESS);
     }
     
     public function validateAddressInput() {
@@ -163,12 +163,12 @@ class UserDetailsForm extends \Catrineta\form\Form {
     */
     public function setZipCodeInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\InputText::create(UserDetails::FIELD_USER_DETAILS_ZIP_CODE)->setMaxlength('30');
+            $input = \Catrineta\form\inputs\InputText::create(UserDetails::FIELD_USER_DETAILS_ZIP_CODE)->setMaxlength('30');
         }else{
             $input->setElementId(UserDetails::FIELD_USER_DETAILS_ZIP_CODE); 
         }
         
-        $this->setFieldInput(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_ZIP_CODE, $input);
+        $this->setFieldInput(UserDetails::FIELD_USER_DETAILS_ZIP_CODE, $input);
         
         return $input;
     }
@@ -178,18 +178,18 @@ class UserDetailsForm extends \Catrineta\form\Form {
     }
     
     public function unsetZipCodeInput() {
-        $this->unsetFieldInput(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_ZIP_CODE);
+        $this->unsetFieldInput(UserDetails::FIELD_USER_DETAILS_ZIP_CODE);
     }
     
     /**
     * @return \lib\form\input\InputText;
     */
     public function getZipCodeInput(){
-        return $this->forminputs[UserDetails::TABLE][UserDetails::FIELD_USER_DETAILS_ZIP_CODE];
+        return $this->forminputs[UserDetails::FIELD_USER_DETAILS_ZIP_CODE];
     }
     
     public function getZipCodeValue(){
-        return $this->getInputValue(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_ZIP_CODE);
+        return $this->getInputValue(UserDetails::FIELD_USER_DETAILS_ZIP_CODE);
     }
     
     public function validateZipCodeInput() {
@@ -206,12 +206,12 @@ class UserDetailsForm extends \Catrineta\form\Form {
     */
     public function setLocalInput($input = null) {
         if($input == null){
-            $input = \Catrineta\form\input\InputText::create(UserDetails::FIELD_USER_DETAILS_LOCAL)->setMaxlength('100');
+            $input = \Catrineta\form\inputs\InputText::create(UserDetails::FIELD_USER_DETAILS_LOCAL)->setMaxlength('100');
         }else{
             $input->setElementId(UserDetails::FIELD_USER_DETAILS_LOCAL); 
         }
         
-        $this->setFieldInput(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_LOCAL, $input);
+        $this->setFieldInput(UserDetails::FIELD_USER_DETAILS_LOCAL, $input);
         
         return $input;
     }
@@ -221,18 +221,18 @@ class UserDetailsForm extends \Catrineta\form\Form {
     }
     
     public function unsetLocalInput() {
-        $this->unsetFieldInput(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_LOCAL);
+        $this->unsetFieldInput(UserDetails::FIELD_USER_DETAILS_LOCAL);
     }
     
     /**
     * @return \lib\form\input\InputText;
     */
     public function getLocalInput(){
-        return $this->forminputs[UserDetails::TABLE][UserDetails::FIELD_USER_DETAILS_LOCAL];
+        return $this->forminputs[UserDetails::FIELD_USER_DETAILS_LOCAL];
     }
     
     public function getLocalValue(){
-        return $this->getInputValue(UserDetails::TABLE, UserDetails::FIELD_USER_DETAILS_LOCAL);
+        return $this->getInputValue(UserDetails::FIELD_USER_DETAILS_LOCAL);
     }
     
     public function validateLocalInput() {

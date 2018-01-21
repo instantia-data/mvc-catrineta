@@ -100,6 +100,8 @@ class View {
         $this->twig->addExtension(new \Twig_Extension_Debug());
         
         $this->addFunctions();
+        
+        $this->addFilters();
                 
     }
     
@@ -108,6 +110,15 @@ class View {
         $this->twig->addFunction(new TwigFunction('lang', function ($index) {
             \Catrineta\lang\Translation::translate($index);
         }));
+        
+        $this->twig->addFunction(new TwigFunction('input', function ($input) {
+            \Catrineta\form\Form::renderInput($input);
+        }));
+    }
+    
+    private function addFilters()
+    {
+        
     }
     
     /**

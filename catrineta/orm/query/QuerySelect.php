@@ -370,10 +370,12 @@ class QuerySelect extends \Catrineta\orm\query\Query
     protected function convert($rows)
     {
         $collection = [];
+        $fetch = [];
         foreach ($rows as $row) {
+            $fetch = array_keys($row);
             $collection[] = $this->getRow($this->model, $row);
         }
-        Monitor::add(Monitor::MODEL, 'Fetching columns: [' . implode(', ', $this->fetch) . ']');
+        Monitor::add(Monitor::MODEL, 'Fetching columns: [' . implode(', ', $fetch) . ']');
         
         return $collection;
     }
